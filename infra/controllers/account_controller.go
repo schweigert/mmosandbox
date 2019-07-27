@@ -24,8 +24,10 @@ func (controller *AccountController) Routes(engine *gin.Engine) {
 // Create PUT /account/
 func (controller *AccountController) Create(c *gin.Context) {
 	form := domain.NewCreateAccountInput()
-	if c.BindJSON(form) {
+	if c.BindJSON(form) == nil {
 		out := domain.NewSessionRules().CreateAccount(form)
-		c.JSON(http.StatusOK, "")
+		c.JSON(out.HTTPCode(), out)
+	} else {
+		c.JSON(http.StatusInternalServerError, form)
 	}
 }
