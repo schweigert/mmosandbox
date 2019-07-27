@@ -1,11 +1,19 @@
 version: '3.5'
 
 services:
-  web_willson:
+  wclient:
     build:
       context: .
-      dockerfile: web.Dockerfile
-    command: web
+      dockerfile: wclient.Dockerfile
+    command: wclient
+    depends_on:
+      - wweb
+
+  wweb:
+    build:
+      context: .
+      dockerfile: wweb.Dockerfile
+    command: wweb
     ports:
       - 3000:3000
     environment:
