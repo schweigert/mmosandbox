@@ -105,6 +105,18 @@
 			"revisionTime": "2019-05-17T17:51:56Z"
 		},
 		{
+			"checksumSHA1": "ABkrw83kq3/d6oSRX+BFq57/BiY=",
+			"path": "github.com/stretchr/testify/require",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
+		},
+		{
+			"checksumSHA1": "lIp4dQzfVYRQARgsmRm3h3wRFgs=",
+			"path": "github.com/stretchr/testify/suite",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
+		},
+		{
 			"checksumSHA1": "uFz2Xig8LWOZ4dhBAzi6YD3AEcU=",
 			"path": "github.com/ugorji/go/codec",
 			"revision": "e118e2d506a6b252f6b85f2e2f2ac1bfed82f1b8",
