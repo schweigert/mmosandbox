@@ -11,6 +11,12 @@
 			"revision": ""
 		},
 		{
+			"checksumSHA1": "Ot6Ng15+Kl9rDEeqwjvgHWtH1KI=",
+			"path": "github.com/badoux/checkmail",
+			"revision": "9661bd69e9ad6fce1f7579022bdab0440807722a",
+			"revisionTime": "2018-12-10T16:07:41Z"
+		},
+		{
 			"checksumSHA1": "CSPbwbyzqA6sfORicn4HFtIhF/c=",
 			"path": "github.com/davecgh/go-spew/spew",
 			"revision": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d",
