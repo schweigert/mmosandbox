@@ -10,8 +10,9 @@ dev: build
 stop:
 	docker-compose down
 
-test: dev migrate
-	go test ./...
+test: dev
+	go test -coverprofile cover.out ./...
+	go tool cover -html=cover.out -o cover.html
 
 migrate:
 	docker-compose exec postgres psql -U postgres -c "create database test"
