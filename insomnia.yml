@@ -1,0 +1,100 @@
+_type: export
+__export_format: 4
+__export_date: 2019-07-27T16:19:01.006Z
+__export_source: insomnia.desktop.app:v6.5.4
+resources:
+  - _id: req_d0bfadbca04645589916b9bf8f256f5b
+    authentication: {}
+    body: {}
+    created: 1564244052656
+    description: ""
+    headers: []
+    isPrivate: false
+    metaSortKey: -1564244221777
+    method: GET
+    modified: 1564244305660
+    name: GET /
+    parameters: []
+    parentId: fld_6260970a98864cb3ac000cb75afcdec8
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: localhost:3000/
+    _type: request
+  - _id: fld_6260970a98864cb3ac000cb75afcdec8
+    created: 1564244293172
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1564244293172
+    modified: 1564244293172
+    name: web
+    parentId: fld_10311424158440bca735a4cb22d56df9
+    _type: request_group
+  - _id: fld_10311424158440bca735a4cb22d56df9
+    created: 1564244027627
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1564244027627
+    modified: 1564244027627
+    name: mmosandbox
+    parentId: wrk_464734c777dc47e9b71be32a0744169e
+    _type: request_group
+  - _id: wrk_464734c777dc47e9b71be32a0744169e
+    created: 1563558061668
+    description: ""
+    modified: 1563558061668
+    name: Insomnia
+    parentId: null
+    _type: workspace
+  - _id: req_b61187ce0f204e7fa28cd672b557ca6e
+    authentication: {}
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"username": "testing_user",
+        	"password": "testing_password",
+        	"email": "marlon.henry@magrathealabs.com"
+        }
+    created: 1564244221727
+    description: ""
+    headers:
+      - id: pair_9b822187ed6e46cf80a9e3f98e386dc9
+        name: Content-Type
+        value: application/json
+    isPrivate: false
+    metaSortKey: -1564244221727
+    method: PUT
+    modified: 1564244310262
+    name: PUT /account
+    parameters: []
+    parentId: fld_6260970a98864cb3ac000cb75afcdec8
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingSendCookies: true
+    settingStoreCookies: true
+    url: localhost:3000/account
+    _type: request
+  - _id: env_a5ac9ceb63299773592111a76f0fc19d359f2f04
+    color: null
+    created: 1563558061721
+    data: {}
+    dataPropertyOrder: null
+    isPrivate: false
+    metaSortKey: 1563558061721
+    modified: 1563558061721
+    name: Base Environment
+    parentId: wrk_464734c777dc47e9b71be32a0744169e
+    _type: environment
+  - _id: jar_a5ac9ceb63299773592111a76f0fc19d359f2f04
+    cookies: []
+    created: 1563558061727
+    modified: 1563558061727
+    name: Default Jar
+    parentId: wrk_464734c777dc47e9b71be32a0744169e
+    _type: cookie_jar
