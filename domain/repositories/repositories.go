@@ -4,7 +4,7 @@ import "github.com/schweigert/mmosandbox/domain/entities"
 
 // AccountRepository interface
 type AccountRepository interface {
-	UsernameHashTaken(username string) bool
+	UsernameHasTaken(username string) bool
 	Create(*entities.Account) bool
 }
 

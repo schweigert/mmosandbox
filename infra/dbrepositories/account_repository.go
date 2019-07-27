@@ -17,8 +17,8 @@ func NewAccountRepository() repositories.AccountRepository {
 	return &AccountRepository{conn: db.Connect()}
 }
 
-// UsernameHashTaken over gorm
-func (repo *AccountRepository) UsernameHashTaken(username string) bool {
+// UsernameHasTaken over gorm
+func (repo *AccountRepository) UsernameHasTaken(username string) bool {
 	model := &entities.Account{}
 	repo.conn.Where("username = ?", username).First(model)
 

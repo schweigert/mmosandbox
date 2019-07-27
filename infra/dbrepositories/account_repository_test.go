@@ -25,13 +25,13 @@ func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 	})
 }
 
-func (suite *AccountRepositorySuite) TestUsernameHashTaken() {
+func (suite *AccountRepositorySuite) TestUsernameHasTaken() {
 	repository := NewAccountRepository()
 	account := &entities.Account{Username: "MeninoNeymar"}
 
-	suite.False(repository.UsernameHashTaken(account.Username))
+	suite.False(repository.UsernameHasTaken(account.Username))
 	suite.True(repository.Create(account))
-	suite.True(repository.UsernameHashTaken(account.Username))
+	suite.True(repository.UsernameHasTaken(account.Username))
 }
 
 func (suite *AccountRepositorySuite) TestCreate() {
