@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -17,7 +18,7 @@ func (suite *SessionRulesSuite) TestCreateAccount() {
 		CreateResult:           true,
 	}
 
-	input := NewCreateAccountInput()
+	input := inputs.NewCreateAccountInput()
 	input.Username = "testingUser"
 	input.Password = "testingPass"
 	input.Email = "testing@test.onion"

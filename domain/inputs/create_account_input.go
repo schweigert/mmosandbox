@@ -1,4 +1,4 @@
-package domain
+package inputs
 
 import (
 	"github.com/schweigert/mmosandbox/domain/entities"

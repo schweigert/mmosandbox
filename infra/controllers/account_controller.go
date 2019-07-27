@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/schweigert/mmosandbox/domain"
+	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/infra/routes"
 )
 
@@ -23,11 +24,11 @@ func (controller *AccountController) Routes(engine *gin.Engine) {
 
 // Create PUT /account/
 func (controller *AccountController) Create(c *gin.Context) {
-	form := domain.NewCreateAccountInput()
-	if c.BindJSON(form) == nil {
-		out := domain.NewSessionRules().CreateAccount(form)
+	input := inputs.NewCreateAccountInput()
+	if c.BindJSON(input) == nil {
+		out := domain.NewSessionRules().CreateAccount(input)
 		c.JSON(out.HTTPCode(), out)
 	} else {
-		c.JSON(http.StatusInternalServerError, form)
+		c.JSON(http.StatusInternalServerError, input)
 	}
 }

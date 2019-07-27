@@ -1,5 +1,10 @@
 package domain
 
+import (
+	"github.com/schweigert/mmosandbox/domain/inputs"
+	"github.com/schweigert/mmosandbox/domain/outputs"
+)
+
 // SessionRules manage some rules for session with accounts
 type SessionRules struct{}
 
@@ -9,8 +14,8 @@ func NewSessionRules() *SessionRules {
 }
 
 // CreateAccount rule
-func (module *SessionRules) CreateAccount(in *CreateAccountInput) *CreateAccountOutput {
-	out := NewCreateAccountOutput()
+func (module *SessionRules) CreateAccount(in *inputs.CreateAccountInput) *outputs.CreateAccountOutput {
+	out := outputs.NewCreateAccountOutput()
 
 	out.Account = in.BuildAccount()
 

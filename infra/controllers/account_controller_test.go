@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/infra/db"
 
 	"github.com/gin-gonic/gin"
@@ -40,7 +41,7 @@ func (suite *AccountControllerSuite) TestCreate() {
 	db.Clear()
 	db.Migrate()
 
-	input := domain.NewCreateAccountInput()
+	input := inputs.NewCreateAccountInput()
 
 	input.Email = "testing@example.onion"
 	input.Username = "a_very_secure_user"
