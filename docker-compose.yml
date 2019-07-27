@@ -11,6 +11,12 @@ services:
     environment:
       - WEB_INTERFACE=0.0.0.0
       - WEB_PORT=3000
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+    depends_on:
+      - postgres
+      - pgadmin4
 
   postgres:
     image: postgres:11.4
@@ -18,5 +24,15 @@ services:
       - 5432:5432
     environment:
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PASSWORD=
       - TZ=GMT
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 2999:80
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@onion"
+      PGADMIN_DEFAULT_PASSWORD: "admin"

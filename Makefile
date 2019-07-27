@@ -1,4 +1,4 @@
-up: stop build
+up: stop build migrate
 	docker-compose up
 
 build:
@@ -15,6 +15,8 @@ test: dev
 	go tool cover -html=cover.out -o cover.html
 
 migrate:
+	docker-compose up -d postgres
+	sleep 5
 	docker-compose exec postgres psql -U postgres -c "create database test"
 	docker-compose exec postgres psql -U postgres -c "create database development"
 	docker-compose exec postgres psql -U postgres -c "create database production"
