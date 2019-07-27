@@ -11,15 +11,15 @@ type WebEnvsConfig struct {
 }
 
 func (suite *WebEnvsConfig) TestInterface() {
-	suite.NotNil(Web().Interface())
+	suite.NotEmpty(Web().Interface())
 }
 
 func (suite *WebEnvsConfig) TestPort() {
-	suite.NotNil(Web().Port())
+	suite.NotEmpty(Web().Port())
 }
 
 func (suite *WebEnvsConfig) TestAddr() {
-	suite.NotNil(Web().Addr())
+	suite.NotEmpty(Web().Addr())
 }
 
 func TestWebEnvsConfig(t *testing.T) {

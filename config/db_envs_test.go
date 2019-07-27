@@ -11,31 +11,31 @@ type DbEnvsSuite struct {
 }
 
 func (suite *DbEnvsSuite) TestHost() {
-	suite.NotNil(Db().Host())
+	suite.NotEmpty(Db().Host())
 }
 
 func (suite *DbEnvsSuite) TestPort() {
-	suite.NotNil(Db().Port())
+	suite.NotEmpty(Db().Port())
 }
 
 func (suite *DbEnvsSuite) TestUser() {
-	suite.NotNil(Db().User())
+	suite.NotEmpty(Db().User())
 }
 
 func (suite *DbEnvsSuite) TestName() {
-	suite.NotNil(Db().Name())
+	suite.NotEmpty(Db().Name())
 }
 
 func (suite *DbEnvsSuite) TestSSLMode() {
-	suite.NotNil(Db().SSLMode())
+	suite.NotEmpty(Db().SSLMode())
 }
 
 func (suite *DbEnvsSuite) TestPassword() {
-	suite.NotNil(Db().Password())
+	suite.NotEmpty(Db().Password())
 }
 
 func (suite *DbEnvsSuite) TestAddr() {
-	suite.NotNil(Db().Addr())
+	suite.NotEmpty(Db().Addr())
 	suite.Equal("host=localhost port=5432 user=postgres dbname=test sslmode=disable password=postgres", Db().Addr())
 }
 

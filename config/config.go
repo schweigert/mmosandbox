@@ -9,3 +9,8 @@ func Web() *WebEnvs {
 func Db() *DbEnvs {
 	return &DbEnvs{}
 }
+
+// Client envs
+func Client() *ClientEnvs {
+	return &ClientEnvs{}
+}
