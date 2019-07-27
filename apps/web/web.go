@@ -3,17 +3,29 @@ package main
 import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/infra/controllers"
+	"github.com/schweigert/mmosandbox/infra/db"
+	"github.com/schweigert/mmosandbox/infra/dbrepositories"
 	"github.com/schweigert/mmosandbox/lib/dont"
 	"github.com/schweigert/mmosandbox/lib/web"
 )
 
-var app *web.App
-var usedControllers = []web.Controller{
-	controllers.NewRootController(),
+func configDb() {
+	dbrepositories.UseAccountRepository()
+	db.Migrate()
+}
+
+func startWeb() {
+	controllers := []web.Controller{
+		controllers.NewRootController(),
+		controllers.NewAccountController(),
+	}
+
+	app := web.NewApp(config.Web().Addr())
+	app.Setup(controllers...)
+	dont.Panic(app.Run())
 }
 
 func main() {
-	app = web.NewApp(config.Web().Addr())
-	app.Setup(usedControllers...)
-	dont.Panic(app.Run())
+	configDb()
+	startWeb()
 }

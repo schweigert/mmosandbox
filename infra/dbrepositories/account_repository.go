@@ -2,6 +2,7 @@ package dbrepositories
 
 import (
 	"github.com/jinzhu/gorm"
+	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/repositories"
 	"github.com/schweigert/mmosandbox/infra/db"
@@ -10,6 +11,11 @@ import (
 // AccountRepository implements domain repository
 type AccountRepository struct {
 	conn *gorm.DB
+}
+
+// UseAccountRepository in domain
+func UseAccountRepository() {
+	domain.AccountRepository = NewAccountRepository()
 }
 
 // NewAccountRepository constructor
