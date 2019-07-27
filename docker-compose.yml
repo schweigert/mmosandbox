@@ -27,6 +27,7 @@ services:
     depends_on:
       - postgres
       - pgadmin4
+      - graphite
 
   postgres:
     image: postgres:11.4
@@ -46,3 +47,26 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: "admin@onion"
       PGADMIN_DEFAULT_PASSWORD: "admin"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 5050:3000
+    volumes:
+      - grafana-volume
+    logging:
+      driver: none
+
+  graphite:
+    image: graphiteapp/graphite-statsd
+    container_name: graphite
+    ports:
+      - 2003:2003
+    restart: always
+    logging:
+      driver: none
+
+volumes:
+  grafana-volume:
+    external: true
