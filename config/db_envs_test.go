@@ -36,7 +36,7 @@ func (suite *DbEnvsSuite) TestPassword() {
 
 func (suite *DbEnvsSuite) TestAddr() {
 	suite.NotNil(Db().Addr())
-	suite.Equal("host=localhost port=3000 user=postgres dbname=test sslmode=disable password=postgres", Db().Addr())
+	suite.Equal("host=localhost port=5432 user=postgres dbname=test sslmode=disable password=postgres", Db().Addr())
 }
 
 func TestDbEnvsSuite(t *testing.T) {

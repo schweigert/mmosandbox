@@ -14,18 +14,19 @@ type AccountRepositorySuite struct {
 	suite.Suite
 }
 
-func (suite *AccountRepositorySuite) SetupTest() {
+func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 	db.Clear()
 	db.Migrate()
-}
 
-func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 	suite.NotPanics(func() {
 		suite.NotNil(NewAccountRepository())
 	})
 }
 
 func (suite *AccountRepositorySuite) TestUsernameHasTaken() {
+	db.Clear()
+	db.Migrate()
+
 	repository := NewAccountRepository()
 	account := &entities.Account{Username: "MeninoNeymar"}
 
@@ -35,6 +36,9 @@ func (suite *AccountRepositorySuite) TestUsernameHasTaken() {
 }
 
 func (suite *AccountRepositorySuite) TestCreate() {
+	db.Clear()
+	db.Migrate()
+
 	repository := NewAccountRepository()
 	account := &entities.Account{Username: "MeninoNeymar"}
 
