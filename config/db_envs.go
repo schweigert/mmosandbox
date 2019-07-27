@@ -14,9 +14,9 @@ func (db *DbEnvs) Host() string {
 	return env.Env("DB_HOST", "localhost")
 }
 
-// Port $DB_PORT 3000
+// Port $DB_PORT 5432
 func (db *DbEnvs) Port() string {
-	return env.Env("DB_PORT", "3000")
+	return env.Env("DB_PORT", "5432")
 }
 
 // User $DB_USER postgres
