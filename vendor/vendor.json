@@ -3,6 +3,12 @@
 	"ignore": "test",
 	"package": [
 		{
+			"checksumSHA1": "CSPbwbyzqA6sfORicn4HFtIhF/c=",
+			"path": "github.com/davecgh/go-spew/spew",
+			"revision": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d",
+			"revisionTime": "2018-08-30T19:11:22Z"
+		},
+		{
 			"checksumSHA1": "qlEzrgKgIkh7y0ePm9BNo1cNdXo=",
 			"path": "github.com/gin-contrib/sse",
 			"revision": "54d8467d122d380a14768b6b4e5cd7ca4755938f",
@@ -61,6 +67,42 @@
 			"path": "github.com/modern-go/reflect2",
 			"revision": "94122c33edd36123c84d5368cfb2b69df93a0ec8",
 			"revisionTime": "2018-07-18T01:23:57Z"
+		},
+		{
+			"checksumSHA1": "LuFv4/jlrmFNnDb/5SCSEPAM9vU=",
+			"path": "github.com/pmezard/go-difflib/difflib",
+			"revision": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc",
+			"revisionTime": "2018-12-26T10:54:42Z"
+		},
+		{
+			"checksumSHA1": "tLHFmMOC2eMcXYaPXfifUVj3wX4=",
+			"path": "github.com/stretchr/objx",
+			"revision": "35313a95ee26395aa17d366c71a2ccf788fa69b6",
+			"revisionTime": "2019-04-15T11:18:23Z"
+		},
+		{
+			"checksumSHA1": "bae8IfDLNuW/wqEicyrKV8q7K7Y=",
+			"path": "github.com/stretchr/testify",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
+		},
+		{
+			"checksumSHA1": "/7bZ0f2fM9AAsLf3nMca6Gtlm6E=",
+			"path": "github.com/stretchr/testify/assert",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
+		},
+		{
+			"checksumSHA1": "fg3TzS9/QK3wZbzei3Z6O8XPLHg=",
+			"path": "github.com/stretchr/testify/http",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
+		},
+		{
+			"checksumSHA1": "bg70xAHEu6HRf2iFu8h5iJBjUfg=",
+			"path": "github.com/stretchr/testify/mock",
+			"revision": "221dbe5ed46703ee255b1da0dec05086f5035f62",
+			"revisionTime": "2019-05-17T17:51:56Z"
 		},
 		{
 			"checksumSHA1": "uFz2Xig8LWOZ4dhBAzi6YD3AEcU=",
