@@ -65,6 +65,12 @@
 			"revisionTime": "2019-07-01T18:22:01Z"
 		},
 		{
+			"checksumSHA1": "vHqzdYKzleNL4A69nrIyGMig3cU=",
+			"path": "github.com/imroc/req",
+			"revision": "b713f8758bce73e0840dc34e304b8ad2911c62fc",
+			"revisionTime": "2019-06-20T02:14:22Z"
+		},
+		{
 			"checksumSHA1": "YzIVWHj5vDlCp3A8Zy0vhCn4zZ0=",
 			"path": "github.com/jinzhu/gorm",
 			"revision": "836fb2c19d84dac7b0272958dfb9af7cf0d0ade4",
