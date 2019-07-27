@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"net/http"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -31,6 +32,7 @@ func (suite *SessionRulesSuite) TestCreateAccount() {
 	suite.NotEmpty(out.Account.SecurePassword)
 
 	suite.True(out.Success)
+	suite.Equal(http.StatusCreated, out.HTTPCode())
 }
 
 func TestSessionRulesSuite(t *testing.T) {

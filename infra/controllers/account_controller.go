@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/infra/routes"
 )
 
@@ -22,5 +23,9 @@ func (controller *AccountController) Routes(engine *gin.Engine) {
 
 // Create PUT /account/
 func (controller *AccountController) Create(c *gin.Context) {
-	c.JSON(http.StatusOK, "")
+	form := domain.NewCreateAccountInput()
+	if c.BindJSON(form) {
+		out := domain.NewSessionRules().CreateAccount(form)
+		c.JSON(http.StatusOK, "")
+	}
 }

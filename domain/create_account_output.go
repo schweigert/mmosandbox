@@ -1,6 +1,9 @@
 package domain
 
 import (
+	"net/http"
+
+	"github.com/krakenlab/ternary"
 	"github.com/schweigert/mmosandbox/domain/entities"
 )
 
@@ -13,4 +16,9 @@ type CreateAccountOutput struct {
 // NewCreateAccountOutput constructor
 func NewCreateAccountOutput() *CreateAccountOutput {
 	return &CreateAccountOutput{}
+}
+
+// HTTPCode to output over web
+func (out *CreateAccountOutput) HTTPCode() int {
+	return ternary.Int(out.Success, http.StatusCreated, http.StatusBadRequest)
 }
