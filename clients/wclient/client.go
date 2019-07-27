@@ -29,7 +29,7 @@ func (flow *CreateAccountFlow) CreateAccountOperation(in *inputs.CreateAccountIn
 	rec := req.New()
 	rec.SetTimeout(5 * time.Second)
 
-	resp, err := rec.Put(fmt.Sprintf("%s/%s", config.Client().Addr(), routes.Account), req.BodyJSON(in))
+	resp, err := rec.Put(routes.URL(config.Client().Addr(), routes.Account), req.BodyJSON(in))
 	dont.Panic(err)
 
 	out := outputs.NewCreateAccountOutput()
