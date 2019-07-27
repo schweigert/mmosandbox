@@ -6,33 +6,43 @@ import "github.com/jinzhu/gorm"
 type Account struct {
 	*gorm.Model
 
-	Username       string `gorm:"unique_index"`
-	SecurePassword string
-	Email          string
+	Username       string `gorm:"unique_index" json:"username"`
+	SecurePassword string `json:"secure_password"`
+	Email          string `json:"email"`
 
-	Characters []Character
+	Characters []Character `json:"characters"`
+}
+
+// NewAccount constructor
+func NewAccount() *Account {
+	return &Account{}
 }
 
 // Character model
 type Character struct {
 	*gorm.Model
 
-	Name  string `gorm:"unique_index"`
-	Level uint
-	Exp   uint
+	Name  string `gorm:"unique_index" json:"name"`
+	Level uint   `json:"level"`
+	Exp   uint   `json:"exp"`
 
-	ConsumedStatusPoints uint
-	FreePoints           uint
+	ConsumedStatusPoints uint `json:"consumed_status_point"`
+	FreePoints           uint `json:"free_points"`
 
-	StrengthStatus     uint
-	IntelligenceStatus uint
-	AgilityStatus      uint
-	VitalityStatus     uint
+	StrengthStatus     uint `json:"strength"`
+	IntelligenceStatus uint `json:"intelligence"`
+	AgilityStatus      uint `json:"agility"`
+	VitalityStatus     uint `json:"vitality"`
 
-	MapIndex     uint
-	MapXPosition int
-	MapYPosition int
+	MapIndex     uint `json:"map"`
+	MapXPosition int  `json:"x_position"`
+	MapYPosition int  `json:"y_position"`
 
-	Account   Account
-	AccountID uint
+	Account   Account `json:"account"`
+	AccountID uint    `json:"account_id"`
+}
+
+// NewCharacter constructor
+func NewCharacter() *Character {
+	return &Character{}
 }
