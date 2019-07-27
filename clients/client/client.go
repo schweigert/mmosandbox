@@ -2,6 +2,7 @@ package client
 
 import (
 	"github.com/dmgk/faker"
+	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 )
 
@@ -9,11 +10,13 @@ import (
 var (
 	CreateAccountInput    *inputs.CreateAccountInput
 	UsedCreateAccountFlow CreateAccountFlow
+
+	Account *entities.Account
 )
 
 // CreateAccountFlow used in client
 type CreateAccountFlow interface {
-	CreateAccountOperation(in *inputs.CreateAccountInput) bool
+	CreateAccountOperation(in *inputs.CreateAccountInput) (*entities.Account, bool)
 }
 
 // FakeCreateAccountInput instance a new CreateAccountInput
@@ -28,7 +31,9 @@ func FakeCreateAccountInput() {
 func BotFlow() {
 	for {
 		FakeCreateAccountInput()
-		if UsedCreateAccountFlow.CreateAccountOperation(CreateAccountInput) {
+		account, ok := UsedCreateAccountFlow.CreateAccountOperation(CreateAccountInput)
+		if ok {
+			Account = account
 			break
 		}
 	}
