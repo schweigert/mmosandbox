@@ -1,6 +1,9 @@
 up: stop build migrate
 	docker-compose up
 
+upp: stop build migrate
+	docker-compose up --scale wclient=5
+
 build:
 	docker-compose build
 

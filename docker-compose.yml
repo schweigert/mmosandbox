@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: wclient.Dockerfile
     command: wclient
+    environment:
+      - CLIENT_WHOST=wweb
     depends_on:
       - wweb
 
