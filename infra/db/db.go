@@ -32,8 +32,8 @@ func Clear() {
 	conn := Connect()
 	defer conn.Close()
 
-	conn.DropTableIfExists(
-		&entities.Account{},
-		&entities.Character{},
-	)
+	Migrate()
+
+	conn.Delete(&entities.Account{})
+	conn.Delete(&entities.Character{})
 }

@@ -39,7 +39,6 @@ func (suite *AccountControllerSuite) TestRoutes() {
 
 func (suite *AccountControllerSuite) TestCreate() {
 	db.Clear()
-	db.Migrate()
 
 	input := inputs.NewCreateAccountInput()
 

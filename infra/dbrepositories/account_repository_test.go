@@ -16,7 +16,6 @@ type AccountRepositorySuite struct {
 
 func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 	db.Clear()
-	db.Migrate()
 
 	suite.NotPanics(func() {
 		suite.NotNil(NewAccountRepository())
@@ -25,7 +24,6 @@ func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 
 func (suite *AccountRepositorySuite) TestUsernameHasTaken() {
 	db.Clear()
-	db.Migrate()
 
 	repository := NewAccountRepository()
 	account := &entities.Account{Username: "MeninoNeymar"}
@@ -37,7 +35,6 @@ func (suite *AccountRepositorySuite) TestUsernameHasTaken() {
 
 func (suite *AccountRepositorySuite) TestCreate() {
 	db.Clear()
-	db.Migrate()
 
 	repository := NewAccountRepository()
 	account := &entities.Account{Username: "MeninoNeymar"}
