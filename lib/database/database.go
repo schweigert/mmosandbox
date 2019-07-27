@@ -8,5 +8,5 @@ import (
 
 // Connect to database
 func Connect(conf string) (*gorm.DB, error) {
-	return gorm.Open("postgres", "host=myhost port=myport user=gorm dbname=gorm password=mypassword")
+	return gorm.Open("postgres", conf)
 }
