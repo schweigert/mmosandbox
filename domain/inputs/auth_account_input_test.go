@@ -25,7 +25,7 @@ func (suite *AuthAccountInputSuite) TestBuildAccount() {
 
 	account := input.BuildAccount()
 
-	suite.Equal(input.Username, account.Username)
+	suite.Equal("testing_fake_onion", account.Username)
 	suite.Equal("a super secure hash", account.SecurePassword)
 }
 
