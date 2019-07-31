@@ -36,3 +36,12 @@ func (repo *AccountRepository) Create(model *entities.Account) bool {
 	repo.conn.Create(model)
 	return !repo.conn.NewRecord(model)
 }
+
+// UsernameAndPasswordAreEqual over gorm
+func (repo *AccountRepository) UsernameAndPasswordAreEqual(model *entities.Account) bool {
+	query := &entities.Account{Username: model.Username, SecurePassword: model.SecurePassword}
+
+	repo.conn.Where("username = ? and secure_password = ?", query.Username, query.SecurePassword).Take(query)
+
+	return !repo.conn.NewRecord(query)
+}

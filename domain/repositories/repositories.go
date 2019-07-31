@@ -6,6 +6,7 @@ import "github.com/schweigert/mmosandbox/domain/entities"
 type AccountRepository interface {
 	UsernameHasTaken(username string) bool
 	Create(*entities.Account) bool
+	UsernameAndPasswordAreEqual(*entities.Account) bool
 }
 
 // CharacterRepository interface

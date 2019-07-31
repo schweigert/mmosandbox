@@ -4,11 +4,8 @@ import (
 	"testing"
 
 	"github.com/schweigert/mmosandbox/domain"
-
 	"github.com/schweigert/mmosandbox/domain/entities"
-
 	"github.com/schweigert/mmosandbox/infra/db"
-
 	"github.com/stretchr/testify/suite"
 )
 
@@ -48,6 +45,21 @@ func (suite *AccountRepositorySuite) TestCreate() {
 	account := &entities.Account{Username: "MeninoNeymar"}
 
 	suite.True(repository.Create(account))
+}
+
+func (suite *AccountRepositorySuite) TestUsernameAndPasswordAreEqual() {
+	db.Clear()
+
+	repository := NewAccountRepository()
+	account := &entities.Account{Username: "MeninoNeymar", SecurePassword: "testing now"}
+
+	suite.True(repository.Create(account))
+
+	suite.True(repository.UsernameAndPasswordAreEqual(account))
+
+	account.SecurePassword = "other hash here"
+
+	suite.False(repository.UsernameAndPasswordAreEqual(account))
 }
 
 func TestAccountRepositorySuite(t *testing.T) {
