@@ -29,7 +29,7 @@ func (suite *MetronomeSuite) TestBip() {
 	suite.NoError(err)
 	suite.NotNil(metronome)
 
-	metronome.Bip("testing now", "-1")
+	metronome.Bip("testing_now", "-1")
 }
 
 func TestMetronomeSuite(t *testing.T) {

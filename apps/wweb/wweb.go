@@ -5,6 +5,7 @@ import (
 	"github.com/schweigert/mmosandbox/infra/controllers"
 	"github.com/schweigert/mmosandbox/infra/db"
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
+	"github.com/schweigert/mmosandbox/infra/middlewares"
 	"github.com/schweigert/mmosandbox/lib/dont"
 	"github.com/schweigert/mmosandbox/lib/web"
 )
@@ -21,7 +22,10 @@ func startWeb() {
 	}
 
 	app := web.NewApp(config.Web().Addr())
+	app.Server.Use(middlewares.Bip())
+
 	app.Setup(controllers...)
+
 	dont.Panic(app.Run())
 }
 

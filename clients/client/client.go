@@ -1,6 +1,8 @@
 package client
 
 import (
+	"fmt"
+
 	"github.com/dmgk/faker"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
@@ -22,7 +24,7 @@ type CreateAccountFlow interface {
 // FakeCreateAccountInput instance a new CreateAccountInput
 func FakeCreateAccountInput() {
 	CreateAccountInput = inputs.NewCreateAccountInput()
-	CreateAccountInput.Username = faker.Internet().UserName()
+	CreateAccountInput.Username = fmt.Sprintf("%s_%d", faker.Internet().UserName(), faker.RandomInt(1950, 2019))
 	CreateAccountInput.Password = faker.Internet().Password(8, 64)
 	CreateAccountInput.Email = faker.Internet().SafeEmail()
 }

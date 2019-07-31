@@ -24,6 +24,9 @@ services:
       - DB_HOST=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=development
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+      - SERVICE_NAME=wweb
     depends_on:
       - postgres
       - pgadmin4

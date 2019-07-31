@@ -49,5 +49,7 @@ func (flow *CreateAccountFlow) CreateAccountOperation(in *inputs.CreateAccountIn
 func main() {
 	client.UsedCreateAccountFlow = NewCreateAccountFlow()
 
-	client.BotFlow()
+	for {
+		client.BotFlow()
+	}
 }
