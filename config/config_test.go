@@ -26,6 +26,10 @@ func (suite *ConfigSuite) TestMetric() {
 	suite.NotNil(Metric())
 }
 
+func (suite *ConfigSuite) TestService() {
+	suite.NotNil(Service())
+}
+
 func TestConfigSuite(t *testing.T) {
 	suite.Run(t, new(ConfigSuite))
 }

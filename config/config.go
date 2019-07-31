@@ -19,3 +19,8 @@ func Client() *ClientEnvs {
 func Metric() *MetricEnvs {
 	return &MetricEnvs{}
 }
+
+// Service envs
+func Service() *ServiceEnvs {
+	return &ServiceEnvs{}
+}

@@ -6,22 +6,22 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type WebEnvsConfig struct {
+type WebEnvsSuite struct {
 	suite.Suite
 }
 
-func (suite *WebEnvsConfig) TestInterface() {
+func (suite *WebEnvsSuite) TestInterface() {
 	suite.NotEmpty(Web().Interface())
 }
 
-func (suite *WebEnvsConfig) TestPort() {
+func (suite *WebEnvsSuite) TestPort() {
 	suite.NotEmpty(Web().Port())
 }
 
-func (suite *WebEnvsConfig) TestAddr() {
+func (suite *WebEnvsSuite) TestAddr() {
 	suite.NotEmpty(Web().Addr())
 }
 
-func TestWebEnvsConfig(t *testing.T) {
-	suite.Run(t, new(WebEnvsConfig))
+func TestWebEnvsSuite(t *testing.T) {
+	suite.Run(t, new(WebEnvsSuite))
 }
