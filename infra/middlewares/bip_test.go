@@ -28,7 +28,6 @@ func (suite *BipSuite) TestPrivateBipStat() {
 	suite.Equal("http.noname.root", bipStat("/"))
 	suite.Equal("http.noname.auth", bipStat("/auth"))
 	suite.Equal("http.noname.auth_google", bipStat("/auth/google"))
-
 }
 
 func TestBipSuite(t *testing.T) {
