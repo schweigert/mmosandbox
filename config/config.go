@@ -14,3 +14,8 @@ func Db() *DbEnvs {
 func Client() *ClientEnvs {
 	return &ClientEnvs{}
 }
+
+// Metric envs
+func Metric() *MetricEnvs {
+	return &MetricEnvs{}
+}
