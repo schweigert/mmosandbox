@@ -3,6 +3,8 @@ package dbrepositories
 import (
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain"
+
 	"github.com/schweigert/mmosandbox/domain/entities"
 
 	"github.com/schweigert/mmosandbox/infra/db"
@@ -20,6 +22,12 @@ func (suite *AccountRepositorySuite) TestNewAccountRepository() {
 	suite.NotPanics(func() {
 		suite.NotNil(NewAccountRepository())
 	})
+}
+
+func (suite *AccountRepositorySuite) TestUseAccountRepository() {
+	suite.Nil(domain.AccountRepository)
+	UseAccountRepository()
+	suite.NotNil(domain.AccountRepository)
 }
 
 func (suite *AccountRepositorySuite) TestUsernameHasTaken() {

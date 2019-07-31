@@ -6,11 +6,11 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type EntitiesSuite struct {
+type CharacterSuite struct {
 	suite.Suite
 }
 
-func (suite *EntitiesSuite) TestNewCharacter() {
+func (suite *CharacterSuite) TestNewCharacter() {
 	character := NewCharacter()
 	suite.Equal(uint(1), character.Level)
 	suite.Equal(uint(0), character.Exp)
@@ -23,6 +23,6 @@ func (suite *EntitiesSuite) TestNewCharacter() {
 	suite.Equal(0, character.MapYPosition)
 }
 
-func TestEntitiesSuite(t *testing.T) {
-	suite.Run(t, new(EntitiesSuite))
+func TestCharacterSuite(t *testing.T) {
+	suite.Run(t, new(CharacterSuite))
 }
