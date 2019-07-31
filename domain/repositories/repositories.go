@@ -12,5 +12,5 @@ type AccountRepository interface {
 // CharacterRepository interface
 type CharacterRepository interface {
 	NameHasTaken(name string) bool
-	Create(*entities.Character) bool
+	CreateInAccount(*entities.Character, *entities.Account) bool
 }

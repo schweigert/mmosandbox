@@ -15,5 +15,15 @@ func NewAccountRules() *AccountRules {
 
 // CreateCharacter based in this input
 func (rules *AccountRules) CreateCharacter(in *inputs.CreateCharacterInput) *outputs.CreateCharacterOutput {
-	return nil
+	account := in.BuildAccount()
+	character := in.BuildCharacter()
+
+	output := outputs.NewCreateCharacterOutput()
+
+	output.Account = account
+	output.Character = character
+	output.Auth = NewSessionRules().AllowAuthentication(&in.Auth)
+	output.Success = output.Auth && CharacterRepository.CreateInAccount(character, account)
+
+	return output
 }
