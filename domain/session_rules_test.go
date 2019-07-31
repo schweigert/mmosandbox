@@ -36,6 +36,24 @@ func (suite *SessionRulesSuite) TestCreateAccount() {
 	suite.Equal(http.StatusCreated, out.HTTPCode())
 }
 
+func (suite *SessionRulesSuite) TestAllowAuthentication() {
+	AccountRepository = &AccountRepositoryMock{
+		UsernameAndPasswordAreEqualResult: true,
+	}
+
+	input := inputs.NewAuthAccountInput()
+	input.Username = "testing_username"
+	input.SecurePassword = "ABCDEFGHIJKLMNOPQRSTUWXZ"
+
+	suite.True(NewSessionRules().AllowAuthentication(input))
+
+	AccountRepository = &AccountRepositoryMock{
+		UsernameAndPasswordAreEqualResult: false,
+	}
+
+	suite.False(NewSessionRules().AllowAuthentication(input))
+}
+
 func TestSessionRulesSuite(t *testing.T) {
 	suite.Run(t, new(SessionRulesSuite))
 }

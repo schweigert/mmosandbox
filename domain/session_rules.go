@@ -25,3 +25,9 @@ func (module *SessionRules) CreateAccount(in *inputs.CreateAccountInput) *output
 
 	return out
 }
+
+// AllowAuthentication verify if this account can auth with this credentials
+func (module *SessionRules) AllowAuthentication(in *inputs.AuthAccountInput) bool {
+	account := in.BuildAccount()
+	return AccountRepository.UsernameAndPasswordAreEqual(account)
+}
