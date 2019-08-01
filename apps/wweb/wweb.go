@@ -21,6 +21,7 @@ func startWeb() {
 	controllers := []web.Controller{
 		controllers.NewRootController(),
 		controllers.NewAccountController(),
+		controllers.NewCharacterController(),
 	}
 
 	app := web.NewApp(config.Web().Addr())
