@@ -13,7 +13,7 @@ func main() {
 	listener, err := net.Listen("tcp", config.RPC().Addr())
 	dont.Panic(err)
 
-	dont.Panic(rpc.Register(tasks.NewAuthTasks()))
+	dont.Panic(rpc.Register(tasks.NewSessionTask()))
 
 	rpc.Accept(listener)
 }
