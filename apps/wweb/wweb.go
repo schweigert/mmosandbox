@@ -12,6 +12,8 @@ import (
 
 func configDb() {
 	dbrepositories.UseAccountRepository()
+	dbrepositories.UseCharacterRepository()
+
 	db.Migrate()
 }
 
