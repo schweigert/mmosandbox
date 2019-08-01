@@ -20,6 +20,14 @@ func (mock *CreateAccountFlowMock) CreateAccountOperation(input *inputs.CreateAc
 	return input.BuildAccount(), mock.CreateAccountOperationBoolMock
 }
 
+type CreateCharacterFlowMock struct {
+	CreateCharacterOperationBoolMock bool
+}
+
+func (mock *CreateCharacterFlowMock) CreateCharacterOperation(input *inputs.CreateCharacterInput) (*entities.Character, bool) {
+	return input.BuildCharacter(), mock.CreateCharacterOperationBoolMock
+}
+
 func (suite *ClientSuite) TestNewCreateAccountInput() {
 	FakeCreateAccountInput()
 
@@ -34,6 +42,10 @@ func (suite *ClientSuite) TestBotFlow() {
 		CreateAccountOperationBoolMock: true,
 	}
 
+	UsedCreateCharacterFlow = &CreateCharacterFlowMock{
+		CreateCharacterOperationBoolMock: true,
+	}
+
 	Account = nil
 	CreateAccountInput = nil
 
@@ -41,6 +53,9 @@ func (suite *ClientSuite) TestBotFlow() {
 
 	suite.NotNil(Account)
 	suite.NotNil(CreateAccountInput)
+
+	suite.NotNil(Character)
+	suite.NotNil(CreateCharacterInput)
 }
 
 func TestClientSuite(t *testing.T) {
