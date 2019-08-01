@@ -3,7 +3,7 @@ package outputs
 // AuthAccountOutput struct
 type AuthAccountOutput struct {
 	JWT     string
-	Success string
+	Success bool
 }
 
 // NewAuthAccountOutput constructor

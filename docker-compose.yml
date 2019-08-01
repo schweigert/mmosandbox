@@ -32,16 +32,37 @@ services:
       - graphite
       - wauth
 
+  wgame:
+    build:
+      context: .
+      dockerfile: wgame.Dockerfile
+    command: wgame
+    ports:
+      - 3100:3100
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+      - SERVICE_NAME=wgame
+    depends_on:
+      - postgres
+      - graphite
+      - wauth
+
   wauth:
     build:
       context: .
       dockerfile: wauth.Dockerfile
     command: wauth
     ports:
-      - 3100:3100
+      - 3101:3101
     environment:
       - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3100
+      - RPC_PORT=3101
       - DB_HOST=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=development
