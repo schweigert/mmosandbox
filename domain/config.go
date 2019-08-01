@@ -6,6 +6,8 @@ import (
 
 // Repositories
 var (
+	TokenRepository     repositories.TokenRepository
+	SessionRepository   repositories.SessionRepository
 	AccountRepository   repositories.AccountRepository
 	CharacterRepository repositories.CharacterRepository
 )

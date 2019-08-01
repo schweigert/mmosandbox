@@ -14,3 +14,14 @@ type CharacterRepository interface {
 	NameHasTaken(name string) bool
 	CreateInAccount(*entities.Character, *entities.Account) bool
 }
+
+// SessionRepository interface
+type SessionRepository interface {
+	StoreAccountToken(string, *entities.Account)
+	FindAccountToken(*entities.Account)
+}
+
+// TokenRepository interface
+type TokenRepository interface {
+	GenerateToken(AccountRepository, string) string
+}

@@ -31,3 +31,13 @@ func (module *SessionRules) AllowAuthentication(in *inputs.AuthAccountInput) boo
 	account := in.BuildAccount()
 	return AccountRepository.UsernameAndPasswordAreEqual(account)
 }
+
+// StartSession to any account
+func (module *SessionRules) StartSession(in *inputs.AuthAccountInput) *outputs.StartSessionOutput {
+	out := outputs.NewStartSessionOutput()
+
+	out.Success = module.AllowAuthentication(in)
+	out.Token = TokenRepository.GenerateToken(AccountRepository, in.Username)
+
+	return out
+}
