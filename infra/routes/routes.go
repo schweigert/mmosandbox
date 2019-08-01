@@ -2,6 +2,7 @@ package routes
 
 // Routes
 const (
-	Root    = "/"
-	Account = "/account"
+	Root      = "/"
+	Account   = "/account"
+	Character = "/character"
 )

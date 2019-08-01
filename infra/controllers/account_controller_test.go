@@ -11,7 +11,6 @@ import (
 	"github.com/schweigert/mmosandbox/infra/db"
 
 	"github.com/gin-gonic/gin"
-	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
 	"github.com/schweigert/mmosandbox/infra/routes"
 
@@ -23,7 +22,8 @@ type AccountControllerSuite struct {
 }
 
 func (suite *AccountControllerSuite) SetupTest() {
-	domain.AccountRepository = dbrepositories.NewAccountRepository()
+	dbrepositories.UseAccountRepository()
+	dbrepositories.UseCharacterRepository()
 }
 
 func (suite *AccountControllerSuite) TestNewAccountController() {

@@ -9,7 +9,7 @@ import (
 	"github.com/schweigert/mmosandbox/infra/routes"
 )
 
-// AccountController handle /
+// AccountController handle /account
 type AccountController struct{}
 
 // NewAccountController constructor
