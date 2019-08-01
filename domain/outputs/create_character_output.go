@@ -22,5 +22,5 @@ func NewCreateCharacterOutput() *CreateCharacterOutput {
 
 // HTTPCode to output over web
 func (out *CreateCharacterOutput) HTTPCode() int {
-	return ternary.Int(out.Success && out.Auth, http.StatusCreated, http.StatusBadRequest)
+	return ternary.Int(out.Auth && out.Success, http.StatusCreated, http.StatusBadRequest)
 }

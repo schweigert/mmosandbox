@@ -23,7 +23,7 @@ func (rules *AccountRules) CreateCharacter(in *inputs.CreateCharacterInput) *out
 	output.Account = account
 	output.Character = character
 	output.Auth = NewSessionRules().AllowAuthentication(&in.Auth)
-	output.Success = output.Auth && CharacterRepository.CreateInAccount(character, account)
+	output.Success = output.Auth && !CharacterRepository.NameHasTaken(character.Name) && CharacterRepository.CreateInAccount(character, account)
 
 	return output
 }

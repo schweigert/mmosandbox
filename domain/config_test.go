@@ -20,3 +20,16 @@ func (mock *AccountRepositoryMock) UsernameAndPasswordAreEqual(*entities.Account
 func (mock *AccountRepositoryMock) Create(*entities.Account) bool {
 	return mock.CreateResult
 }
+
+type CharacterRepositoryMock struct {
+	CreateInAccountResult bool
+	NameHasTakenResult    bool
+}
+
+func (mock *CharacterRepositoryMock) NameHasTaken(string) bool {
+	return mock.NameHasTakenResult
+}
+
+func (mock *CharacterRepositoryMock) CreateInAccount(*entities.Character, *entities.Account) bool {
+	return mock.CreateInAccountResult
+}
