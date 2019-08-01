@@ -53,7 +53,7 @@ services:
       - graphite
 
   pgadmin4:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:4.11
     ports:
       - 3200:80
     depends_on:
@@ -67,7 +67,7 @@ services:
       - postgres
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:6.2.5
     container_name: grafana
     ports:
       - 3201:3000
@@ -79,7 +79,7 @@ services:
       - graphite
 
   graphite:
-    image: graphiteapp/graphite-statsd
+    image: graphiteapp/graphite-statsd:1.1.5-12
     container_name: graphite
     ports:
       - 2003:2003
@@ -97,6 +97,11 @@ services:
       - TZ=GMT
     logging:
       driver: none
+
+  redis:
+    image: redis:5.0.5
+    ports:
+      - 6379:6379
 
 volumes:
   grafana-volume:
