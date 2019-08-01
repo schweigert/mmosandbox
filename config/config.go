@@ -5,6 +5,11 @@ func Web() *WebEnvs {
 	return &WebEnvs{}
 }
 
+// RPC envs
+func RPC() *RPCEnvs {
+	return &RPCEnvs{}
+}
+
 // Db envs
 func Db() *DbEnvs {
 	return &DbEnvs{}

@@ -29,8 +29,63 @@ services:
       - SERVICE_NAME=wweb
     depends_on:
       - postgres
-      - pgadmin4
       - graphite
+      - wauth
+
+  wauth:
+    build:
+      context: .
+      dockerfile: wauth.Dockerfile
+    command: wauth
+    ports:
+      - 3100:3100
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+      - SERVICE_NAME=wauth
+    depends_on:
+      - postgres
+      - graphite
+
+  pgadmin4:
+    image: dpage/pgadmin4
+    ports:
+      - 3200:80
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@onion"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    logging:
+      driver: none
+    depends_on:
+      - postgres
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3201:3000
+    volumes:
+      - grafana-volume
+    logging:
+      driver: none
+    depends_on:
+      - graphite
+
+  graphite:
+    image: graphiteapp/graphite-statsd
+    container_name: graphite
+    ports:
+      - 2003:2003
+    restart: always
+    logging:
+      driver: none
 
   postgres:
     image: postgres:11.4
@@ -40,37 +95,6 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=
       - TZ=GMT
-    logging:
-      driver: none
-
-  pgadmin4:
-    image: dpage/pgadmin4
-    ports:
-      - 2999:80
-    depends_on:
-      - postgres
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@onion"
-      PGADMIN_DEFAULT_PASSWORD: "admin"
-    logging:
-      driver: none
-
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    ports:
-      - 5050:3000
-    volumes:
-      - grafana-volume
-    logging:
-      driver: none
-
-  graphite:
-    image: graphiteapp/graphite-statsd
-    container_name: graphite
-    ports:
-      - 2003:2003
-    restart: always
     logging:
       driver: none
 
