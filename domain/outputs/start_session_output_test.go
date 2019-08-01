@@ -13,7 +13,7 @@ type StartSessionOutputSuite struct {
 func (suite *StartSessionOutputSuite) TestNewStartSessionOutput() {
 	output := NewStartSessionOutput()
 	suite.NotNil(output)
-	suite.Empty(output.JWT)
+	suite.Empty(output.Token)
 	suite.False(output.Success)
 }
 

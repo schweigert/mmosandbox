@@ -2,7 +2,7 @@ package outputs
 
 // StartSessionOutput struct
 type StartSessionOutput struct {
-	JWT     string
+	Token   string
 	Success bool
 }
 
