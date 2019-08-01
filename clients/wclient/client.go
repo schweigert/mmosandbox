@@ -41,13 +41,45 @@ func (flow *CreateAccountFlow) CreateAccountOperation(in *inputs.CreateAccountIn
 	err = resp.ToJSON(out)
 	dont.Panic(err)
 
-	fmt.Println(out.Account)
+	fmt.Println("Account", out.Account.ID, "|>", out.Account)
 
 	return out.Account, out.Success
 }
 
+// CreateCharacterFlow implementation for client.CreateCharacterFlow
+type CreateCharacterFlow struct {
+}
+
+// NewCreateCharacterFlow constructor
+func NewCreateCharacterFlow() client.CreateCharacterFlow {
+	return &CreateCharacterFlow{}
+}
+
+// CreateCharacterOperation for willson flow
+func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateCharacterInput) (*entities.Character, bool) {
+	rec := req.New()
+	rec.SetTimeout(5 * time.Second)
+
+	resp, err := rec.Put(routes.URL(config.Client().Addr(), routes.Character), req.BodyJSON(in))
+	dont.Panic(err)
+
+	out := outputs.NewCreateCharacterOutput()
+
+	if resp.Response().StatusCode != http.StatusCreated {
+		return nil, false
+	}
+
+	err = resp.ToJSON(out)
+	dont.Panic(err)
+
+	fmt.Println("Character", out.Character.ID, "|>", out.Character)
+
+	return out.Character, out.Success
+}
+
 func main() {
 	client.UsedCreateAccountFlow = NewCreateAccountFlow()
+	client.UsedCreateCharacterFlow = NewCreateCharacterFlow()
 
 	for {
 		client.BotFlow()

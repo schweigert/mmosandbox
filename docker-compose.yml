@@ -40,6 +40,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=
       - TZ=GMT
+    logging:
+      driver: none
 
   pgadmin4:
     image: dpage/pgadmin4
@@ -50,6 +52,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: "admin@onion"
       PGADMIN_DEFAULT_PASSWORD: "admin"
+    logging:
+      driver: none
 
   grafana:
     image: grafana/grafana

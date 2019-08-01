@@ -69,4 +69,9 @@ func BotFlow() {
 			break
 		}
 	}
+
+	Account.Characters = []entities.Character{*Character}
+	Character.Account = *Account
+
+	fmt.Println("BootFlow ended with:", Account)
 }

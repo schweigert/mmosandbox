@@ -4,7 +4,7 @@ import "github.com/jinzhu/gorm"
 
 // Account model
 type Account struct {
-	*gorm.Model
+	gorm.Model
 
 	Username       string `json:"username"`
 	SecurePassword string `json:"secure_password"`
@@ -20,7 +20,7 @@ func NewAccount() *Account {
 
 // Character model
 type Character struct {
-	*gorm.Model
+	gorm.Model
 
 	Name  string `json:"name"`
 	Level uint   `json:"level"`
