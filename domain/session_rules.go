@@ -33,14 +33,10 @@ func (module *SessionRules) AllowAuthentication(in *inputs.AuthAccountInput) boo
 }
 
 // StartSession to any account
-func (module *SessionRules) StartSession(in *inputs.AuthAccountInput) *outputs.StartSessionOutput {
-	out := outputs.NewStartSessionOutput()
-
+func (module *SessionRules) StartSession(in *inputs.AuthAccountInput, out *outputs.StartSessionOutput) {
 	out.Success = module.AllowAuthentication(in)
 
 	if out.Success {
 		out.Token = TokenRepository.GenerateToken(in.Username)
 	}
-
-	return out
 }

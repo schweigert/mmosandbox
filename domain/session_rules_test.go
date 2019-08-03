@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain/outputs"
+
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/stretchr/testify/suite"
 )
@@ -66,8 +68,9 @@ func (suite *SessionRulesSuite) TestStartSession() {
 	input := inputs.NewAuthAccountInput()
 	input.Username = "testing_username"
 	input.SecurePassword = "ABCDEFGHIJKLMNOPQRSTUWXZ"
+	out := outputs.NewStartSessionOutput()
 
-	out := NewSessionRules().StartSession(input)
+	NewSessionRules().StartSession(input, out)
 	suite.True(out.Success)
 	suite.Equal("test ok", out.Token)
 }
