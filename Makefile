@@ -4,7 +4,7 @@ up: stop build migrate
 upp: stop build migrate
 	docker-compose up --scale wclient=5
 
-build:
+build: deps
 	docker-compose build
 
 dev: build

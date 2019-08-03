@@ -4,13 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/dmgk/faker"
-
 	"github.com/go-redis/redis"
 	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/domain/repositories"
 	"github.com/schweigert/mmosandbox/infra/cache"
 	"github.com/schweigert/mmosandbox/lib/dont"
+	"github.com/schweigert/mmosandbox/lib/randomize"
 )
 
 // TokenRepository struct
@@ -37,7 +36,7 @@ func (repository *TokenRepository) GenerateToken(username string) string {
 }
 
 func (repository *TokenRepository) randomToken() string {
-	return faker.RandomString(256)
+	return randomize.RandStringRunes(256)
 }
 
 func (repository *TokenRepository) set(key string, value string) string {
