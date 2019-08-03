@@ -1,6 +1,9 @@
 package domain
 
-import "github.com/schweigert/mmosandbox/domain/entities"
+import (
+	"github.com/schweigert/mmosandbox/domain/entities"
+	"github.com/schweigert/mmosandbox/domain/repositories"
+)
 
 // AccountRepository interface mock
 type AccountRepositoryMock struct {
@@ -32,4 +35,12 @@ func (mock *CharacterRepositoryMock) NameHasTaken(string) bool {
 
 func (mock *CharacterRepositoryMock) CreateInAccount(*entities.Character, *entities.Account) bool {
 	return mock.CreateInAccountResult
+}
+
+type TokenRepositoryMock struct {
+	GenerateTokenResult string
+}
+
+func (mock *TokenRepositoryMock) GenerateToken(accountRepository repositories.AccountRepository, username string) string {
+	return mock.GenerateTokenResult
 }
