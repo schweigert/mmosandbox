@@ -27,22 +27,26 @@ Setup:
  - [ ] Criar cliente para criar personagem na arq Salz
  - [ ] Criar cliente para criar personagem na arq Rudy
 
+## Domain
+
+![deps.png](domain/deps.png)
+
 ## Services
 
 ### apps/wauth
 
-![Drag Racing](apps/wauth/deps.png)
+![deps.png](apps/wauth/deps.png)
 
 ### apps/wgame
 
-![Drag Racing](apps/wgame/deps.png)
+![deps.png](apps/wgame/deps.png)
 
 ### apps/wweb
 
-![Drag Racing](apps/wweb/deps.png)
+![deps.png](apps/wweb/deps.png)
 
 ## Clients
 
 ### clients/wclient
 
-![Drag Racing](clients/wclient/deps.png)
+![deps.png](clients/wclient/deps.png)
