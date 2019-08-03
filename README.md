@@ -29,24 +29,24 @@ Setup:
 
 ## Domain
 
-![deps.png](domain/deps.png)
+![Drag Racing](apps/wauth/deps.png)
 
 ## Services
 
 ### apps/wauth
 
-![deps.png](apps/wauth/deps.png)
+![Drag Racing](apps/wauth/deps.png)
 
 ### apps/wgame
 
-![deps.png](apps/wgame/deps.png)
+![Drag Racing](apps/wgame/deps.png)
 
 ### apps/wweb
 
-![deps.png](apps/wweb/deps.png)
+![Drag Racing](apps/wweb/deps.png)
 
 ## Clients
 
 ### clients/wclient
 
-![deps.png](clients/wclient/deps.png)
+![Drag Racing](clients/wclient/deps.png)
