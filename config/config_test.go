@@ -30,6 +30,10 @@ func (suite *ConfigSuite) TestService() {
 	suite.NotNil(Service())
 }
 
+func (suite *ConfigSuite) TestMe() {
+	suite.NotNil(Me())
+}
+
 func TestConfigSuite(t *testing.T) {
 	suite.Run(t, new(ConfigSuite))
 }

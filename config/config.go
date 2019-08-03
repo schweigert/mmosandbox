@@ -29,3 +29,8 @@ func Metric() *MetricEnvs {
 func Service() *ServiceEnvs {
 	return &ServiceEnvs{}
 }
+
+// Me envs
+func Me() *MeEnvs {
+	return &MeEnvs{}
+}
