@@ -3,6 +3,8 @@ package client
 import (
 	"fmt"
 
+	"github.com/schweigert/mmosandbox/domain/outputs"
+
 	"github.com/dmgk/faker"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
@@ -17,6 +19,10 @@ var (
 	CreateCharacterInput    *inputs.CreateCharacterInput
 	UsedCreateCharacterFlow CreateCharacterFlow
 	Character               *entities.Character
+
+	AuthAccountInput     *inputs.AuthAccountInput
+	UsedStartSessionFlow StartSessionFlow
+	Session              *outputs.StartSessionOutput
 )
 
 // CreateAccountFlow used in client
@@ -27,6 +33,11 @@ type CreateAccountFlow interface {
 // CreateCharacterFlow used in client
 type CreateCharacterFlow interface {
 	CreateCharacterOperation(in *inputs.CreateCharacterInput) (*entities.Character, bool)
+}
+
+// StartSessionFlow used in client
+type StartSessionFlow interface {
+	StartSession(in *inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool)
 }
 
 // FakeName generator
@@ -50,8 +61,7 @@ func FakeCreateCharacterInput() {
 	CreateCharacterInput.Name = FakeName()
 }
 
-// BotFlow loop
-func BotFlow() {
+func createAccountFlowExec() {
 	for {
 		FakeCreateAccountInput()
 		account, ok := UsedCreateAccountFlow.CreateAccountOperation(CreateAccountInput)
@@ -60,7 +70,9 @@ func BotFlow() {
 			break
 		}
 	}
+}
 
+func createCharacterFlowExec() {
 	for {
 		FakeCreateCharacterInput()
 		character, ok := UsedCreateCharacterFlow.CreateCharacterOperation(CreateCharacterInput)
@@ -69,9 +81,23 @@ func BotFlow() {
 			break
 		}
 	}
+}
 
-	Account.Characters = []entities.Character{*Character}
-	Character.Account = *Account
+func startSessionFlowExec() {
+	for {
+		AuthAccountInput = &CreateCharacterInput.Auth
 
-	fmt.Println("BootFlow ended with:", Account)
+		session, ok := UsedStartSessionFlow.StartSession(AuthAccountInput)
+		if ok && session.Success {
+			Session = session
+			break
+		}
+	}
+}
+
+// BotFlow loop
+func BotFlow() {
+	createAccountFlowExec()
+	createCharacterFlowExec()
+	startSessionFlowExec()
 }

@@ -5,6 +5,7 @@ import (
 
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
+	"github.com/schweigert/mmosandbox/domain/outputs"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -28,6 +29,14 @@ func (mock *CreateCharacterFlowMock) CreateCharacterOperation(input *inputs.Crea
 	return input.BuildCharacter(), mock.CreateCharacterOperationBoolMock
 }
 
+type StartSessionFlowMock struct {
+	StartSessionBoolResult bool
+}
+
+func (mock *StartSessionFlowMock) StartSession(in *inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
+	return &outputs.StartSessionOutput{Success: true, Token: "blefe"}, mock.StartSessionBoolResult
+}
+
 func (suite *ClientSuite) TestNewCreateAccountInput() {
 	FakeCreateAccountInput()
 
@@ -46,6 +55,10 @@ func (suite *ClientSuite) TestBotFlow() {
 		CreateCharacterOperationBoolMock: true,
 	}
 
+	UsedStartSessionFlow = &StartSessionFlowMock{
+		StartSessionBoolResult: true,
+	}
+
 	Account = nil
 	CreateAccountInput = nil
 
@@ -56,6 +69,10 @@ func (suite *ClientSuite) TestBotFlow() {
 
 	suite.NotNil(Character)
 	suite.NotNil(CreateCharacterInput)
+
+	suite.NotNil(Session)
+	suite.True(Session.Success)
+	suite.NotNil(Session.Token)
 }
 
 func TestClientSuite(t *testing.T) {
