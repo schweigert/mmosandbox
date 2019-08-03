@@ -29,7 +29,7 @@ Setup:
 
 ## Domain
 
-![Drag Racing](apps/wauth/deps.png)
+![Drag Racing](domain/deps.png)
 
 ## Services
 
