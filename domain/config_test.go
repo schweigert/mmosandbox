@@ -2,7 +2,6 @@ package domain
 
 import (
 	"github.com/schweigert/mmosandbox/domain/entities"
-	"github.com/schweigert/mmosandbox/domain/repositories"
 )
 
 // AccountRepository interface mock
@@ -41,6 +40,6 @@ type TokenRepositoryMock struct {
 	GenerateTokenResult string
 }
 
-func (mock *TokenRepositoryMock) GenerateToken(accountRepository repositories.AccountRepository, username string) string {
+func (mock *TokenRepositoryMock) GenerateToken(username string) string {
 	return mock.GenerateTokenResult
 }

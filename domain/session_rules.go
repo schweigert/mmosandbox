@@ -39,7 +39,7 @@ func (module *SessionRules) StartSession(in *inputs.AuthAccountInput) *outputs.S
 	out.Success = module.AllowAuthentication(in)
 
 	if out.Success {
-		out.Token = TokenRepository.GenerateToken(AccountRepository, in.Username)
+		out.Token = TokenRepository.GenerateToken(in.Username)
 	}
 
 	return out

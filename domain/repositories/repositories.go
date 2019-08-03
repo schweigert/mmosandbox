@@ -23,5 +23,5 @@ type SessionRepository interface {
 
 // TokenRepository interface
 type TokenRepository interface {
-	GenerateToken(AccountRepository, string) string
+	GenerateToken(string) string
 }

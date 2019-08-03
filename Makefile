@@ -8,7 +8,7 @@ build:
 	docker-compose build
 
 dev: build
-	docker-compose up -d postgres graphite grafana
+	docker-compose up -d postgres graphite grafana redis
 
 stop:
 	docker-compose down

@@ -11,17 +11,17 @@ type MeEnvs struct{}
 
 // Host $ME_HOST 0.0.0.0
 func (me *MeEnvs) Host() string {
-	return env.Env("ME_HOST", "0.0.0.0")
+	return env.Env("ME_HOST", "localhost")
 }
 
-// Port $ME_PORT 3000
+// Port $ME_PORT 6379
 func (me *MeEnvs) Port() string {
 	return env.Env("ME_PORT", "6379")
 }
 
-// Password $ME_PASSWORD ""
+// Password $ME_PASSWORD nopasswd
 func (me *MeEnvs) Password() string {
-	return env.Env("ME_PASSWORD", "nopass")
+	return env.Env("ME_PASSWORD", "nopasswd")
 }
 
 // Addr $ME_INTERFACE:$ME_PORT
