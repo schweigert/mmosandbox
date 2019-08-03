@@ -3,6 +3,18 @@ MMORPG Playground
 
 ## Dev
 
+## Deps
+
+Setup:
+
+```
+    go get github.com/kisielk/godepgraph
+    sudo pacman -S graphviz
+```
+
+```
+    make deps
+```
 
 ## TODO
 
