@@ -1,4 +1,0 @@
-mode: count
-github.com/schweigert/mmosandbox/infra/db/db.go:12.25,17.2 3 5
-github.com/schweigert/mmosandbox/infra/db/db.go:20.16,28.2 3 2
-github.com/schweigert/mmosandbox/infra/db/db.go:31.14,39.2 5 1

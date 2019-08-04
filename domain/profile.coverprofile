@@ -1,8 +1,0 @@
-mode: count
-github.com/schweigert/mmosandbox/domain/account_rules.go:12.38,14.2 1 2
-github.com/schweigert/mmosandbox/domain/account_rules.go:17.108,29.2 8 1
-github.com/schweigert/mmosandbox/domain/session_rules.go:12.38,14.2 1 5
-github.com/schweigert/mmosandbox/domain/session_rules.go:17.103,27.2 4 1
-github.com/schweigert/mmosandbox/domain/session_rules.go:30.83,33.2 2 4
-github.com/schweigert/mmosandbox/domain/session_rules.go:36.104,39.17 2 1
-github.com/schweigert/mmosandbox/domain/session_rules.go:39.17,41.3 1 1
