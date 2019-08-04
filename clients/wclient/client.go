@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"net/rpc"
 	"time"
 
 	"github.com/imroc/req"
@@ -77,11 +78,34 @@ func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateChara
 	return out.Character, out.Success
 }
 
+// StartSessionFlow used in client
+type StartSessionFlow struct {
+	Conn *rpc.Client
+}
+
+// NewStartSessionFlow constructor
+func NewStartSessionFlow() client.StartSessionFlow {
+	conn, err := rpc.Dial("tcp", config.Service().Game())
+	dont.Panic(err)
+
+	return &StartSessionFlow{Conn: conn}
+}
+
+// StartSession for willson flow
+func (flow *StartSessionFlow) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
+	out := outputs.NewStartSessionOutput()
+
+	err := flow.Conn.Call("SessionProxyTask.StartSession", in, out)
+	return out, err == nil
+}
+
 func main() {
 	client.UsedCreateAccountFlow = NewCreateAccountFlow()
 	client.UsedCreateCharacterFlow = NewCreateCharacterFlow()
+	client.UsedStartSessionFlow = NewStartSessionFlow()
 
 	for {
 		client.BotFlow()
+		time.Sleep(time.Minute)
 	}
 }

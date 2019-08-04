@@ -10,8 +10,16 @@ type ServiceEnvsSuite struct {
 	suite.Suite
 }
 
-func (suite *ServiceEnvsSuite) TestService() {
+func (suite *ServiceEnvsSuite) TestName() {
 	suite.NotEmpty(Service().Name())
+}
+
+func (suite *ServiceEnvsSuite) TestAuth() {
+	suite.NotEmpty(Service().Auth())
+}
+
+func (suite *ServiceEnvsSuite) TestGame() {
+	suite.NotEmpty(Service().Game())
 }
 
 func TestServiceEnvsSuite(t *testing.T) {

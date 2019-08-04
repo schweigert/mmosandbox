@@ -8,6 +8,7 @@ services:
     command: wclient
     environment:
       - CLIENT_WHOST=wweb
+      - SERVICE_GAME=wgame:3100
     depends_on:
       - wweb
 
@@ -24,8 +25,10 @@ services:
       - DB_HOST=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=development
+      - DB_PORT=5432
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
+
       - SERVICE_NAME=wweb
     depends_on:
       - postgres
@@ -47,7 +50,10 @@ services:
       - DB_NAME=development
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
+
       - SERVICE_NAME=wgame
+
+      - SERVICE_AUTH=wauth:3101
     depends_on:
       - postgres
       - graphite
@@ -66,15 +72,22 @@ services:
       - DB_HOST=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=development
+      - DB_PORT=5432
+      - ME_HOST=redis
+      - ME_PORT=6379
+      - ME_PASSWORD=nopasswd
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
+
       - SERVICE_NAME=wauth
     depends_on:
       - postgres
       - graphite
+      - redis
 
   pgadmin4:
     image: dpage/pgadmin4:4.11
+    container_name: pgadmin4
     ports:
       - 3200:80
     depends_on:
@@ -110,6 +123,7 @@ services:
 
   postgres:
     image: postgres:11.4
+    container_name: postgres
     ports:
       - 5432:5432
     environment:
@@ -121,6 +135,7 @@ services:
 
   redis:
     image: redis:5.0.5
+    container_name: redis
     command: redis-server --requirepass nopasswd
     ports:
       - 6379:6379

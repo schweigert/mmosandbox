@@ -1,14 +1,14 @@
-up: stop build migrate
+up: stop build migrate_up
 	docker-compose up
 
-upp: stop build migrate
+upp: stop build migrate_up
 	docker-compose up --scale wclient=5
 
 build: deps
 	docker-compose build
 
 dev: build
-	docker-compose up -d postgres graphite grafana redis
+	docker-compose up postgres graphite grafana redis wauth wgame
 
 stop:
 	docker-compose down
@@ -17,7 +17,12 @@ test: stop migrate
 	go test -coverprofile cover.out ./...
 	go tool cover -html=cover.out -o cover.html
 
-migrate: dev
+migrate_up:
+	docker-compose up -d postgres
+	sleep 5
+	docker-compose exec postgres psql -U postgres -c "create database development"
+
+migrate:
 	sleep 5
 	docker-compose exec postgres psql -U postgres -c "create database test"
 	docker-compose exec postgres psql -U postgres -c "create database development"

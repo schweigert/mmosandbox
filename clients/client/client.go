@@ -20,7 +20,7 @@ var (
 	UsedCreateCharacterFlow CreateCharacterFlow
 	Character               *entities.Character
 
-	AuthAccountInput     *inputs.AuthAccountInput
+	AuthAccountInput     inputs.AuthAccountInput
 	UsedStartSessionFlow StartSessionFlow
 	Session              *outputs.StartSessionOutput
 )
@@ -37,7 +37,7 @@ type CreateCharacterFlow interface {
 
 // StartSessionFlow used in client
 type StartSessionFlow interface {
-	StartSession(in *inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool)
+	StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool)
 }
 
 // FakeName generator
@@ -85,7 +85,7 @@ func createCharacterFlowExec() {
 
 func startSessionFlowExec() {
 	for {
-		AuthAccountInput = &CreateCharacterInput.Auth
+		AuthAccountInput = CreateCharacterInput.Auth
 
 		session, ok := UsedStartSessionFlow.StartSession(AuthAccountInput)
 		if ok && session.Success {
