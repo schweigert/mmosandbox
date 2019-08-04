@@ -1,13 +1,16 @@
 up: stop build migrate_up
+	docker volume create --name=grafana-volume
 	docker-compose up
 
 upp: stop build migrate_up
+	docker volume create --name=grafana-volume
 	docker-compose up --scale wclient=5
 
 build:
 	docker-compose build
 
 dev: build
+	docker volume create --name=grafana-volume
 	docker-compose up -d postgres graphite redis wauth wgame
 
 stop:
