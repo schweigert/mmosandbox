@@ -1,0 +1,5 @@
+mode: count
+github.com/schweigert/mmosandbox/infra/middlewares/bip.go:16.28,21.30 3 1
+github.com/schweigert/mmosandbox/infra/middlewares/bip.go:21.30,28.3 5 0
+github.com/schweigert/mmosandbox/infra/middlewares/bip.go:31.52,33.2 1 1
+github.com/schweigert/mmosandbox/infra/middlewares/bip.go:35.33,43.2 6 3

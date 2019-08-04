@@ -9,7 +9,7 @@ upp: stop build migrate_up
 build:
 	docker-compose build
 
-dev: build
+dev: build migrate
 	docker volume create --name=grafana-volume
 	docker-compose up -d postgres graphite redis wauth wgame
 
@@ -26,6 +26,7 @@ migrate_up:
 	docker-compose exec postgres psql -U postgres -c "create database development"
 
 migrate:
+	docker-compose up -d postgres
 	sleep 5
 	docker-compose exec postgres psql -U postgres -c "create database test"
 	docker-compose exec postgres psql -U postgres -c "create database development"
@@ -34,7 +35,7 @@ migrate:
 deps:
 	sh deps.sh
 
-travis: stop_default_services dev migrate
+travis: stop_default_services dev
 
 deploy:
 	ruby push.rb

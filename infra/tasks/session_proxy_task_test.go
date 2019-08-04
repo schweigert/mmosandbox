@@ -24,9 +24,9 @@ func (suite *SessionProxyTaskSuite) TestNewSessionProxyTask() {
 }
 
 func (suite *SessionProxyTaskSuite) TestStartSession() {
-	db.Clear()
-	defer os.Setenv("DB_NAME", "test")
 	os.Setenv("DB_NAME", "development")
+	defer os.Setenv("DB_NAME", "test")
+	db.Clear()
 
 	dbrepositories.UseAccountRepository()
 	merepositories.UseTokenRepository()

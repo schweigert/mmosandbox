@@ -1,0 +1,5 @@
+mode: count
+github.com/schweigert/mmosandbox/lib/web/app.go:12.31,14.2 1 3
+github.com/schweigert/mmosandbox/lib/web/app.go:17.50,18.41 1 1
+github.com/schweigert/mmosandbox/lib/web/app.go:18.41,20.3 1 3
+github.com/schweigert/mmosandbox/lib/web/app.go:24.29,26.2 1 1

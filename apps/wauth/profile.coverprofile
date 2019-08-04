@@ -1,0 +1,5 @@
+mode: count
+github.com/schweigert/mmosandbox/apps/wauth/wauth.go:16.20,18.2 1 1
+github.com/schweigert/mmosandbox/apps/wauth/wauth.go:20.17,25.2 3 1
+github.com/schweigert/mmosandbox/apps/wauth/wauth.go:27.17,35.2 6 1
+github.com/schweigert/mmosandbox/apps/wauth/wauth.go:37.13,41.2 3 1
