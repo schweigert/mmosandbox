@@ -31,7 +31,10 @@ migrate:
 deps:
 	sh deps.sh
 
-travis: stop_default_services dev migrate
+travis: stop_default_services setup_docker dev migrate
+
+setup_docker:
+	docker volume create --name=grafana-volume
 
 deploy:
 	ruby push.rb
