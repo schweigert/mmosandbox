@@ -4,11 +4,11 @@ up: stop build migrate_up
 upp: stop build migrate_up
 	docker-compose up --scale wclient=5
 
-build: deps
+build:
 	docker-compose build
 
 dev: build
-	docker-compose up postgres graphite grafana redis wauth wgame
+	docker-compose up -d postgres graphite grafana redis wauth wgame
 
 stop:
 	docker-compose down
@@ -30,3 +30,14 @@ migrate:
 
 deps:
 	sh deps.sh
+
+travis: stop_default_services dev migrate
+
+deploy:
+	ruby push.rb
+
+stop_default_services:
+	# Disable services enabled by default
+	# http://docs.travis-ci.com/user/database-setup/#MySQL
+	sudo /etc/init.d/mysql stop
+	sudo /etc/init.d/postgresql stop
