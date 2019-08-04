@@ -33,7 +33,7 @@ type StartSessionFlowMock struct {
 	StartSessionBoolResult bool
 }
 
-func (mock *StartSessionFlowMock) StartSession(in *inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
+func (mock *StartSessionFlowMock) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
 	return &outputs.StartSessionOutput{Success: true, Token: "blefe"}, mock.StartSessionBoolResult
 }
 
