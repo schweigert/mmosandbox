@@ -9,13 +9,20 @@ import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/lib/dont"
 	"github.com/schweigert/mmosandbox/lib/metrics"
+	"github.com/schweigert/mmosandbox/lib/randomize"
 )
 
-var metronome *metrics.Metronome
+// Public vars
+var (
+	UUID      string
+	Metronome *metrics.Metronome
+)
 
 func init() {
+	UUID = randomize.RandStringRunes(32)
+
 	var err error
-	metronome, err = metrics.Connect(config.Metric().Host(), config.Metric().Port())
+	Metronome, err = metrics.Connect(config.Metric().Host(), config.Metric().Port())
 	dont.Panic(err)
 }
 
@@ -26,7 +33,7 @@ func Bench(tag string, fun func() error) error {
 	ret := fun()
 
 	elapsed := time.Since(start)
-	metronome.Bip(bipStat(tag), bipMilliseconds(elapsed))
+	Metronome.Bip(bipStat(tag), bipMilliseconds(elapsed))
 
 	log.Println(bipStat(tag), "|>", bipMilliseconds(elapsed), "ms")
 
@@ -40,5 +47,5 @@ func bipMilliseconds(elapsed time.Duration) string {
 func bipStat(tag string) string {
 	serviceName := strings.ToLower(config.Service().Name())
 
-	return fmt.Sprintf("bench.%s.%s", serviceName, tag)
+	return fmt.Sprintf("bench.%s.%s.%s", serviceName, tag, UUID)
 }

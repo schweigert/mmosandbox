@@ -2,7 +2,6 @@ package middlewares
 
 import (
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/suite"
 )
@@ -14,14 +13,6 @@ type BipSuite struct {
 func (suite *BipSuite) TestBip() {
 	middleware := Bip()
 	suite.NotNil(middleware)
-}
-
-func (suite *BipSuite) TestPrivateBipMilliseconds() {
-	start := time.Now()
-	time.Sleep(200 * time.Millisecond)
-	elapsed := time.Since(start)
-
-	suite.NotEmpty(bipMilliseconds(elapsed))
 }
 
 func (suite *BipSuite) TestPrivateBipStat() {

@@ -3,33 +3,22 @@ package middlewares
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/krakenlab/ternary"
 	"github.com/schweigert/mmosandbox/config"
-	"github.com/schweigert/mmosandbox/lib/dont"
-	"github.com/schweigert/mmosandbox/lib/metrics"
+	"github.com/schweigert/mmosandbox/lib/bench"
 )
 
 // Bip milliseconds to graphite
 func Bip() gin.HandlerFunc {
-	metronome, err := metrics.Connect(config.Metric().Host(), config.Metric().Port())
-
-	dont.Panic(err)
-
 	return func(c *gin.Context) {
-		start := time.Now()
-		c.Next()
 		url := c.Request.URL.EscapedPath()
-		elapsed := time.Since(start)
-
-		metronome.Bip(bipStat(url), bipMilliseconds(elapsed))
+		_ = bench.Bench(bipStat(url), func() error {
+			c.Next()
+			return nil
+		})
 	}
-}
-
-func bipMilliseconds(elapsed time.Duration) string {
-	return fmt.Sprintf("%d", int64(elapsed/time.Millisecond))
 }
 
 func bipStat(url string) string {

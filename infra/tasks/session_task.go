@@ -4,7 +4,7 @@ import (
 	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
-	"github.com/schweigert/mmosandbox/infra/bench"
+	"github.com/schweigert/mmosandbox/lib/bench"
 )
 
 // SessionTask call auth methods from domain over rpc
