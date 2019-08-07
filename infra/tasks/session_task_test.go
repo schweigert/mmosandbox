@@ -3,14 +3,11 @@ package tasks
 import (
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain"
+	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
-
-	"github.com/schweigert/mmosandbox/domain/entities"
-
-	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/infra/db"
-
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
 	"github.com/schweigert/mmosandbox/infra/merepositories"
 	"github.com/stretchr/testify/suite"
