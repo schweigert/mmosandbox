@@ -28,7 +28,7 @@ func Bench(tag string, fun func() error) error {
 	elapsed := time.Since(start)
 	metronome.Bip(bipStat(tag), bipMilliseconds(elapsed))
 
-	log.Println(bipStat(tag), "|>", bipMilliseconds(elapsed))
+	log.Println(bipStat(tag), "|>", bipMilliseconds(elapsed), "ms")
 
 	return ret
 }

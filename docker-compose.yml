@@ -9,6 +9,11 @@ services:
     environment:
       - CLIENT_WHOST=wweb
       - SERVICE_GAME=wgame:3100
+
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=wclient
     depends_on:
       - wweb
 
