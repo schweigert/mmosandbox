@@ -30,9 +30,21 @@ func UseTokenRepository() {
 // GenerateToken based in username from account
 func (repository *TokenRepository) GenerateToken(username string) string {
 	token := repository.randomToken()
-	repository.set(fmt.Sprintf("session.%s", username), token)
+	repository.set(repository.keyPattern(username), token)
 
 	return token
+}
+
+// CheckUsername in redis
+func (repository *TokenRepository) CheckUsername(username string, token string) bool {
+	correctToken, err := repository.Conn.Get(repository.keyPattern(username)).Result()
+	dont.Panic(err)
+
+	return correctToken == token
+}
+
+func (repository *TokenRepository) keyPattern(username string) string {
+	return fmt.Sprintf("session.%s", username)
 }
 
 func (repository *TokenRepository) randomToken() string {

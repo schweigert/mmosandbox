@@ -40,6 +40,15 @@ func (suite *TokenRepositorySuite) TestGenerateToken() {
 	suite.Equal(token, tokenCheck)
 }
 
+func (suite *TokenRepositorySuite) TestCheckUsername() {
+	repository := NewTokenRepository()
+
+	token := repository.GenerateToken("test username")
+	suite.NotEmpty(token)
+
+	suite.True(repository.CheckUsername("test username", token))
+}
+
 func TestTokenRepositorySuite(t *testing.T) {
 	suite.Run(t, new(TokenRepositorySuite))
 }

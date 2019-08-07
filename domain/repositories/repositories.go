@@ -23,6 +23,6 @@ type SessionRepository interface {
 
 // TokenRepository interface
 type TokenRepository interface {
-	GenerateToken(string) string
-	CheckUsername(string, string) bool
+	GenerateToken(username string) string
+	CheckUsername(username string, token string) bool
 }
