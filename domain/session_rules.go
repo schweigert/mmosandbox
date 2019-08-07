@@ -40,3 +40,8 @@ func (module *SessionRules) StartSession(in *inputs.AuthAccountInput, out *outpu
 		out.Token = TokenRepository.GenerateToken(in.Username)
 	}
 }
+
+// CheckSession operation
+func (module *SessionRules) CheckSession(in *inputs.CheckSessionInput) bool {
+	return AccountRepository.UsernameHasTaken(in.Username) && TokenRepository.CheckUsername(in.Username, in.Token)
+}

@@ -75,6 +75,52 @@ func (suite *SessionRulesSuite) TestStartSession() {
 	suite.Equal("test ok", out.Token)
 }
 
+func (suite *SessionRulesSuite) TestCheckSession() {
+	AccountRepository = &AccountRepositoryMock{
+		UsernameHasTakenResult: true,
+	}
+
+	TokenRepository = &TokenRepositoryMock{
+		CheckUsernameResult: true,
+	}
+
+	in := inputs.NewCheckSessionInput()
+	suite.True(NewSessionRules().CheckSession(in))
+
+	AccountRepository = &AccountRepositoryMock{
+		UsernameHasTakenResult: false,
+	}
+
+	TokenRepository = &TokenRepositoryMock{
+		CheckUsernameResult: true,
+	}
+
+	in = inputs.NewCheckSessionInput()
+	suite.False(NewSessionRules().CheckSession(in))
+
+	AccountRepository = &AccountRepositoryMock{
+		UsernameHasTakenResult: true,
+	}
+
+	TokenRepository = &TokenRepositoryMock{
+		CheckUsernameResult: false,
+	}
+
+	in = inputs.NewCheckSessionInput()
+	suite.False(NewSessionRules().CheckSession(in))
+
+	AccountRepository = &AccountRepositoryMock{
+		UsernameHasTakenResult: false,
+	}
+
+	TokenRepository = &TokenRepositoryMock{
+		CheckUsernameResult: false,
+	}
+
+	in = inputs.NewCheckSessionInput()
+	suite.False(NewSessionRules().CheckSession(in))
+}
+
 func TestSessionRulesSuite(t *testing.T) {
 	suite.Run(t, new(SessionRulesSuite))
 }

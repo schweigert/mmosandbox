@@ -38,8 +38,13 @@ func (mock *CharacterRepositoryMock) CreateInAccount(*entities.Character, *entit
 
 type TokenRepositoryMock struct {
 	GenerateTokenResult string
+	CheckUsernameResult bool
 }
 
 func (mock *TokenRepositoryMock) GenerateToken(username string) string {
 	return mock.GenerateTokenResult
+}
+
+func (mock *TokenRepositoryMock) CheckUsername(username, token string) bool {
+	return mock.CheckUsernameResult
 }
