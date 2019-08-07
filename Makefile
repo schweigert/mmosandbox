@@ -8,12 +8,15 @@ build:
 	docker-compose build
 
 dev: build migrate
-	docker-compose up -d postgres graphite redis wauth wgame
+	docker-compose up -d postgres graphite redis
+	sleep 10
+	docker-compose up -d wauth wgame
+	sleep 10
 
 stop:
 	docker-compose down
 
-test: stop migrate
+test: stop dev
 	go test -coverprofile cover.out ./...
 	go tool cover -html=cover.out -o cover.html
 
