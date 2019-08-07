@@ -2,6 +2,7 @@ package bench
 
 import (
 	"fmt"
+	"log"
 	"strings"
 	"time"
 
@@ -19,13 +20,17 @@ func init() {
 }
 
 // Bench milliseconds to graphite
-func Bench(tag string, fun func()) {
+func Bench(tag string, fun func() error) error {
 	start := time.Now()
 
-	fun()
+	ret := fun()
 
 	elapsed := time.Since(start)
 	metronome.Bip(bipStat(tag), bipMilliseconds(elapsed))
+
+	log.Println(bipStat(tag), "|>", bipMilliseconds(elapsed))
+
+	return ret
 }
 
 func bipMilliseconds(elapsed time.Duration) string {

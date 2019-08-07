@@ -1,12 +1,12 @@
 package tasks
 
 import (
-	"fmt"
 	"net/rpc"
 
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
+	"github.com/schweigert/mmosandbox/infra/bench"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -25,8 +25,7 @@ func NewSessionProxyTask() *SessionProxyTask {
 
 // StartSession and return the assigned account object
 func (task *SessionProxyTask) StartSession(in inputs.AuthAccountInput, out *outputs.StartSessionOutput) (err error) {
-	fmt.Println("SessionProxyTask |> StartSession")
-
-	err = task.SessionConn.Call("SessionTask.StartSession", in, out)
-	return
+	return bench.Bench("start_session", func() error {
+		return task.SessionConn.Call("SessionTask.StartSession", in, out)
+	})
 }

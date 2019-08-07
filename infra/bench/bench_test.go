@@ -12,7 +12,7 @@ type BenchSuite struct {
 
 func (suite *BenchSuite) TestBip() {
 	suite.NotPanics(func() {
-		Bench("testing", func() {})
+		suite.NoError(Bench("testing", func() error { return nil }))
 	})
 }
 
