@@ -67,7 +67,7 @@ func (suite *GameTaskTest) TestStartSession() {
 
 	spawnCharacterOutput := outputs.NewCheckSessionOutput()
 	suite.NotPanics(func() {
-		gameTask.SpawnCharacter(spawnCharacterInput, spawnCharacterOutput)
+		suite.NoError(gameTask.SpawnCharacter(spawnCharacterInput, spawnCharacterOutput))
 	})
 
 	suite.True(spawnCharacterOutput.Success)
