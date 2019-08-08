@@ -29,12 +29,17 @@ func (mock *CreateCharacterFlowMock) CreateCharacterOperation(input *inputs.Crea
 	return input.BuildCharacter(), mock.CreateCharacterOperationBoolMock
 }
 
-type StartSessionFlowMock struct {
+type SessionFlowMock struct {
 	StartSessionBoolResult bool
+	SpawnCharacterResult   bool
 }
 
-func (mock *StartSessionFlowMock) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
+func (mock *SessionFlowMock) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
 	return &outputs.StartSessionOutput{Success: true, Token: "blefe"}, mock.StartSessionBoolResult
+}
+
+func (mock *SessionFlowMock) SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs.CheckSessionOutput, bool) {
+	return &outputs.CheckSessionOutput{Success: true}, mock.SpawnCharacterResult
 }
 
 func (suite *ClientSuite) TestNewCreateAccountInput() {
@@ -55,8 +60,9 @@ func (suite *ClientSuite) TestBotFlow() {
 		CreateCharacterOperationBoolMock: true,
 	}
 
-	UsedStartSessionFlow = &StartSessionFlowMock{
+	UsedSessionFlow = &SessionFlowMock{
 		StartSessionBoolResult: true,
+		SpawnCharacterResult:   true,
 	}
 
 	Account = nil

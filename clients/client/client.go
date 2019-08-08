@@ -20,9 +20,11 @@ var (
 	UsedCreateCharacterFlow CreateCharacterFlow
 	Character               *entities.Character
 
-	AuthAccountInput     inputs.AuthAccountInput
-	UsedStartSessionFlow StartSessionFlow
-	Session              *outputs.StartSessionOutput
+	AuthAccountInput inputs.AuthAccountInput
+	UsedSessionFlow  SessionFlow
+	Session          *outputs.StartSessionOutput
+
+	SpawnCharacterInput inputs.SpawnCharacterInput
 )
 
 // CreateAccountFlow used in client
@@ -35,9 +37,11 @@ type CreateCharacterFlow interface {
 	CreateCharacterOperation(in *inputs.CreateCharacterInput) (*entities.Character, bool)
 }
 
-// StartSessionFlow used in client
-type StartSessionFlow interface {
+// SessionFlow used in client
+type SessionFlow interface {
 	StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool)
+
+	SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs.CheckSessionOutput, bool)
 }
 
 // FakeName generator
@@ -83,13 +87,25 @@ func createCharacterFlowExec() {
 	}
 }
 
-func startSessionFlowExec() {
+func sessionFlowExec() {
 	for {
 		AuthAccountInput = CreateCharacterInput.Auth
 
-		session, ok := UsedStartSessionFlow.StartSession(AuthAccountInput)
+		session, ok := UsedSessionFlow.StartSession(AuthAccountInput)
 		if ok && session.Success {
 			Session = session
+			SpawnCharacterInput.CharacterID = int(Character.ID)
+			SpawnCharacterInput.CheckSessionInput = inputs.NewCheckSessionInput()
+			SpawnCharacterInput.CheckSessionInput.Username = Account.Username
+			SpawnCharacterInput.CheckSessionInput.Token = Session.Token
+
+			break
+		}
+	}
+
+	for {
+		checkSessionOutput, ok := UsedSessionFlow.SpawnCharacter(SpawnCharacterInput)
+		if ok && checkSessionOutput.Success {
 			break
 		}
 	}
@@ -99,5 +115,5 @@ func startSessionFlowExec() {
 func BotFlow() {
 	createAccountFlowExec()
 	createCharacterFlowExec()
-	startSessionFlowExec()
+	sessionFlowExec()
 }

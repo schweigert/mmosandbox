@@ -88,21 +88,21 @@ func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateChara
 	return out.Character, out.Success
 }
 
-// StartSessionFlow used in client
-type StartSessionFlow struct {
+// SessionFlow used in client
+type SessionFlow struct {
 	Conn *rpc.Client
 }
 
-// NewStartSessionFlow constructor
-func NewStartSessionFlow() client.StartSessionFlow {
+// NewSessionFlow constructor
+func NewSessionFlow() client.SessionFlow {
 	conn, err := rpc.Dial("tcp", config.Service().Game())
 	dont.Panic(err)
 
-	return &StartSessionFlow{Conn: conn}
+	return &SessionFlow{Conn: conn}
 }
 
 // StartSession for willson flow
-func (flow *StartSessionFlow) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
+func (flow *SessionFlow) StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool) {
 	out := outputs.NewStartSessionOutput()
 
 	err := bench.Bench("start_session", func() error {
@@ -112,10 +112,21 @@ func (flow *StartSessionFlow) StartSession(in inputs.AuthAccountInput) (*outputs
 	return out, err == nil
 }
 
+// SpawnCharacter in the world
+func (flow *SessionFlow) SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs.CheckSessionOutput, bool) {
+	out := outputs.NewCheckSessionOutput()
+
+	err := bench.Bench("spawn_character", func() error {
+		return flow.Conn.Call("GameTask.SpawnCharacter", in, out)
+	})
+
+	return out, err == nil
+}
+
 func main() {
 	client.UsedCreateAccountFlow = NewCreateAccountFlow()
 	client.UsedCreateCharacterFlow = NewCreateCharacterFlow()
-	client.UsedStartSessionFlow = NewStartSessionFlow()
+	client.UsedSessionFlow = NewSessionFlow()
 
 	for {
 		client.BotFlow()
