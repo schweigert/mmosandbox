@@ -3,6 +3,8 @@ package tasks
 import (
 	"net/rpc"
 
+	"github.com/schweigert/mmosandbox/domain"
+
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
@@ -13,6 +15,7 @@ import (
 // GameTask handle game requests
 type GameTask struct {
 	SessionConn *rpc.Client
+	WorldRules  *domain.WorldRules
 }
 
 // NewGameTask constructor
@@ -20,17 +23,22 @@ func NewGameTask() *GameTask {
 	conn, err := rpc.Dial("tcp", config.Service().Auth())
 	dont.Panic(err)
 
-	return &GameTask{SessionConn: conn}
+	return &GameTask{
+		SessionConn: conn,
+		WorldRules:  domain.NewWorldRules(),
+	}
 }
 
 // SpawnCharacter task
-func (task *GameTask) SpawnCharacter(in inputs.SpawnCharacterInput, ok bool) error {
+func (task *GameTask) SpawnCharacter(in inputs.SpawnCharacterInput, out *outputs.CheckSessionOutput) error {
 	return bench.Bench("spawn_character", func() (err error) {
 		checkOut := outputs.NewCheckSessionOutput()
-		err = task.SessionConn.Call("SessionTask.StartSession", in.CheckSessionInput, checkOut)
+		err = task.SessionConn.Call("SessionTask.CheckSession", in.CheckSessionInput, checkOut)
 
-		if err == nil && checkOut.Success {
-			// Spawn it!
+		out.Success = checkOut.Success
+
+		if err == nil && out.Success {
+			task.WorldRules.SpawnCharacter(in.CharacterID)
 		}
 
 		return

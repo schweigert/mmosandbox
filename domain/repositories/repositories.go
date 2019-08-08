@@ -13,6 +13,7 @@ type AccountRepository interface {
 type CharacterRepository interface {
 	NameHasTaken(name string) bool
 	CreateInAccount(*entities.Character, *entities.Account) bool
+	LoadCharacter(id int) *entities.Character
 }
 
 // SessionRepository interface

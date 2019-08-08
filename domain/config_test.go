@@ -26,6 +26,7 @@ func (mock *AccountRepositoryMock) Create(*entities.Account) bool {
 type CharacterRepositoryMock struct {
 	CreateInAccountResult bool
 	NameHasTakenResult    bool
+	LoadCharacterResult   *entities.Character
 }
 
 func (mock *CharacterRepositoryMock) NameHasTaken(string) bool {
@@ -34,6 +35,10 @@ func (mock *CharacterRepositoryMock) NameHasTaken(string) bool {
 
 func (mock *CharacterRepositoryMock) CreateInAccount(*entities.Character, *entities.Account) bool {
 	return mock.CreateInAccountResult
+}
+
+func (mock *CharacterRepositoryMock) LoadCharacter(id int) *entities.Character {
+	return mock.LoadCharacterResult
 }
 
 type TokenRepositoryMock struct {

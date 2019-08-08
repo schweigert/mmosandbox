@@ -12,8 +12,8 @@ import (
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
-	"github.com/schweigert/mmosandbox/lib/bench"
 	"github.com/schweigert/mmosandbox/infra/routes"
+	"github.com/schweigert/mmosandbox/lib/bench"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -30,7 +30,7 @@ func NewCreateAccountFlow() client.CreateAccountFlow {
 func (flow *CreateAccountFlow) CreateAccountOperation(in *inputs.CreateAccountInput) (*entities.Account, bool) {
 	out := outputs.NewCreateAccountOutput()
 
-	bench.Bench("create_account_operation", func() error {
+	_ = bench.Bench("create_account_operation", func() error {
 		rec := req.New()
 		rec.SetTimeout(5 * time.Second)
 
@@ -65,7 +65,7 @@ func NewCreateCharacterFlow() client.CreateCharacterFlow {
 func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateCharacterInput) (*entities.Character, bool) {
 	out := outputs.NewCreateCharacterOutput()
 
-	bench.Bench("create_character_operation", func() error {
+	_ = bench.Bench("create_character_operation", func() error {
 		rec := req.New()
 		rec.SetTimeout(5 * time.Second)
 

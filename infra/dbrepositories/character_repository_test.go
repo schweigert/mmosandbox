@@ -47,6 +47,29 @@ func (suite *CharacterRepositorySuite) TestCreateInAccount() {
 	suite.NotEqual(0, account.ID)
 }
 
+func (suite *CharacterRepositorySuite) TestLoadCharacter() {
+	db.Clear()
+
+	account := entities.NewAccount()
+	account.Email = "testing@kk.onion"
+	account.Username = "testing"
+	account.SecurePassword = "secure hash"
+
+	suite.True(NewAccountRepository().Create(account))
+
+	character := entities.NewCharacter()
+	character.Name = "testing now! ¬¬"
+
+	suite.True(NewCharacterRepository().CreateInAccount(character, account))
+
+	suite.Equal(character.AccountID, account.ID)
+	suite.NotEqual(0, account.ID)
+
+	otherCharacter := NewCharacterRepository().LoadCharacter(int(character.ID))
+
+	suite.Equal(character.Name, otherCharacter.Name)
+}
+
 func (suite *CharacterRepositorySuite) TestNameHasTaken() {
 	db.Clear()
 

@@ -24,10 +24,15 @@ func configDb() {
 	db.Migrate()
 }
 
+func configRPC() {
+	dont.Panic(rpc.Register(tasks.NewSessionTask()))
+}
+
 func startRPC() {
 	listener, err := net.Listen("tcp", config.RPC().Addr())
 	dont.Panic(err)
-	dont.Panic(rpc.Register(tasks.NewSessionTask()))
+
+	configRPC()
 
 	fmt.Println("RPC Starting at", config.RPC().Addr(), "...")
 	defer fmt.Println("RPC finished")

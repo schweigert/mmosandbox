@@ -40,3 +40,11 @@ func (repo *CharacterRepository) CreateInAccount(model *entities.Character, acco
 
 	return !repo.conn.NewRecord(model)
 }
+
+// LoadCharacter over gorm
+func (repo *CharacterRepository) LoadCharacter(id int) *entities.Character {
+	character := entities.NewCharacter()
+	repo.conn.Where("id = ?", id).First(character)
+
+	return character
+}
