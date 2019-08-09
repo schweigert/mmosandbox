@@ -54,7 +54,7 @@ func (task *GameTask) MoveCharacter(in inputs.MoveCharacterInput, out *outputs.C
 		out.Success = checkOut.Success
 
 		if err == nil && out.Success {
-			task.WorldRules.MoveCharacter(&in)
+			err = task.WorldRules.MoveCharacter(&in)
 		}
 
 		return err
