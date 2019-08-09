@@ -123,10 +123,40 @@ func (flow *SessionFlow) SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs
 	return out, err == nil
 }
 
+// GameFlow used in client
+type GameFlow struct {
+	Conn *rpc.Client
+}
+
+// NewGameFlow constructor
+func NewGameFlow() client.GameFlow {
+	conn, err := rpc.Dial("tcp", config.Service().Game())
+	dont.Panic(err)
+
+	return &GameFlow{Conn: conn}
+}
+
+// MoveCharacter in game flow
+func (flow *GameFlow) MoveCharacter(in inputs.MoveCharacterInput) (*outputs.CheckSessionOutput, bool) {
+	out := outputs.NewCheckSessionOutput()
+
+	err := bench.Bench("move_character", func() error {
+		return flow.Conn.Call("GameTask.MoveCharacter", in, out)
+	})
+
+	return out, err == nil
+}
+
+// GameLoop !
+func (flow *GameFlow) GameLoop() bool {
+	return true
+}
+
 func main() {
 	client.UsedCreateAccountFlow = NewCreateAccountFlow()
 	client.UsedCreateCharacterFlow = NewCreateCharacterFlow()
 	client.UsedSessionFlow = NewSessionFlow()
+	client.UsedGameFlow = NewGameFlow()
 
 	for {
 		client.BotFlow()

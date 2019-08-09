@@ -42,6 +42,19 @@ func (mock *SessionFlowMock) SpawnCharacter(in inputs.SpawnCharacterInput) (*out
 	return &outputs.CheckSessionOutput{Success: true}, mock.SpawnCharacterResult
 }
 
+type GameFlowMock struct {
+	GameLoopResult      bool
+	MoveCharacterResult bool
+}
+
+func (mock *GameFlowMock) GameLoop() bool {
+	return mock.GameLoopResult
+}
+
+func (mock *GameFlowMock) MoveCharacter(in inputs.MoveCharacterInput) (*outputs.CheckSessionOutput, bool) {
+	return &outputs.CheckSessionOutput{Success: true}, mock.MoveCharacterResult
+}
+
 func (suite *ClientSuite) TestNewCreateAccountInput() {
 	FakeCreateAccountInput()
 
@@ -63,6 +76,11 @@ func (suite *ClientSuite) TestBotFlow() {
 	UsedSessionFlow = &SessionFlowMock{
 		StartSessionBoolResult: true,
 		SpawnCharacterResult:   true,
+	}
+
+	UsedGameFlow = &GameFlowMock{
+		GameLoopResult:      false,
+		MoveCharacterResult: true,
 	}
 
 	Account = nil

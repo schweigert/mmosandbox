@@ -20,11 +20,13 @@ var (
 	UsedCreateCharacterFlow CreateCharacterFlow
 	Character               *entities.Character
 
-	AuthAccountInput inputs.AuthAccountInput
-	UsedSessionFlow  SessionFlow
-	Session          *outputs.StartSessionOutput
-
+	AuthAccountInput    inputs.AuthAccountInput
 	SpawnCharacterInput inputs.SpawnCharacterInput
+	UsedSessionFlow     SessionFlow
+	Session             *outputs.StartSessionOutput
+
+	UsedGameFlow       GameFlow
+	MoveCharacterInput inputs.MoveCharacterInput
 )
 
 // CreateAccountFlow used in client
@@ -40,8 +42,13 @@ type CreateCharacterFlow interface {
 // SessionFlow used in client
 type SessionFlow interface {
 	StartSession(in inputs.AuthAccountInput) (*outputs.StartSessionOutput, bool)
-
 	SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs.CheckSessionOutput, bool)
+}
+
+// GameFlow used play the game
+type GameFlow interface {
+	GameLoop() bool
+	MoveCharacter(in inputs.MoveCharacterInput) (*outputs.CheckSessionOutput, bool)
 }
 
 // FakeName generator
@@ -111,9 +118,31 @@ func sessionFlowExec() {
 	}
 }
 
+func gameFlowExec() {
+	for UsedGameFlow.GameLoop() {
+		for {
+			in := *inputs.NewMoveCharacterInput()
+			in.CharacterID = int(Character.ID)
+			in.CheckSessionInput = inputs.NewCheckSessionInput()
+			in.CheckSessionInput.Username = Account.Username
+			in.CheckSessionInput.Token = Session.Token
+
+			in.DeltaX = faker.RandomInt(-2, 2)
+			in.DeltaY = faker.RandomInt(-2, 2)
+
+			checkSessionOutput, ok := UsedGameFlow.MoveCharacter(in)
+
+			if ok && checkSessionOutput.Success {
+				break
+			}
+		}
+	}
+}
+
 // BotFlow loop
 func BotFlow() {
 	createAccountFlowExec()
 	createCharacterFlowExec()
 	sessionFlowExec()
+	gameFlowExec()
 }
