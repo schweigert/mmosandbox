@@ -1,9 +1,12 @@
 package domain
 
 import (
+	"errors"
 	"sync"
 
+	"github.com/krakenlab/ternary"
 	"github.com/schweigert/mmosandbox/domain/entities"
+	"github.com/schweigert/mmosandbox/domain/inputs"
 )
 
 // WorldRules struct
@@ -23,9 +26,39 @@ func (rule *WorldRules) SpawnCharacter(characterID int) {
 	rule.appendCharacter(character)
 }
 
+// MoveCharacter in your world
+func (rule *WorldRules) MoveCharacter(in *inputs.MoveCharacterInput) error {
+	character, err := rule.findCharacter(in.CharacterID)
+
+	if err == nil {
+		in.DeltaX = ternary.Int(in.DeltaX > 1, 1, in.DeltaX)
+		in.DeltaX = ternary.Int(in.DeltaX < -1, -1, in.DeltaX)
+		in.DeltaY = ternary.Int(in.DeltaY > 1, 1, in.DeltaY)
+		in.DeltaY = ternary.Int(in.DeltaY < -1, -1, in.DeltaY)
+
+		character.MapXPosition += in.DeltaX
+		character.MapYPosition += in.DeltaY
+	}
+
+	return err
+}
+
 func (rule *WorldRules) appendCharacter(character *entities.Character) {
 	rule.CharactersMutex.Lock()
 	defer rule.CharactersMutex.Unlock()
 
 	rule.Characters = append(rule.Characters, character)
+}
+
+func (rule *WorldRules) findCharacter(characterID int) (*entities.Character, error) {
+	rule.CharactersMutex.Lock()
+	defer rule.CharactersMutex.Unlock()
+
+	for _, character := range rule.Characters {
+		if int(character.ID) == characterID {
+			return character, nil
+		}
+	}
+
+	return nil, errors.New("character not found")
 }
