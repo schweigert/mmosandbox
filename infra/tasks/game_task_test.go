@@ -74,6 +74,25 @@ func (suite *GameTaskTest) TestStartSession() {
 
 	suite.NotZero(len(gameTask.WorldRules.Characters))
 	suite.Equal("testingName", gameTask.WorldRules.Characters[0].Name)
+
+	moveCharacterInput := *inputs.NewMoveCharacterInput()
+	moveCharacterInput.CheckSessionInput = spawnCharacterInput.CheckSessionInput
+	moveCharacterInput.CharacterID = int(character.ID)
+	moveCharacterInput.DeltaX = 1
+	moveCharacterInput.DeltaY = 0
+
+	moveCharacterOutput := outputs.NewCheckSessionOutput()
+	err = gameTask.MoveCharacter(moveCharacterInput, moveCharacterOutput)
+
+	suite.NoError(err)
+	suite.Equal(1, gameTask.WorldRules.Characters[0].MapXPosition)
+	suite.Equal(0, gameTask.WorldRules.Characters[0].MapYPosition)
+
+	err = gameTask.MoveCharacter(moveCharacterInput, moveCharacterOutput)
+
+	suite.NoError(err)
+	suite.Equal(2, gameTask.WorldRules.Characters[0].MapXPosition)
+	suite.Equal(0, gameTask.WorldRules.Characters[0].MapYPosition)
 }
 
 func TestGameTaskTest(t *testing.T) {

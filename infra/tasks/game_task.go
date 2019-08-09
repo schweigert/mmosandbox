@@ -41,6 +41,22 @@ func (task *GameTask) SpawnCharacter(in inputs.SpawnCharacterInput, out *outputs
 			task.WorldRules.SpawnCharacter(in.CharacterID)
 		}
 
-		return
+		return err
+	})
+}
+
+// MoveCharacter task
+func (task *GameTask) MoveCharacter(in inputs.MoveCharacterInput, out *outputs.CheckSessionOutput) error {
+	return bench.Bench("move_character", func() (err error) {
+		checkOut := outputs.NewCheckSessionOutput()
+		err = task.SessionConn.Call("SessionTask.CheckSession", in.CheckSessionInput, checkOut)
+
+		out.Success = checkOut.Success
+
+		if err == nil && out.Success {
+			task.WorldRules.MoveCharacter(&in)
+		}
+
+		return err
 	})
 }
