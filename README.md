@@ -56,7 +56,9 @@ Setup:
 
 # Deploy
 
-Metrics:
+## beacon
+
+Beacon send `docker stats` log to graphite server ¯\\_(ツ)_/¯.
 ```
 NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 ```
