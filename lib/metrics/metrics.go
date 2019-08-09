@@ -1,6 +1,7 @@
 package metrics
 
 import (
+	"fmt"
 	"strconv"
 
 	"github.com/marpaia/graphite-golang"
@@ -28,5 +29,6 @@ func Connect(host string, port string) (*Metronome, error) {
 // Bip beacon
 func (metronome *Metronome) Bip(stat string, value string) {
 	err := metronome.Conn.SimpleSend(stat, value)
+	fmt.Printf("%s |> %s\n", stat, value)
 	dont.Panic(err)
 }

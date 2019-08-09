@@ -122,6 +122,7 @@ services:
     container_name: graphite
     ports:
       - 2003:2003
+      - 8080:8080
     restart: always
     logging:
       driver: none

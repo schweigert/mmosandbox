@@ -53,3 +53,10 @@ Setup:
 ### clients/wclient
 
 ![Drag Racing](clients/wclient/deps.png)
+
+# Deploy
+
+Metrics:
+```
+NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
+```
