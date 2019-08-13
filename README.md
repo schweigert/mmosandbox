@@ -4,8 +4,6 @@
 # mmosandbox
 MMORPG Playground
 
-## Dev
-
 ## Deps
 
 Setup:
@@ -18,17 +16,6 @@ Setup:
 ```
     make deps
 ```
-
-## TODO
-
- - [x] Criar regra de negócio para criar conta
- - [x] Criar cliente para criar conta na arq Willson
- - [ ] Criar cliente para criar conta na arq Salz
- - [ ] Criar cliente para criar conta na arq Rudy
- - [ ] Criar Regra de negócio para criar personagem
- - [ ] Criar cliente para criar personagem na arq Willson
- - [ ] Criar cliente para criar personagem na arq Salz
- - [ ] Criar cliente para criar personagem na arq Rudy
 
 ## Domain
 
@@ -58,7 +45,8 @@ Setup:
 
 ## beacon
 
-Beacon send `docker stats` log to graphite server ¯\\_(ツ)_/¯.
+Beacon send `docker stats` log to graphite server ¯\\_(ツ)_/¯:
+
 ```
 NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 ```
