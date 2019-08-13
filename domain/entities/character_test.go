@@ -23,6 +23,21 @@ func (suite *CharacterSuite) TestNewCharacter() {
 	suite.Equal(0, character.MapYPosition)
 }
 
+func (suite *CharacterSuite) TestDistanceTo() {
+	character := NewCharacter()
+
+	suite.Equal(0, character.MapXPosition)
+	suite.Equal(0, character.MapYPosition)
+
+	suite.Equal(float64(0), character.DistanceTo(0, 0))
+	suite.Equal(float64(1), character.DistanceTo(1, 0))
+	suite.Equal(float64(1), character.DistanceTo(-1, 0))
+	suite.Equal(float64(1), character.DistanceTo(0, 1))
+	suite.Equal(float64(1), character.DistanceTo(0, -1))
+
+	suite.Equal(float64(1.4142135623730951), character.DistanceTo(1, 1))
+}
+
 func TestCharacterSuite(t *testing.T) {
 	suite.Run(t, new(CharacterSuite))
 }

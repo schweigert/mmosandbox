@@ -1,5 +1,7 @@
 package entities
 
+import "math"
+
 // Character model
 type Character struct {
 	Model
@@ -22,6 +24,16 @@ type Character struct {
 
 	Account   Account `json:"account"`
 	AccountID uint    `json:"account_id"`
+}
+
+// DistanceTo other position
+func (character *Character) DistanceTo(x int, y int) float64 {
+	return math.Sqrt(
+		float64(
+			(character.MapXPosition-x)*
+				(character.MapXPosition-x) +
+				(character.MapYPosition-y)*
+					(character.MapYPosition-y)))
 }
 
 // NewCharacter constructor

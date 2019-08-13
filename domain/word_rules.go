@@ -74,3 +74,16 @@ func (rule *WorldRules) findCharacter(characterID int) (*entities.Character, err
 
 	return nil, errors.New("character not found")
 }
+
+func (rule *WorldRules) findCharactersInDistanceFromPoint(x int, y int, maxDistance float32) []*entities.Character {
+	rule.CharactersMutex.Lock()
+	defer rule.CharactersMutex.Unlock()
+
+	ret := []*entities.Character{}
+
+	for _, character := range rule.Characters {
+		ret = append(ret, character)
+	}
+
+	return ret
+}
