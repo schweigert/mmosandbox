@@ -2,6 +2,7 @@ package domain
 
 import (
 	"errors"
+	"log"
 	"sync"
 
 	"github.com/krakenlab/ternary"
@@ -38,6 +39,17 @@ func (rule *WorldRules) MoveCharacter(in *inputs.MoveCharacterInput) error {
 
 		character.MapXPosition += in.DeltaX
 		character.MapYPosition += in.DeltaY
+	}
+
+	return err
+}
+
+// CharacterSpoke in this world
+func (rule *WorldRules) CharacterSpoke(in *inputs.ChatInput) error {
+	character, err := rule.findCharacter(in.CharacterID)
+
+	if err == nil {
+		log.Println(character.Name, "|>", in.Body)
 	}
 
 	return err
