@@ -93,6 +93,20 @@ func (suite *GameTaskTest) TestStartSession() {
 	suite.NoError(err)
 	suite.Equal(2, gameTask.WorldRules.Characters[0].MapXPosition)
 	suite.Equal(0, gameTask.WorldRules.Characters[0].MapYPosition)
+
+	chatInput := *inputs.NewChatInput()
+	chatInput.CheckSessionInput = moveCharacterInput.CheckSessionInput
+
+	chatInput.CharacterID = moveCharacterInput.CharacterID
+	chatInput.Body = "Hello my friends!"
+
+	chatOutput := outputs.NewCheckSessionOutput()
+
+	err = gameTask.SendChat(chatInput, chatOutput)
+	suite.NoError(err)
+	suite.True(chatOutput.Success)
+
+	suite.Zero(len(gameTask.WorldRules.Characters[0].MessageBox.Messages))
 }
 
 func TestGameTaskTest(t *testing.T) {

@@ -60,3 +60,19 @@ func (task *GameTask) MoveCharacter(in inputs.MoveCharacterInput, out *outputs.C
 		return err
 	})
 }
+
+// SendChat task
+func (task *GameTask) SendChat(in inputs.ChatInput, out *outputs.CheckSessionOutput) error {
+	return bench.Bench("send_chat", func() (err error) {
+		checkOut := outputs.NewCheckSessionOutput()
+		err = task.SessionConn.Call("SessionTask.CheckSession", in.CheckSessionInput, checkOut)
+
+		out.Success = checkOut.Success
+
+		if err == nil && out.Success {
+			err = task.WorldRules.CharacterSpoke(&in)
+		}
+
+		return err
+	})
+}

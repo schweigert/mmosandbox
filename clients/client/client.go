@@ -49,6 +49,7 @@ type SessionFlow interface {
 type GameFlow interface {
 	GameLoop() bool
 	MoveCharacter(in inputs.MoveCharacterInput) (*outputs.CheckSessionOutput, bool)
+	SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput, bool)
 }
 
 // FakeName generator
@@ -132,6 +133,21 @@ func gameFlowExec() {
 
 			checkSessionOutput, ok := UsedGameFlow.MoveCharacter(in)
 
+			if ok && checkSessionOutput.Success {
+				break
+			}
+		}
+
+		for {
+			in := *inputs.NewChatInput()
+			in.CharacterID = int(Character.ID)
+			in.CheckSessionInput = inputs.NewCheckSessionInput()
+			in.CheckSessionInput.Username = Account.Username
+			in.CheckSessionInput.Token = Session.Token
+
+			in.Body = faker.Hacker().SaySomethingSmart()
+
+			checkSessionOutput, ok := UsedGameFlow.SendChat(in)
 			if ok && checkSessionOutput.Success {
 				break
 			}

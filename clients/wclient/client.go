@@ -147,6 +147,17 @@ func (flow *GameFlow) MoveCharacter(in inputs.MoveCharacterInput) (*outputs.Chec
 	return out, err == nil
 }
 
+// SendChat in game flow
+func (flow *GameFlow) SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput, bool) {
+	out := outputs.NewCheckSessionOutput()
+
+	err := bench.Bench("send_chat", func() error {
+		return flow.Conn.Call("GameTask.SendChat", in, out)
+	})
+
+	return out, err == nil
+}
+
 // GameLoop !
 func (flow *GameFlow) GameLoop() bool {
 	return true
