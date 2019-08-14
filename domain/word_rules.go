@@ -14,11 +14,12 @@ import (
 type WorldRules struct {
 	Characters      []*entities.Character
 	CharactersMutex sync.Mutex
+	FieldOfVision   float64
 }
 
 // NewWorldRules constructor
 func NewWorldRules() *WorldRules {
-	return &WorldRules{}
+	return &WorldRules{FieldOfVision: 25.0}
 }
 
 // SpawnCharacter in character list
@@ -50,6 +51,16 @@ func (rule *WorldRules) CharacterSpoke(in *inputs.ChatInput) error {
 
 	if err == nil {
 		log.Println(character.Name, "|>", in.Body)
+
+		characters := rule.findCharactersInFieldOfVision(character.MapXPosition, character.MapYPosition)
+
+		for _, otherCharacter := range characters {
+			if otherCharacter.ID == character.ID {
+				continue
+			}
+
+			log.Println("Sending from", character.Name, "to", otherCharacter.Name)
+		}
 	}
 
 	return err
@@ -75,14 +86,16 @@ func (rule *WorldRules) findCharacter(characterID int) (*entities.Character, err
 	return nil, errors.New("character not found")
 }
 
-func (rule *WorldRules) findCharactersInDistanceFromPoint(x int, y int, maxDistance float32) []*entities.Character {
+func (rule *WorldRules) findCharactersInFieldOfVision(pivotX int, pivotY int) []*entities.Character {
 	rule.CharactersMutex.Lock()
 	defer rule.CharactersMutex.Unlock()
 
 	ret := []*entities.Character{}
 
 	for _, character := range rule.Characters {
-		ret = append(ret, character)
+		if character.DistanceTo(pivotX, pivotY) < rule.FieldOfVision {
+			ret = append(ret, character)
+		}
 	}
 
 	return ret
