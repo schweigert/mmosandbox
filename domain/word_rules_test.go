@@ -118,6 +118,54 @@ func (suite *WorldRulesSuite) TestPrivateFindCharactersInFieldOfVision() {
 	suite.Zero(len(queriedChars))
 }
 
+func (suite *WorldRulesSuite) TestCharacterSpoke() {
+	characterOne := entities.NewCharacter()
+	characterOne.ID = 1
+	characterTwo := entities.NewCharacter()
+	characterTwo.ID = 2
+
+	rules := NewWorldRules()
+
+	CharacterRepository = &CharacterRepositoryMock{
+		LoadCharacterResult: characterOne,
+	}
+
+	suite.NotPanics(func() {
+		rules.SpawnCharacter(int(characterOne.ID))
+	})
+
+	CharacterRepository = &CharacterRepositoryMock{
+		LoadCharacterResult: characterTwo,
+	}
+
+	suite.NotPanics(func() {
+		rules.SpawnCharacter(int(characterTwo.ID))
+	})
+
+	characterOne.MapXPosition = 0
+	characterOne.MapYPosition = 0
+
+	characterTwo.MapXPosition = 10
+	characterTwo.MapYPosition = 10
+
+	in := inputs.NewChatInput()
+	in.CharacterID = 1
+	in.Body = "Hello 2!"
+
+	err := rules.CharacterSpoke(in)
+	suite.NoError(err)
+
+	messages := characterTwo.MessageBox.Read()
+
+	suite.Equal(1, len(messages))
+	suite.Equal(uint(1), messages[0].CharacterID)
+	suite.Equal("Hello 2!", messages[0].Body)
+
+	messages = characterOne.MessageBox.Read()
+
+	suite.Zero(len(messages))
+}
+
 func TestWorldRulesSuite(t *testing.T) {
 	suite.Run(t, new(WorldRulesSuite))
 }
