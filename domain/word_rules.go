@@ -48,18 +48,13 @@ func (rule *WorldRules) MoveCharacter(in *inputs.MoveCharacterInput) error {
 // CharacterSpoke in this world
 func (rule *WorldRules) CharacterSpoke(in *inputs.ChatInput) error {
 	character, err := rule.findCharacter(in.CharacterID)
+	message := entities.NewMessageFromCharacter(character, in.Body)
 
 	if err == nil {
 		log.Println(character.Name, "|>", in.Body)
 
-		characters := rule.findCharactersInFieldOfVision(character.MapXPosition, character.MapYPosition)
-
-		for _, otherCharacter := range characters {
-			if otherCharacter.ID == character.ID {
-				continue
-			}
-
-			log.Println("Sending from", character.Name, "to", otherCharacter.Name)
+		for _, otherCharacter := range rule.findCharactersInFieldOfVision(character) {
+			otherCharacter.MessageBox.Append(message)
 		}
 	}
 
@@ -86,14 +81,14 @@ func (rule *WorldRules) findCharacter(characterID int) (*entities.Character, err
 	return nil, errors.New("character not found")
 }
 
-func (rule *WorldRules) findCharactersInFieldOfVision(pivotX int, pivotY int) []*entities.Character {
+func (rule *WorldRules) findCharactersInFieldOfVision(pivot *entities.Character) []*entities.Character {
 	rule.CharactersMutex.Lock()
 	defer rule.CharactersMutex.Unlock()
 
 	ret := []*entities.Character{}
 
 	for _, character := range rule.Characters {
-		if character.DistanceTo(pivotX, pivotY) < rule.FieldOfVision {
+		if pivot.ID != character.ID && character.DistanceTo(pivot.MapXPosition, pivot.MapYPosition) <= rule.FieldOfVision {
 			ret = append(ret, character)
 		}
 	}

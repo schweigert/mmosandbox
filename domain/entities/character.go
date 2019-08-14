@@ -24,6 +24,8 @@ type Character struct {
 
 	Account   Account `json:"account"`
 	AccountID uint    `json:"account_id"`
+
+	MessageBox *MessageBox
 }
 
 // DistanceTo other position
@@ -48,5 +50,7 @@ func NewCharacter() *Character {
 		MapIndex:           0,
 		MapXPosition:       0,
 		MapYPosition:       0,
+
+		MessageBox: NewMessageBox(),
 	}
 }
