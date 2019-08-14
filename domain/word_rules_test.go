@@ -77,6 +77,47 @@ func (suite *WorldRulesSuite) TestMoveCharacter() {
 	suite.Error(err)
 }
 
+func (suite *WorldRulesSuite) TestPrivateFindCharactersInFieldOfVision() {
+	characterOne := entities.NewCharacter()
+	characterOne.ID = 1
+	characterTwo := entities.NewCharacter()
+	characterTwo.ID = 2
+
+	rules := NewWorldRules()
+
+	CharacterRepository = &CharacterRepositoryMock{
+		LoadCharacterResult: characterOne,
+	}
+
+	suite.NotPanics(func() {
+		rules.SpawnCharacter(int(characterOne.ID))
+	})
+
+	CharacterRepository = &CharacterRepositoryMock{
+		LoadCharacterResult: characterTwo,
+	}
+
+	suite.NotPanics(func() {
+		rules.SpawnCharacter(int(characterTwo.ID))
+	})
+
+	characterOne.MapXPosition = 0
+	characterOne.MapYPosition = 0
+
+	characterTwo.MapXPosition = 25
+	characterTwo.MapYPosition = 0
+
+	queriedChars := rules.findCharactersInFieldOfVision(characterTwo)
+	suite.Equal(1, len(queriedChars))
+	suite.Equal(characterOne.ID, queriedChars[0].ID)
+
+	characterOne.MapXPosition = 0
+	characterOne.MapYPosition = -25
+
+	queriedChars = rules.findCharactersInFieldOfVision(characterTwo)
+	suite.Zero(len(queriedChars))
+}
+
 func TestWorldRulesSuite(t *testing.T) {
 	suite.Run(t, new(WorldRulesSuite))
 }
