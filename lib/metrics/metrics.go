@@ -1,9 +1,10 @@
 package metrics
 
 import (
-	"fmt"
+	"log"
 	"strconv"
 
+	"github.com/logrusorgru/aurora"
 	"github.com/marpaia/graphite-golang"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
@@ -29,6 +30,6 @@ func Connect(host string, port string) (*Metronome, error) {
 // Bip beacon
 func (metronome *Metronome) Bip(stat string, value string) {
 	err := metronome.Conn.SimpleSend(stat, value)
-	fmt.Printf("%s |> %s\n", stat, value)
+	log.Println(aurora.Red(stat), "|>", aurora.Magenta(value))
 	dont.Panic(err)
 }

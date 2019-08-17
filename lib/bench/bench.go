@@ -2,7 +2,6 @@ package bench
 
 import (
 	"fmt"
-	"log"
 	"strings"
 	"time"
 
@@ -34,9 +33,6 @@ func Bench(tag string, fun func() error) error {
 
 	elapsed := time.Since(start)
 	Metronome.Bip(bipStat(tag), bipMilliseconds(elapsed))
-
-	log.Println(bipStat(tag), "|>", bipMilliseconds(elapsed), "ms")
-
 	return ret
 }
 

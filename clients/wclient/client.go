@@ -158,6 +158,17 @@ func (flow *GameFlow) SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput
 	return out, err == nil
 }
 
+// ListenChat in game flow
+func (flow *GameFlow) ListenChat(in inputs.ChatInput) (*outputs.ListenMessagesOutput, bool) {
+	out := outputs.NewListenMessagesOutput()
+
+	err := bench.Bench("listen_chat", func() error {
+		return flow.Conn.Call("GameTask.ListenChat", in, out)
+	})
+
+	return out, err == nil
+}
+
 // GameLoop !
 func (flow *GameFlow) GameLoop() bool {
 	return true

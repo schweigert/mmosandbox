@@ -3,6 +3,9 @@ package client
 import (
 	"fmt"
 	"log"
+	"time"
+
+	"github.com/logrusorgru/aurora"
 
 	"github.com/schweigert/mmosandbox/domain/outputs"
 
@@ -164,7 +167,7 @@ func gameFlowUpdate() {
 		receiveMessagesOutput, ok := UsedGameFlow.ListenChat(in)
 		if ok && receiveMessagesOutput.Success {
 			for _, message := range receiveMessagesOutput.Messages {
-				log.Printf("%s |> %s\n", message.CharacterName, message.Body)
+				log.Printf("%s |> %s\n", aurora.Blue(message.CharacterName), aurora.Yellow(message.Body))
 			}
 
 			break
@@ -175,6 +178,7 @@ func gameFlowUpdate() {
 func gameFlowExec() {
 	gameFlowUpdate()
 	for UsedGameFlow.GameLoop() {
+		time.Sleep(time.Second)
 		gameFlowUpdate()
 	}
 }

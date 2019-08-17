@@ -2,7 +2,6 @@ package domain
 
 import (
 	"errors"
-	"log"
 	"sync"
 
 	"github.com/krakenlab/ternary"
@@ -71,8 +70,6 @@ func (rule *WorldRules) CharacterListen(in *inputs.ChatInput, out *outputs.Liste
 }
 
 func (rule *WorldRules) spoke(character *entities.Character, message *entities.Message) {
-	log.Println(character.Name, "|>", message.Body)
-
 	for _, otherCharacter := range rule.findCharactersInFieldOfVision(character) {
 		otherCharacter.MessageBox.Append(message)
 	}
