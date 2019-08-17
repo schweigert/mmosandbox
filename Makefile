@@ -48,3 +48,6 @@ stop_default_services:
 	# http://docs.travis-ci.com/user/database-setup/#MySQL
 	sudo /etc/init.d/mysql stop
 	sudo /etc/init.d/postgresql stop
+
+beacon:
+	go install github.com/schweigert/mmosandbox/beacon
