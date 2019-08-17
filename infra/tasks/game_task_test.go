@@ -107,6 +107,18 @@ func (suite *GameTaskTest) TestStartSession() {
 	suite.True(chatOutput.Success)
 
 	suite.Zero(len(gameTask.WorldRules.Characters[0].MessageBox.Messages))
+
+	chatInput = *inputs.NewChatInput()
+	chatInput.CheckSessionInput = moveCharacterInput.CheckSessionInput
+	chatInput.CharacterID = moveCharacterInput.CharacterID
+
+	listenMessagesOutput := outputs.NewListenMessagesOutput()
+
+	err = gameTask.ListenChat(chatInput, listenMessagesOutput)
+	suite.NoError(err)
+
+	suite.True(listenMessagesOutput.Success)
+	suite.Empty(listenMessagesOutput.Messages)
 }
 
 func TestGameTaskTest(t *testing.T) {
