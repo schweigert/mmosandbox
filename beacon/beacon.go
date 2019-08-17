@@ -59,6 +59,10 @@ func node() string {
 }
 
 func submit() {
+	defer func() {
+		_ = recover()
+	}()
+
 	lines := strings.Split(cmd(statsCmd), "\n")
 	for _, line := range lines {
 		metric := dockerMetric{}
