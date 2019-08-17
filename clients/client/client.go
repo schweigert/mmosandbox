@@ -167,7 +167,7 @@ func gameFlowUpdate() {
 		receiveMessagesOutput, ok := UsedGameFlow.ListenChat(in)
 		if ok && receiveMessagesOutput.Success {
 			for _, message := range receiveMessagesOutput.Messages {
-				log.Printf("%s |> %s\n", aurora.Blue(message.CharacterName), aurora.Yellow(message.Body))
+				log.Printf("%s |> %s\n", aurora.Blue(message.CharacterName).Bold(), aurora.Yellow(message.Body))
 			}
 
 			break

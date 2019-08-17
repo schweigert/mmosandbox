@@ -30,6 +30,6 @@ func Connect(host string, port string) (*Metronome, error) {
 // Bip beacon
 func (metronome *Metronome) Bip(stat string, value string) {
 	err := metronome.Conn.SimpleSend(stat, value)
-	log.Println(aurora.Red(stat), "|>", aurora.Magenta(value))
+	log.Println(aurora.Red(stat).Bold(), "|>", aurora.Magenta(value))
 	dont.Panic(err)
 }
