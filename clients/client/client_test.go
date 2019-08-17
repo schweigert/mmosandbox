@@ -46,6 +46,7 @@ type GameFlowMock struct {
 	GameLoopResult      bool
 	MoveCharacterResult bool
 	SendChatResult      bool
+	ListenChatResult    bool
 }
 
 func (mock *GameFlowMock) GameLoop() bool {
@@ -58,6 +59,16 @@ func (mock *GameFlowMock) MoveCharacter(in inputs.MoveCharacterInput) (*outputs.
 
 func (mock *GameFlowMock) SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput, bool) {
 	return &outputs.CheckSessionOutput{Success: true}, mock.SendChatResult
+}
+
+func (mock *GameFlowMock) ListenChat(in inputs.ChatInput) (*outputs.ListenMessagesOutput, bool) {
+	out := outputs.NewListenMessagesOutput()
+	out.Success = true
+	out.Messages = []*entities.Message{
+		entities.NewMessage(),
+		entities.NewMessage(),
+	}
+	return out, mock.ListenChatResult
 }
 
 func (suite *ClientSuite) TestNewCreateAccountInput() {
@@ -87,6 +98,7 @@ func (suite *ClientSuite) TestBotFlow() {
 		GameLoopResult:      false,
 		MoveCharacterResult: true,
 		SendChatResult:      true,
+		ListenChatResult:    true,
 	}
 
 	Account = nil

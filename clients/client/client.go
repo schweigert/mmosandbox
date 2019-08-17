@@ -2,6 +2,7 @@ package client
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/schweigert/mmosandbox/domain/outputs"
 
@@ -50,6 +51,7 @@ type GameFlow interface {
 	GameLoop() bool
 	MoveCharacter(in inputs.MoveCharacterInput) (*outputs.CheckSessionOutput, bool)
 	SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput, bool)
+	ListenChat(in inputs.ChatInput) (*outputs.ListenMessagesOutput, bool)
 }
 
 // FakeName generator
@@ -119,39 +121,61 @@ func sessionFlowExec() {
 	}
 }
 
+func gameFlowUpdate() {
+	for {
+		in := *inputs.NewMoveCharacterInput()
+		in.CharacterID = int(Character.ID)
+		in.CheckSessionInput = inputs.NewCheckSessionInput()
+		in.CheckSessionInput.Username = Account.Username
+		in.CheckSessionInput.Token = Session.Token
+
+		in.DeltaX = faker.RandomInt(-2, 2)
+		in.DeltaY = faker.RandomInt(-2, 2)
+
+		checkSessionOutput, ok := UsedGameFlow.MoveCharacter(in)
+
+		if ok && checkSessionOutput.Success {
+			break
+		}
+	}
+
+	for {
+		in := *inputs.NewChatInput()
+		in.CharacterID = int(Character.ID)
+		in.CheckSessionInput = inputs.NewCheckSessionInput()
+		in.CheckSessionInput.Username = Account.Username
+		in.CheckSessionInput.Token = Session.Token
+
+		in.Body = faker.Hacker().SaySomethingSmart()
+
+		checkSessionOutput, ok := UsedGameFlow.SendChat(in)
+		if ok && checkSessionOutput.Success {
+			break
+		}
+	}
+
+	for {
+		in := *inputs.NewChatInput()
+		in.CharacterID = int(Character.ID)
+		in.CheckSessionInput = inputs.NewCheckSessionInput()
+		in.CheckSessionInput.Username = Account.Username
+		in.CheckSessionInput.Token = Session.Token
+
+		receiveMessagesOutput, ok := UsedGameFlow.ListenChat(in)
+		if ok && receiveMessagesOutput.Success {
+			for _, message := range receiveMessagesOutput.Messages {
+				log.Printf("%s |> %s\n", message.CharacterName, message.Body)
+			}
+
+			break
+		}
+	}
+}
+
 func gameFlowExec() {
+	gameFlowUpdate()
 	for UsedGameFlow.GameLoop() {
-		for {
-			in := *inputs.NewMoveCharacterInput()
-			in.CharacterID = int(Character.ID)
-			in.CheckSessionInput = inputs.NewCheckSessionInput()
-			in.CheckSessionInput.Username = Account.Username
-			in.CheckSessionInput.Token = Session.Token
-
-			in.DeltaX = faker.RandomInt(-2, 2)
-			in.DeltaY = faker.RandomInt(-2, 2)
-
-			checkSessionOutput, ok := UsedGameFlow.MoveCharacter(in)
-
-			if ok && checkSessionOutput.Success {
-				break
-			}
-		}
-
-		for {
-			in := *inputs.NewChatInput()
-			in.CharacterID = int(Character.ID)
-			in.CheckSessionInput = inputs.NewCheckSessionInput()
-			in.CheckSessionInput.Username = Account.Username
-			in.CheckSessionInput.Token = Session.Token
-
-			in.Body = faker.Hacker().SaySomethingSmart()
-
-			checkSessionOutput, ok := UsedGameFlow.SendChat(in)
-			if ok && checkSessionOutput.Success {
-				break
-			}
-		}
+		gameFlowUpdate()
 	}
 }
 
