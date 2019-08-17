@@ -18,6 +18,16 @@ func (suite *ChatInputSuite) TestNewChatInput() {
 	suite.Empty(input.Body)
 }
 
+func (suite *ChatInputSuite) TestHasBody() {
+	input := NewChatInput()
+
+	input.Body = "testing"
+	suite.True(input.HasBody())
+
+	input.Body = ""
+	suite.False(input.HasBody())
+}
+
 func TestChatInputSuite(t *testing.T) {
 	suite.Run(t, new(ChatInputSuite))
 }

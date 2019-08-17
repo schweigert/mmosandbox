@@ -3,6 +3,8 @@ package domain
 import (
 	"testing"
 
+	"github.com/schweigert/mmosandbox/domain/outputs"
+
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/stretchr/testify/suite"
@@ -164,6 +166,37 @@ func (suite *WorldRulesSuite) TestCharacterSpoke() {
 	messages = characterOne.MessageBox.Read()
 
 	suite.Zero(len(messages))
+}
+
+func (suite *WorldRulesSuite) TestCharacterListen() {
+	characterOne := entities.NewCharacter()
+	characterOne.ID = 1
+
+	rules := NewWorldRules()
+
+	CharacterRepository = &CharacterRepositoryMock{
+		LoadCharacterResult: characterOne,
+	}
+
+	message := entities.NewMessage()
+	message.Body = "Testing"
+
+	suite.NotPanics(func() {
+		rules.SpawnCharacter(int(characterOne.ID))
+	})
+
+	characterOne.MessageBox.Append(message)
+
+	in := inputs.NewChatInput()
+	in.CharacterID = int(characterOne.ID)
+
+	out := outputs.NewListenMessagesOutput()
+
+	err := rules.CharacterListen(in, out)
+	suite.NoError(err)
+
+	suite.Equal(1, len(out.Messages))
+	suite.Equal(message.Body, out.Messages[0].Body)
 }
 
 func TestWorldRulesSuite(t *testing.T) {

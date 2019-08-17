@@ -8,6 +8,11 @@ type ChatInput struct {
 	CheckSessionInput *CheckSessionInput `json:"check_session_input"`
 }
 
+// HasBody verify
+func (in *ChatInput) HasBody() bool {
+	return in.Body != ""
+}
+
 // NewChatInput constructor
 func NewChatInput() *ChatInput {
 	return &ChatInput{}
