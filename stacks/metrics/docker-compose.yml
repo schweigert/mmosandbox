@@ -19,7 +19,6 @@ services:
       - 8080:8080
     restart: always
 
-
 volumes:
   grafana-volume:
     external: true

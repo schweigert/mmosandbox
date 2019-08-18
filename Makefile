@@ -51,3 +51,6 @@ stop_default_services:
 
 beacon:
 	go install github.com/schweigert/mmosandbox/beacon
+
+ssh_metrics_graphite_grafana:
+	ssh -i certs/metrics_graphite_grafana.cert ubuntu@10.20.218.199
