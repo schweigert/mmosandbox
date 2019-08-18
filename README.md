@@ -51,3 +51,31 @@ Beacon send `docker stats` log to graphite server ¯\\_(ツ)_/¯:
 ```
 NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 ```
+
+## Graphite / Grafana
+
+```
+    make ssh_graphite_grafana
+```
+
+```
+    sudo apt-get update -y
+    sudo apt-get install docker.io make binutils bison gcc -y
+
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+    sudo chmod +x /usr/local/bin/docker-compose
+
+
+    bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+
+    gvm install go1.12 -B
+    gvm use go1.12
+    mkdir -p $GOPATH/src/github.com/schweigert
+    git clone git@github.com:schweigert/mmosandbox.git
+
+    make install_beacon
+```

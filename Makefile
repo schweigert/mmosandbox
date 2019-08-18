@@ -49,8 +49,11 @@ stop_default_services:
 	sudo /etc/init.d/mysql stop
 	sudo /etc/init.d/postgresql stop
 
-beacon:
+install_beacon:
 	go install github.com/schweigert/mmosandbox/beacon
 
-ssh_metrics_graphite_grafana:
+certs_chmod:
+	chmod 400 certs/*
+
+ssh_metrics_graphite_grafana: certs_chmod
 	ssh -i certs/metrics_graphite_grafana.cert ubuntu@10.20.218.199
