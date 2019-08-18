@@ -1,0 +1,25 @@
+version: '3.5'
+
+services:
+  grafana:
+    image: grafana/grafana:6.2.5
+    container_name: grafana
+    ports:
+      - 3201:3000
+    volumes:
+      - grafana-volume
+    depends_on:
+      - graphite
+
+  graphite:
+    image: graphiteapp/graphite-statsd:1.1.5-12
+    container_name: graphite
+    ports:
+      - 2003:2003
+      - 8080:8080
+    restart: always
+
+
+volumes:
+  grafana-volume:
+    external: true
