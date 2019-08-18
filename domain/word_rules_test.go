@@ -18,6 +18,8 @@ func (suite *WorldRulesSuite) TestNewWorldRulesSuite() {
 	rules := NewWorldRules()
 	suite.NotNil(rules)
 	suite.Zero(len(rules.Characters))
+	suite.NotEmpty(rules.WorldName)
+	suite.NotContains(rules.WorldName, " ")
 }
 
 func (suite *WorldRulesSuite) TestSpawnCharacter() {

@@ -2,12 +2,17 @@ package domain
 
 import (
 	"errors"
+	"fmt"
 	"sync"
 
+	"github.com/dmgk/faker"
 	"github.com/krakenlab/ternary"
+
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
+	"github.com/schweigert/mmosandbox/domain/presenters"
+	"github.com/schweigert/mmosandbox/lib/bench"
 )
 
 // WorldRules struct
@@ -15,11 +20,34 @@ type WorldRules struct {
 	Characters      []*entities.Character
 	CharactersMutex sync.Mutex
 	FieldOfVision   float64
+
+	WorldName string
 }
 
 // NewWorldRules constructor
-func NewWorldRules() *WorldRules {
-	return &WorldRules{FieldOfVision: 25.0}
+func NewWorldRules() (worldRules *WorldRules) {
+	worldRules = &WorldRules{
+		FieldOfVision: 25.0,
+		WorldName:     presenters.WorldNamePresenter(faker.Address().City()),
+	}
+
+	go func() {
+		for {
+			worldRules.WorldLoop()
+		}
+	}()
+
+	return
+}
+
+// WorldLoop :)
+func (rule *WorldRules) WorldLoop() {
+	rule.SendMetrics()
+}
+
+// SendMetrics to graphite
+func (rule *WorldRules) SendMetrics() {
+	bench.Metronome.Bip(fmt.Sprintf("worlds.%s.characters", rule.WorldName), fmt.Sprintf("%d", len(rule.Characters)))
 }
 
 // SpawnCharacter in character list
