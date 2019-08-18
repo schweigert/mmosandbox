@@ -1,5 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/schweigert/mmosandbox/badge.svg)](https://coveralls.io/github/schweigert/mmosandbox)
 [![Build Status](https://travis-ci.org/schweigert/mmosandbox.svg?branch=master)](https://travis-ci.org/schweigert/mmosandbox)
+[![Docker Hub](https://img.shields.io/badge/Docker%20Hub-Images-blue)](https://hub.docker.com/r/schweigert/mmosandbox)
 
 # mmosandbox
 MMORPG Playground
