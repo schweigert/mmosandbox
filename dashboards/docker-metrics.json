@@ -58,7 +58,7 @@
       "targets": [
         {
           "refId": "A",
-          "target": "metrics.*.mem_perc"
+          "target": "*.metrics.*.mem_perc"
         }
       ],
       "thresholds": [],
@@ -144,7 +144,7 @@
       "targets": [
         {
           "refId": "A",
-          "target": "metrics.*.cpu_perc"
+          "target": "*.metrics.*.cpu_perc"
         }
       ],
       "thresholds": [],
@@ -228,7 +228,7 @@
       "targets": [
         {
           "refId": "A",
-          "target": "metrics.*.pids"
+          "target": "*.metrics.*.pids"
         }
       ],
       "thresholds": [],
@@ -315,12 +315,12 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "metrics.*.block_in"
+          "target": "*.metrics.*.block_in"
         },
         {
           "refCount": 0,
           "refId": "B",
-          "target": "metrics.*.block_out"
+          "target": "*.metrics.*.block_out"
         }
       ],
       "thresholds": [],
@@ -405,7 +405,7 @@
       "targets": [
         {
           "refId": "A",
-          "target": "metrics.*.net_out"
+          "target": "*.metrics.*.net_out"
         }
       ],
       "thresholds": [],
@@ -490,7 +490,7 @@
         {
           "refCount": 0,
           "refId": "A",
-          "target": "metrics.*.net_in",
+          "target": "*.metrics.*.net_in",
           "textEditor": true
         }
       ],
