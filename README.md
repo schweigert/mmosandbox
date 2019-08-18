@@ -69,7 +69,6 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 
     sudo chmod +x /usr/local/bin/docker-compose
 
-
     bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 
     gvm install go1.12 -B
@@ -78,6 +77,11 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
     mkdir -p $GOPATH/src/github.com/schweigert
     cd $GOPATH/src/github.com/schweigert
     git clone https://github.com/schweigert/mmosandbox.git
+    cd mmosandbox
 
     make install_beacon
+
+    cd stacks/metrics/
+    docker-compose up -d
+    NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon > /dev/null &
 ```
