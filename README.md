@@ -74,8 +74,10 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 
     gvm install go1.12 -B
     gvm use go1.12
+
     mkdir -p $GOPATH/src/github.com/schweigert
-    git clone git@github.com:schweigert/mmosandbox.git
+    cd $GOPATH/src/github.com/schweigert
+    git clone https://github.com/schweigert/mmosandbox.git
 
     make install_beacon
 ```
