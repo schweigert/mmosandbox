@@ -32,6 +32,10 @@ Setup:
 
 ![deps](apps/sweb/deps.png)
 
+### apps/sgame
+
+![deps](apps/sgame/deps.png)
+
 ### apps/wauth
 
 ![deps](apps/wauth/deps.png)
