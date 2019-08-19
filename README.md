@@ -24,6 +24,14 @@ Setup:
 
 ## Services
 
+### apps/sauth
+
+![deps](apps/sauth/deps.png)
+
+### apps/sweb
+
+![deps](apps/sweb/deps.png)
+
 ### apps/wauth
 
 ![deps](apps/wauth/deps.png)
