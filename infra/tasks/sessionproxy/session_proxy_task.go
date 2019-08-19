@@ -1,4 +1,4 @@
-package tasks
+package sessionproxy
 
 import (
 	"net/rpc"
@@ -15,8 +15,8 @@ type SessionProxyTask struct {
 	SessionConn *rpc.Client
 }
 
-// NewSessionProxyTask constructor
-func NewSessionProxyTask() *SessionProxyTask {
+// New constructor
+func New() *SessionProxyTask {
 	conn, err := rpc.Dial("tcp", config.Service().Auth())
 	dont.Panic(err)
 

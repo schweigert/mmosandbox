@@ -1,4 +1,4 @@
-package tasks
+package sessiontask
 
 import (
 	"github.com/schweigert/mmosandbox/domain"
@@ -10,8 +10,8 @@ import (
 // SessionTask call auth methods from domain over rpc
 type SessionTask struct{}
 
-// NewSessionTask constructor
-func NewSessionTask() *SessionTask {
+// New constructor
+func New() *SessionTask {
 	return &SessionTask{}
 }
 

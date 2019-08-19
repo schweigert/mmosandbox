@@ -9,7 +9,7 @@ import (
 	"github.com/schweigert/mmosandbox/infra/db"
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
 	"github.com/schweigert/mmosandbox/infra/merepositories"
-	"github.com/schweigert/mmosandbox/infra/tasks"
+	"github.com/schweigert/mmosandbox/infra/tasks/sessiontask"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -25,7 +25,7 @@ func configDb() {
 }
 
 func configRPC() {
-	dont.Panic(rpc.Register(tasks.NewSessionTask()))
+	dont.Panic(rpc.Register(sessiontask.New()))
 }
 
 func startRPC() {

@@ -1,4 +1,4 @@
-package tasks
+package sessiontask
 
 import (
 	"testing"
@@ -17,8 +17,8 @@ type SessionTaskSuite struct {
 	suite.Suite
 }
 
-func (suite *SessionTaskSuite) TestNewSessionTask() {
-	SessionTask := NewSessionTask()
+func (suite *SessionTaskSuite) TestNew() {
+	SessionTask := New()
 	suite.NotNil(SessionTask)
 }
 
@@ -38,7 +38,7 @@ func (suite *SessionTaskSuite) TestStartSession() {
 	in.Username = account.Username
 	in.SecurePassword = account.SecurePassword
 
-	task := NewSessionTask()
+	task := New()
 	out := outputs.NewStartSessionOutput()
 
 	err := task.StartSession(in, out)
@@ -64,7 +64,7 @@ func (suite *SessionTaskSuite) TestCheckSession() {
 	in.Username = account.Username
 	in.SecurePassword = account.SecurePassword
 
-	task := NewSessionTask()
+	task := New()
 	out := outputs.NewStartSessionOutput()
 
 	err := task.StartSession(in, out)

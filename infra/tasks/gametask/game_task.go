@@ -1,4 +1,4 @@
-package tasks
+package gametask
 
 import (
 	"net/rpc"
@@ -18,8 +18,8 @@ type GameTask struct {
 	WorldRules  *domain.WorldRules
 }
 
-// NewGameTask constructor
-func NewGameTask() *GameTask {
+// New constructor
+func New() *GameTask {
 	conn, err := rpc.Dial("tcp", config.Service().Auth())
 	dont.Panic(err)
 

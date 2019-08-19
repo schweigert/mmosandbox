@@ -1,4 +1,4 @@
-package tasks
+package gametask
 
 import (
 	"os"
@@ -11,6 +11,7 @@ import (
 	"github.com/schweigert/mmosandbox/infra/db"
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
 	"github.com/schweigert/mmosandbox/infra/merepositories"
+	"github.com/schweigert/mmosandbox/infra/tasks/sessiontask"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -18,8 +19,8 @@ type GameTaskTest struct {
 	suite.Suite
 }
 
-func (suite *GameTaskTest) TestNewGameTask() {
-	task := NewGameTask()
+func (suite *GameTaskTest) TestNew() {
+	task := New()
 	suite.NotNil(task)
 }
 
@@ -42,7 +43,7 @@ func (suite *GameTaskTest) TestStartSession() {
 	in.Username = account.Username
 	in.SecurePassword = account.SecurePassword
 
-	task := NewSessionTask()
+	task := sessiontask.New()
 	out := outputs.NewStartSessionOutput()
 
 	err := task.StartSession(in, out)
@@ -56,7 +57,7 @@ func (suite *GameTaskTest) TestStartSession() {
 
 	suite.True(domain.CharacterRepository.CreateInAccount(character, account))
 
-	gameTask := NewGameTask()
+	gameTask := New()
 
 	spawnCharacterInput := *inputs.NewSpawnCharacterInput()
 	spawnCharacterInput.CheckSessionInput = inputs.NewCheckSessionInput()

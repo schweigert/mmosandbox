@@ -1,4 +1,4 @@
-package tasks
+package sessionproxy
 
 import (
 	"os"
@@ -18,8 +18,8 @@ type SessionProxyTaskSuite struct {
 	suite.Suite
 }
 
-func (suite *SessionProxyTaskSuite) TestNewSessionProxyTask() {
-	SessionProxyTask := NewSessionProxyTask()
+func (suite *SessionProxyTaskSuite) TestNew() {
+	SessionProxyTask := New()
 	suite.NotNil(SessionProxyTask)
 }
 
@@ -41,7 +41,7 @@ func (suite *SessionProxyTaskSuite) TestStartSession() {
 	in.Username = account.Username
 	in.SecurePassword = account.SecurePassword
 
-	task := NewSessionProxyTask()
+	task := New()
 	out := outputs.NewStartSessionOutput()
 
 	err := task.StartSession(in, out)

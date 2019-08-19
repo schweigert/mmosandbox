@@ -7,7 +7,7 @@ import (
 
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/infra/dbrepositories"
-	"github.com/schweigert/mmosandbox/infra/tasks"
+	"github.com/schweigert/mmosandbox/infra/tasks/gametask"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -18,7 +18,7 @@ func configDb() {
 }
 
 func configRPC() {
-	dont.Panic(rpc.Register(tasks.NewGameTask()))
+	dont.Panic(rpc.Register(gametask.New()))
 }
 
 func startRPC() {
