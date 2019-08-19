@@ -5,5 +5,6 @@ godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/wauth | r
 godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/wgame | ruby deps_recolor.rb | dot -Tpng -o apps/wgame/deps.png
 
 godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/sweb | ruby deps_recolor.rb | dot -Tpng -o apps/sweb/deps.png
+godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/sauth | ruby deps_recolor.rb | dot -Tpng -o apps/sauth/deps.png
 
 godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/clients/wclient | ruby deps_recolor.rb | dot -Tpng -o clients/wclient/deps.png
