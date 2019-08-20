@@ -10,7 +10,7 @@ go:
   - "1.12"
 
 before_script:
-  - travis_wait make travis
+  - make travis
 
 before_install:
   # Docker Compose
