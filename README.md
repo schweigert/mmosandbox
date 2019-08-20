@@ -24,6 +24,22 @@ Setup:
 
 ## Services
 
+### apps/rauth
+
+![deps](apps/rauth/deps.png)
+
+### apps/rweb
+
+![deps](apps/rweb/deps.png)
+
+### apps/rcrud
+
+![deps](apps/rcrud/deps.png)
+
+### apps/rgame
+
+![deps](apps/rgame/deps.png)
+
 ### apps/sauth
 
 ![deps](apps/sauth/deps.png)
