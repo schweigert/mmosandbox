@@ -17,6 +17,78 @@ services:
     depends_on:
       - wweb
 
+  rgame:
+    build:
+      context: .
+      dockerfile: rgame.Dockerfile
+    command: rgame
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rgame
+    depends_on:
+      - graphite
+      - redis
+      - rcrud
+      - rauth
+
+  rauth:
+    build:
+      context: .
+      dockerfile: rauth.Dockerfile
+    command: rauth
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - ME_HOST=redis
+      - ME_PORT=6379
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rauth
+    depends_on:
+      - graphite
+      - redis
+
+  rweb:
+    build:
+      context: .
+      dockerfile: rweb.Dockerfile
+    command: rweb
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rweb
+    depends_on:
+      - graphite
+      - rcrud
+
+  rcrud:
+    build:
+      context: .
+      dockerfile: rcrud.Dockerfile
+    command: rcrud
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - DB_PORT=5432
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rcrud
+    depends_on:
+      - postgres
+      - graphite
+
   wweb:
     build:
       context: .
