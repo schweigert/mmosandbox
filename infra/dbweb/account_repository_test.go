@@ -43,7 +43,7 @@ func (suite *AccountRepositorySuite) TestCreate() {
 
 	suite.True(dbrepositories.NewAccountRepository().Create(account))
 
-	inputBody, err := json.Marshal("testing_now")
+	inputBody, err := json.Marshal(account.Username)
 	suite.NoError(err)
 	req, err := http.NewRequest(http.MethodPost, routes.AccountRepositoryUsernameHasTaken, bytes.NewReader(inputBody))
 	suite.NoError(err)
