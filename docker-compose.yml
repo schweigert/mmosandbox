@@ -89,6 +89,103 @@ services:
       - postgres
       - graphite
 
+  sweb:
+    build:
+      context: .
+      dockerfile: sweb.Dockerfile
+    command: sweb
+    ports:
+      - 3000:3000
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - DB_PORT=5432
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sweb
+    depends_on:
+      - postgres
+      - graphite
+      - sauth
+
+  sgame:
+    build:
+      context: .
+      dockerfile: sgame.Dockerfile
+    command: sgame
+    ports:
+      - 3100:3100
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sgame
+
+      - SERVICE_AUTH=sauth:3101
+    depends_on:
+      - postgres
+      - graphite
+      - sauth
+
+  schat:
+    build:
+      context: .
+      dockerfile: schat.Dockerfile
+    command: schat
+    ports:
+      - 3100:3100
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=schat
+
+      - SERVICE_AUTH=sauth:3101
+    depends_on:
+      - postgres
+      - graphite
+      - sauth
+
+  sauth:
+    build:
+      context: .
+      dockerfile: sauth.Dockerfile
+    command: sauth
+    ports:
+      - 3101:3101
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3101
+      - DB_HOST=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=development
+      - DB_PORT=5432
+      - ME_HOST=redis
+      - ME_PORT=6379
+      - ME_PASSWORD=nopasswd
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sauth
+    depends_on:
+      - postgres
+      - graphite
+      - redis
+
   wweb:
     build:
       context: .
