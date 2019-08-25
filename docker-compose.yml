@@ -266,6 +266,8 @@ services:
       - METRIC_PORT=2003
 
       - SERVICE_NAME=wauth
+    ports:
+      - 3101:3101
     depends_on:
       - postgres
       - graphite
