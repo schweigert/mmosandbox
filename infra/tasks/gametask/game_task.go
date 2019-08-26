@@ -3,9 +3,8 @@ package gametask
 import (
 	"net/rpc"
 
-	"github.com/schweigert/mmosandbox/domain"
-
 	"github.com/schweigert/mmosandbox/config"
+	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/domain/inputs"
 	"github.com/schweigert/mmosandbox/domain/outputs"
 	"github.com/schweigert/mmosandbox/lib/bench"
