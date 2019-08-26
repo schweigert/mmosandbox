@@ -56,7 +56,22 @@ func (task *CrudTask) CharacterRepositoryCreateInAccount(in crudtaskio.Character
 }
 
 // CharacterRepositoryLoadCharacter method
-func (task *CrudTask) CharacterRepositoryLoadCharacter(id int, out *crudtaskio.CharacterRepositoryLoadCharacter) error {
+func (task *CrudTask) CharacterRepositoryLoadCharacter(id int, out *crudtaskio.CharacterRepositoryLoadCharacterOutput) error {
 	out.Character = task.CharacterRepository.LoadCharacter(id)
+	return nil
+}
+
+// FindAccountToken(*entities.Account)
+
+// SessionRepositoryStoreAccountToken method
+func (task *CrudTask) SessionRepositoryStoreAccountToken(in crudtaskio.SessionRepositoryStoreAccountTokenInput, ok *bool) error {
+	task.SessionRepository.StoreAccountToken(in.Token, in.Account)
+	return nil
+}
+
+// SessionRepositoryFindAccountToken method
+func (task *CrudTask) SessionRepositoryFindAccountToken(in crudtaskio.SessionRepositoryFindAccountTokenInput, out *crudtaskio.SessionRepositoryFindAccountTokenInput) error {
+	task.SessionRepository.FindAccountToken(in.Account)
+	out.Account = in.Account
 	return nil
 }

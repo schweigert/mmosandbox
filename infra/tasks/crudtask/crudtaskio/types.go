@@ -33,6 +33,21 @@ type CharacterRepositoryCreateInAccountOutput struct {
 	Result bool
 }
 
-type CharacterRepositoryLoadCharacter struct {
+// CharacterRepositoryLoadCharacterOutput struct
+type CharacterRepositoryLoadCharacterOutput struct {
 	Character *entities.Character
 }
+
+// SessionRepositoryStoreAccountTokenInput struct
+type SessionRepositoryStoreAccountTokenInput struct {
+	Token   string
+	Account *entities.Account
+}
+
+// SessionRepositoryFindAccountTokenInput struct
+type SessionRepositoryFindAccountTokenInput struct {
+	Account *entities.Account
+}
+
+// SessionRepositoryFindAccountTokenOutput struct
+type SessionRepositoryFindAccountTokenOutput SessionRepositoryFindAccountTokenInput
