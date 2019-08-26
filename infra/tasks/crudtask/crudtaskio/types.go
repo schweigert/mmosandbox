@@ -51,3 +51,19 @@ type SessionRepositoryFindAccountTokenInput struct {
 
 // SessionRepositoryFindAccountTokenOutput struct
 type SessionRepositoryFindAccountTokenOutput SessionRepositoryFindAccountTokenInput
+
+// TokenRepositoryGenerateTokenOutput struct
+type TokenRepositoryGenerateTokenOutput struct {
+	Token string
+}
+
+// TokenRepositoryCheckUsernameInput struct
+type TokenRepositoryCheckUsernameInput struct {
+	Username string
+	Token    string
+}
+
+// TokenRepositoryCheckUsernameOutput struct
+type TokenRepositoryCheckUsernameOutput struct {
+	Result bool
+}

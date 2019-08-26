@@ -75,3 +75,20 @@ func (task *CrudTask) SessionRepositoryFindAccountToken(in crudtaskio.SessionRep
 	out.Account = in.Account
 	return nil
 }
+
+// type TokenRepository interface {
+// 	GenerateToken(username string) string
+// 	CheckUsername(username string, token string) bool
+// }
+
+// TokenRepositoryGenerateToken method
+func (task *CrudTask) TokenRepositoryGenerateToken(username string, out *crudtaskio.TokenRepositoryGenerateTokenOutput) error {
+	out.Token = task.TokenRepository.GenerateToken(username)
+	return nil
+}
+
+// TokenRepositoryCheckUsername method
+func (task *CrudTask) TokenRepositoryCheckUsername(in crudtaskio.TokenRepositoryCheckUsernameInput, out *crudtaskio.TokenRepositoryCheckUsernameOutput) error {
+	out.Result = task.TokenRepository.CheckUsername(in.Username, in.Token)
+	return nil
+}
