@@ -6,6 +6,7 @@ import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/repositories"
+	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -23,15 +24,30 @@ func NewAccountRepository() repositories.AccountRepository {
 
 // UsernameHasTaken proxy method
 func (repo *AccountRepository) UsernameHasTaken(username string) bool {
-	return true
+	out := &crudtaskio.AccountRepositoryUsernameHasTakenOutput{}
+	err := repo.Client.Call("CrudTask.AccountRepositoryUsernameHasTaken", username, out)
+
+	dont.Panic(err)
+
+	return out.Result
 }
 
 // Create proxy method
-func (repo *AccountRepository) Create(*entities.Account) bool {
-	return true
+func (repo *AccountRepository) Create(account *entities.Account) bool {
+	out := &crudtaskio.CrudCreateAccountOutput{}
+	err := repo.Client.Call("CrudTask.AccountRepositoryCreate", account, out)
+
+	dont.Panic(err)
+
+	return out.Result
 }
 
 // UsernameAndPasswordAreEqual proxy method
-func (repo *AccountRepository) UsernameAndPasswordAreEqual(*entities.Account) bool {
-	return true
+func (repo *AccountRepository) UsernameAndPasswordAreEqual(account *entities.Account) bool {
+	out := &crudtaskio.UsernameAndPasswordAreEqualOutput{}
+	err := repo.Client.Call("CrudTask.AccountRepositoryUsernameAndPasswordAreEqual", account, out)
+
+	dont.Panic(err)
+
+	return out.Result
 }
