@@ -61,8 +61,6 @@ func (task *CrudTask) CharacterRepositoryLoadCharacter(id int, out *crudtaskio.C
 	return nil
 }
 
-// FindAccountToken(*entities.Account)
-
 // SessionRepositoryStoreAccountToken method
 func (task *CrudTask) SessionRepositoryStoreAccountToken(in crudtaskio.SessionRepositoryStoreAccountTokenInput, ok *bool) error {
 	task.SessionRepository.StoreAccountToken(in.Token, in.Account)

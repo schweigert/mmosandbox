@@ -6,6 +6,7 @@ import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/repositories"
+	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -23,15 +24,35 @@ func NewCharacterRepository() repositories.CharacterRepository {
 
 // NameHasTaken proxy method
 func (repo *CharacterRepository) NameHasTaken(name string) bool {
-	return true
+	out := &crudtaskio.CharacterRepositoryNameHasTakenOutput{}
+	err := repo.Client.Call("CrudTask.CharacterRepositoryNameHasTaken", name, out)
+
+	dont.Panic(err)
+
+	return out.Result
 }
 
 // CreateInAccount proxy method
-func (repo *CharacterRepository) CreateInAccount(*entities.Character, *entities.Account) bool {
-	return true
+func (repo *CharacterRepository) CreateInAccount(character *entities.Character, account *entities.Account) bool {
+	out := &crudtaskio.CharacterRepositoryCreateInAccountOutput{}
+	in := crudtaskio.CharacterRepositoryCreateInAccountInput{}
+
+	in.Account = account
+	in.Character = character
+
+	err := repo.Client.Call("CrudTask.CharacterRepositoryCreateInAccount", in, out)
+
+	dont.Panic(err)
+
+	return out.Result
 }
 
 // LoadCharacter proxy method
 func (repo *CharacterRepository) LoadCharacter(id int) *entities.Character {
-	return nil
+	out := &crudtaskio.CharacterRepositoryLoadCharacterOutput{}
+	err := repo.Client.Call("CrudTask.CharacterRepositoryLoadCharacter", id, out)
+
+	dont.Panic(err)
+
+	return out.Character
 }
