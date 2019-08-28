@@ -29,7 +29,8 @@ func (suite *CrudTaskSuite) TestAccountRepositoryUsernameHasTaken() {
 	defer db.Clear()
 
 	out := crudtaskio.AccountRepositoryUsernameHasTakenOutput{Result: true}
-	New().AccountRepositoryUsernameHasTaken("testing", &out)
+	err := New().AccountRepositoryUsernameHasTaken("testing", &out)
+	suite.NoError(err)
 	suite.False(out.Result)
 }
 
@@ -38,11 +39,13 @@ func (suite *CrudTaskSuite) TestAccountRepositoryCreate() {
 
 	out := crudtaskio.CrudCreateAccountOutput{Result: false}
 	account := entities.Account{Username: "testing"}
-	New().AccountRepositoryCreate(account, &out)
+	err := New().AccountRepositoryCreate(account, &out)
+	suite.NoError(err)
 	suite.True(out.Result)
 
 	outTaken := crudtaskio.AccountRepositoryUsernameHasTakenOutput{Result: false}
-	New().AccountRepositoryUsernameHasTaken("testing", &outTaken)
+	err = New().AccountRepositoryUsernameHasTaken("testing", &outTaken)
+	suite.NoError(err)
 	suite.True(outTaken.Result)
 }
 

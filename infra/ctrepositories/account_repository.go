@@ -1,4 +1,4 @@
-package crudtaskrepositories
+package ctrepositories
 
 import (
 	"net/rpc"
@@ -76,14 +76,10 @@ func NewSessionRepository() repositories.SessionRepository {
 }
 
 // StoreAccountToken proxy method
-func (repo *SessionRepository) StoreAccountToken(string, *entities.Account) {
-	return
-}
+func (repo *SessionRepository) StoreAccountToken(string, *entities.Account) {}
 
 // FindAccountToken proxy method
-func (repo *SessionRepository) FindAccountToken(*entities.Account) {
-	return
-}
+func (repo *SessionRepository) FindAccountToken(*entities.Account) {}
 
 // TokenRepository interface
 type TokenRepository struct {
