@@ -76,11 +76,6 @@ func (task *CrudTask) SessionRepositoryFindAccountToken(in crudtaskio.SessionRep
 	return nil
 }
 
-// type TokenRepository interface {
-// 	GenerateToken(username string) string
-// 	CheckUsername(username string, token string) bool
-// }
-
 // TokenRepositoryGenerateToken method
 func (task *CrudTask) TokenRepositoryGenerateToken(username string, out *crudtaskio.TokenRepositoryGenerateTokenOutput) error {
 	out.Token = task.TokenRepository.GenerateToken(username)
