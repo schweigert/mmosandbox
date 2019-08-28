@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"sync"
+	"time"
 
 	"github.com/dmgk/faker"
 	"github.com/krakenlab/ternary"
@@ -43,6 +44,7 @@ func NewWorldRules() (worldRules *WorldRules) {
 // WorldLoop :)
 func (rule *WorldRules) WorldLoop() {
 	rule.SendMetrics()
+	time.Sleep(time.Second)
 }
 
 // SendMetrics to graphite

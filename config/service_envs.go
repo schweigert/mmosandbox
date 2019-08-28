@@ -17,6 +17,11 @@ func (service *ServiceEnvs) Auth() string {
 	return env.Env("SERVICE_AUTH", "localhost:3101")
 }
 
+// Crud $SERVICE_CRUD localhost:3102
+func (service *ServiceEnvs) Crud() string {
+	return env.Env("SERVICE_CRUD", "localhost:3102")
+}
+
 // Game $SERVICE_GAME localhost:3101
 func (service *ServiceEnvs) Game() string {
 	return env.Env("SERVICE_GAME", "localhost:3100")
