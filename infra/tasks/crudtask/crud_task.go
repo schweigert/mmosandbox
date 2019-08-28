@@ -15,8 +15,8 @@ type CrudTask struct {
 	TokenRepository     repositories.TokenRepository
 }
 
-// NewCrudTask constructor
-func NewCrudTask() *CrudTask {
+// New constructor
+func New() *CrudTask {
 	return &CrudTask{
 		AccountRepository:   domain.AccountRepository,
 		CharacterRepository: domain.CharacterRepository,

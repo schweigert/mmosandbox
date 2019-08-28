@@ -21,15 +21,15 @@ func (suite *CrudTaskSuite) SetupTest() {
 	dbrepositories.UseCharacterRepository()
 }
 
-func (suite *CrudTaskSuite) TestNewCrudTask() {
-	suite.NotNil(NewCrudTask())
+func (suite *CrudTaskSuite) TestNew() {
+	suite.NotNil(New())
 }
 
 func (suite *CrudTaskSuite) TestAccountRepositoryUsernameHasTaken() {
 	defer db.Clear()
 
 	out := crudtaskio.AccountRepositoryUsernameHasTakenOutput{Result: true}
-	NewCrudTask().AccountRepositoryUsernameHasTaken("testing", &out)
+	New().AccountRepositoryUsernameHasTaken("testing", &out)
 	suite.False(out.Result)
 }
 
@@ -38,11 +38,11 @@ func (suite *CrudTaskSuite) TestAccountRepositoryCreate() {
 
 	out := crudtaskio.CrudCreateAccountOutput{Result: false}
 	account := entities.Account{Username: "testing"}
-	NewCrudTask().AccountRepositoryCreate(account, &out)
+	New().AccountRepositoryCreate(account, &out)
 	suite.True(out.Result)
 
 	outTaken := crudtaskio.AccountRepositoryUsernameHasTakenOutput{Result: false}
-	NewCrudTask().AccountRepositoryUsernameHasTaken("testing", &outTaken)
+	New().AccountRepositoryUsernameHasTaken("testing", &outTaken)
 	suite.True(outTaken.Result)
 }
 
