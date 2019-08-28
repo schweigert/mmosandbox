@@ -6,7 +6,9 @@ import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/repositories"
+	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
 	"github.com/schweigert/mmosandbox/lib/dont"
+	"github.com/ulule/deepcopier"
 )
 
 // SessionRepository interface
@@ -22,7 +24,25 @@ func NewSessionRepository() repositories.SessionRepository {
 }
 
 // StoreAccountToken proxy method
-func (repo *SessionRepository) StoreAccountToken(string, *entities.Account) {}
+func (repo *SessionRepository) StoreAccountToken(token string, account *entities.Account) {
+	in := crudtaskio.SessionRepositoryStoreAccountTokenInput{}
+	out := true
+
+	in.Account = account
+	in.Token = token
+
+	err := repo.Client.Call("CrudTask.SessionRepositoryStoreAccountToken", in, &out)
+	dont.Panic(err)
+}
 
 // FindAccountToken proxy method
-func (repo *SessionRepository) FindAccountToken(*entities.Account) {}
+func (repo *SessionRepository) FindAccountToken(account *entities.Account) {
+	in := crudtaskio.SessionRepositoryFindAccountTokenInput{}
+	out := &crudtaskio.SessionRepositoryFindAccountTokenInput{}
+
+	err := repo.Client.Call("CrudTask.SessionRepositoryFindAccountToken", in, out)
+	dont.Panic(err)
+
+	err = deepcopier.Copy(out.Account).To(account)
+	dont.Panic(err)
+}
