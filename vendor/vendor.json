@@ -257,6 +257,12 @@
 			"revisionTime": "2019-07-23T09:17:30Z"
 		},
 		{
+			"checksumSHA1": "yNAxw11ugZpMmNOOs+I9qEJAPX8=",
+			"path": "github.com/ulule/deepcopier",
+			"revision": "ca99b135e50f526fde9cd88705f0ff2f3f95b77c",
+			"revisionTime": "2017-11-07T15:55:58Z"
+		},
+		{
 			"path": "go",
 			"revision": ""
 		},
