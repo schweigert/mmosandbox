@@ -5,6 +5,7 @@ import (
 
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/repositories"
+	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -22,10 +23,24 @@ func NewTokenRepository() repositories.TokenRepository {
 
 // GenerateToken proxy method
 func (repo *TokenRepository) GenerateToken(username string) string {
-	return ""
+	out := &crudtaskio.TokenRepositoryGenerateTokenOutput{}
+
+	err := repo.Client.Call("CrudTask.TokenRepositoryGenerateToken", username, out)
+	dont.Panic(err)
+
+	return out.Token
 }
 
 // CheckUsername proxy method
 func (repo *TokenRepository) CheckUsername(username string, token string) bool {
-	return true
+	in := &crudtaskio.TokenRepositoryCheckUsernameInput{}
+	out := &crudtaskio.TokenRepositoryCheckUsernameOutput{}
+
+	in.Token = token
+	in.Username = username
+
+	err := repo.Client.Call("CrudTask.TokenRepositoryCheckUsername", in, out)
+	dont.Panic(err)
+
+	return out.Result
 }
