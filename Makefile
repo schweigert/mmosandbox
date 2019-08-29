@@ -1,7 +1,7 @@
-up: stop build migrate_up
+up: stop build migrate_up migrate_redis
 	docker-compose up
 
-upp: stop build migrate_up
+upp: stop build migrate_up migrate_redis
 	docker-compose up --scale wclient=5
 
 build:
@@ -24,6 +24,10 @@ migrate_up:
 	docker-compose up -d postgres
 	sleep 5
 	docker-compose exec postgres psql -U postgres -c "create database development"
+
+migrate_redis:
+	docker-compose up -d redis
+	sleep 5
 
 migrate:
 	docker-compose up -d postgres

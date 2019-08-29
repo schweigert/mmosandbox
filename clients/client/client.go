@@ -14,6 +14,11 @@ import (
 	"github.com/schweigert/mmosandbox/domain/inputs"
 )
 
+func init() {
+	log.Println("Loading...")
+	time.Sleep(30 * time.Second)
+}
+
 // Client flow vars
 var (
 	CreateAccountInput    *inputs.CreateAccountInput
@@ -86,6 +91,8 @@ func createAccountFlowExec() {
 			Account = account
 			break
 		}
+
+		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -97,6 +104,8 @@ func createCharacterFlowExec() {
 			Character = character
 			break
 		}
+
+		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -114,6 +123,8 @@ func sessionFlowExec() {
 
 			break
 		}
+
+		time.Sleep(10 * time.Second)
 	}
 
 	for {
@@ -121,6 +132,8 @@ func sessionFlowExec() {
 		if ok && checkSessionOutput.Success {
 			break
 		}
+
+		time.Sleep(10 * time.Second)
 	}
 }
 

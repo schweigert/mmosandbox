@@ -1,21 +1,39 @@
 version: '3.5'
 
 services:
-  wclient:
+  # wclient:
+    # build:
+    #   context: .
+    #   dockerfile: wclient.Dockerfile
+    # command: wclient
+    # environment:
+    #   - CLIENT_WHOST=wweb
+    #   - SERVICE_GAME=wgame:3100
+
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
+
+    #   - SERVICE_NAME=wclient
+    # depends_on:
+    #   - wweb
+    #   - wgame
+
+  rclient:
     build:
       context: .
-      dockerfile: wclient.Dockerfile
-    command: wclient
+      dockerfile: rclient.Dockerfile
+    command: rclient
     environment:
-      - CLIENT_WHOST=wweb
-      - SERVICE_GAME=wgame:3100
+      - CLIENT_WHOST=rweb
+      - SERVICE_GAME=rgame:3100
 
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
 
-      - SERVICE_NAME=wclient
+      - SERVICE_NAME=rclient
     depends_on:
-      - wweb
+      - rweb
+      - rgame
 
   rgame:
     build:
@@ -23,15 +41,16 @@ services:
       dockerfile: rgame.Dockerfile
     command: rgame
     environment:
-      - WEB_INTERFACE=0.0.0.0
-      - WEB_PORT=3000
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - SERVICE_CRUD=rcrud:3100
+      - SERVICE_AUTH=rauth:3100
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
 
       - SERVICE_NAME=rgame
     depends_on:
       - graphite
-      - redis
       - rcrud
       - rauth
 
@@ -41,10 +60,9 @@ services:
       dockerfile: rauth.Dockerfile
     command: rauth
     environment:
-      - WEB_INTERFACE=0.0.0.0
-      - WEB_PORT=3000
-      - ME_HOST=redis
-      - ME_PORT=6379
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - SERVICE_CRUD=rcrud:3100
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
 
@@ -52,6 +70,7 @@ services:
     depends_on:
       - graphite
       - redis
+      - rcrud
 
   rweb:
     build:
@@ -63,6 +82,7 @@ services:
       - WEB_PORT=3000
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
+      - SERVICE_CRUD=rcrud:3100
 
       - SERVICE_NAME=rweb
     depends_on:
@@ -75,12 +95,14 @@ services:
       dockerfile: rcrud.Dockerfile
     command: rcrud
     environment:
-      - WEB_INTERFACE=0.0.0.0
-      - WEB_PORT=3000
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
       - DB_HOST=postgres
       - DB_PASSWORD=postgres
       - DB_NAME=development
       - DB_PORT=5432
+      - ME_HOST=redis
+      - ME_PORT=6379
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
 
@@ -89,189 +111,189 @@ services:
       - postgres
       - graphite
 
-  sweb:
-    build:
-      context: .
-      dockerfile: sweb.Dockerfile
-    command: sweb
-    environment:
-      - WEB_INTERFACE=0.0.0.0
-      - WEB_PORT=3000
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - DB_PORT=5432
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # sweb:
+    # build:
+    #   context: .
+    #   dockerfile: sweb.Dockerfile
+    # command: sweb
+    # environment:
+    #   - WEB_INTERFACE=0.0.0.0
+    #   - WEB_PORT=3000
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - DB_PORT=5432
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=sweb
-    depends_on:
-      - postgres
-      - graphite
-      - sauth
+    #   - SERVICE_NAME=sweb
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - sauth
 
-  sgame:
-    build:
-      context: .
-      dockerfile: sgame.Dockerfile
-    command: sgame
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3100
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # sgame:
+    # build:
+    #   context: .
+    #   dockerfile: sgame.Dockerfile
+    # command: sgame
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3100
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=sgame
+    #   - SERVICE_NAME=sgame
 
-      - SERVICE_AUTH=sauth:3101
-    depends_on:
-      - postgres
-      - graphite
-      - sauth
+    #   - SERVICE_AUTH=sauth:3101
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - sauth
 
-  schat:
-    build:
-      context: .
-      dockerfile: schat.Dockerfile
-    command: schat
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3100
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # schat:
+    # build:
+    #   context: .
+    #   dockerfile: schat.Dockerfile
+    # command: schat
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3100
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=schat
+    #   - SERVICE_NAME=schat
 
-      - SERVICE_AUTH=sauth:3101
-    depends_on:
-      - postgres
-      - graphite
-      - sauth
+    #   - SERVICE_AUTH=sauth:3101
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - sauth
 
-  sauth:
-    build:
-      context: .
-      dockerfile: sauth.Dockerfile
-    command: sauth
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3101
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - DB_PORT=5432
-      - ME_HOST=redis
-      - ME_PORT=6379
-      - ME_PASSWORD=nopasswd
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # sauth:
+    # build:
+    #   context: .
+    #   dockerfile: sauth.Dockerfile
+    # command: sauth
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3101
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - DB_PORT=5432
+    #   - ME_HOST=redis
+    #   - ME_PORT=6379
+    #   - ME_PASSWORD=nopasswd
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=sauth
-    depends_on:
-      - postgres
-      - graphite
-      - redis
+    #   - SERVICE_NAME=sauth
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - redis
 
-  wauth:
-    build:
-      context: .
-      dockerfile: wauth.Dockerfile
-    command: wauth
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3101
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - DB_PORT=5432
-      - ME_HOST=redis
-      - ME_PORT=6379
-      - ME_PASSWORD=nopasswd
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # wauth:
+    # build:
+    #   context: .
+    #   dockerfile: wauth.Dockerfile
+    # command: wauth
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3101
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - DB_PORT=5432
+    #   - ME_HOST=redis
+    #   - ME_PORT=6379
+    #   - ME_PASSWORD=nopasswd
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=wauth
-    ports:
-      - 3101:3101
-    depends_on:
-      - postgres
-      - graphite
-      - redis
+    #   - SERVICE_NAME=wauth
+    # ports:
+    #   - 3101:3101
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - redis
 
-  wweb:
-    build:
-      context: .
-      dockerfile: wweb.Dockerfile
-    command: wweb
-    environment:
-      - WEB_INTERFACE=0.0.0.0
-      - WEB_PORT=3000
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - DB_PORT=5432
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # wweb:
+    # build:
+    #   context: .
+    #   dockerfile: wweb.Dockerfile
+    # command: wweb
+    # environment:
+    #   - WEB_INTERFACE=0.0.0.0
+    #   - WEB_PORT=3000
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - DB_PORT=5432
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=wweb
-    depends_on:
-      - postgres
-      - graphite
-      - wauth
+    #   - SERVICE_NAME=wweb
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - wauth
 
-  wgame:
-    build:
-      context: .
-      dockerfile: wgame.Dockerfile
-    command: wgame
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3100
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # wgame:
+    # build:
+    #   context: .
+    #   dockerfile: wgame.Dockerfile
+    # command: wgame
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3100
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=wgame
+    #   - SERVICE_NAME=wgame
 
-      - SERVICE_AUTH=wauth:3101
-    depends_on:
-      - postgres
-      - graphite
-      - wauth
+    #   - SERVICE_AUTH=wauth:3101
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - wauth
 
-  wauth:
-    build:
-      context: .
-      dockerfile: wauth.Dockerfile
-    command: wauth
-    environment:
-      - RPC_INTERFACE=0.0.0.0
-      - RPC_PORT=3101
-      - DB_HOST=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=development
-      - DB_PORT=5432
-      - ME_HOST=redis
-      - ME_PORT=6379
-      - ME_PASSWORD=nopasswd
-      - METRIC_HOST=graphite
-      - METRIC_PORT=2003
+  # wauth:
+    # build:
+    #   context: .
+    #   dockerfile: wauth.Dockerfile
+    # command: wauth
+    # environment:
+    #   - RPC_INTERFACE=0.0.0.0
+    #   - RPC_PORT=3101
+    #   - DB_HOST=postgres
+    #   - DB_PASSWORD=postgres
+    #   - DB_NAME=development
+    #   - DB_PORT=5432
+    #   - ME_HOST=redis
+    #   - ME_PORT=6379
+    #   - ME_PASSWORD=nopasswd
+    #   - METRIC_HOST=graphite
+    #   - METRIC_PORT=2003
 
-      - SERVICE_NAME=wauth
-    ports:
-      - 3101:3101
-    depends_on:
-      - postgres
-      - graphite
-      - redis
+    #   - SERVICE_NAME=wauth
+    # ports:
+    #   - 3101:3101
+    # depends_on:
+    #   - postgres
+    #   - graphite
+    #   - redis
 
   pgadmin4:
     image: dpage/pgadmin4:4.11

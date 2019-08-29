@@ -7,9 +7,10 @@ import (
 
 // MessageBox aggregator
 type MessageBox struct {
-	Messages      []*Message
-	MessagesMutex sync.Mutex
-	MaxMessages   int
+	Messages    []*Message
+	MaxMessages int
+
+	messagesMutex sync.Mutex
 }
 
 // NewMessageBox constructor
@@ -22,8 +23,8 @@ func NewMessageBox() *MessageBox {
 
 // Read drop older messages
 func (box *MessageBox) Read() []*Message {
-	box.MessagesMutex.Lock()
-	defer box.MessagesMutex.Unlock()
+	box.messagesMutex.Lock()
+	defer box.messagesMutex.Unlock()
 
 	copy := box.Messages
 	box.Messages = []*Message{}
@@ -33,8 +34,8 @@ func (box *MessageBox) Read() []*Message {
 
 // Append a new message
 func (box *MessageBox) Append(message *Message) {
-	box.MessagesMutex.Lock()
-	defer box.MessagesMutex.Unlock()
+	box.messagesMutex.Lock()
+	defer box.messagesMutex.Unlock()
 
 	boxMessagesLen := len(box.Messages)
 	if boxMessagesLen >= box.MaxMessages {
