@@ -8,6 +8,7 @@ import (
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/infra/ctrepositories"
 	"github.com/schweigert/mmosandbox/infra/tasks/gametask"
+	"github.com/schweigert/mmosandbox/infra/tasks/sessionproxy"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
@@ -19,6 +20,7 @@ func configDb() {
 
 func configRPC() {
 	dont.Panic(rpc.Register(gametask.New()))
+	dont.Panic(rpc.Register(sessionproxy.New()))
 }
 
 func startRPC() {
