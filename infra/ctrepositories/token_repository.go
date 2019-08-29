@@ -3,6 +3,8 @@ package ctrepositories
 import (
 	"net/rpc"
 
+	"github.com/schweigert/mmosandbox/domain"
+
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/domain/repositories"
 	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
@@ -19,6 +21,11 @@ func NewTokenRepository() repositories.TokenRepository {
 	client, err := rpc.Dial("tcp", config.Service().Crud())
 	dont.Panic(err)
 	return &TokenRepository{Client: client}
+}
+
+// UseTokenRepository in domain
+func UseTokenRepository() {
+	domain.TokenRepository = NewTokenRepository()
 }
 
 // GenerateToken proxy method

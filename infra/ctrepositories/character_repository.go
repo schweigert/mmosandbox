@@ -4,6 +4,7 @@ import (
 	"net/rpc"
 
 	"github.com/schweigert/mmosandbox/config"
+	"github.com/schweigert/mmosandbox/domain"
 	"github.com/schweigert/mmosandbox/domain/entities"
 	"github.com/schweigert/mmosandbox/domain/repositories"
 	"github.com/schweigert/mmosandbox/infra/tasks/crudtask/crudtaskio"
@@ -20,6 +21,11 @@ func NewCharacterRepository() repositories.CharacterRepository {
 	client, err := rpc.Dial("tcp", config.Service().Crud())
 	dont.Panic(err)
 	return &CharacterRepository{Client: client}
+}
+
+// UseCharacterRepository in domain
+func UseCharacterRepository() {
+	domain.CharacterRepository = NewCharacterRepository()
 }
 
 // NameHasTaken proxy method
