@@ -7,7 +7,6 @@ import (
 
 	"github.com/schweigert/mmosandbox/config"
 	"github.com/schweigert/mmosandbox/infra/ctrepositories"
-	"github.com/schweigert/mmosandbox/infra/db"
 	"github.com/schweigert/mmosandbox/infra/tasks/sessiontask"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
@@ -19,8 +18,6 @@ func configCache() {
 func configDb() {
 	ctrepositories.UseAccountRepository()
 	ctrepositories.UseCharacterRepository()
-
-	db.Migrate()
 }
 
 func configRPC() {
