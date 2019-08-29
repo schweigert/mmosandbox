@@ -6,7 +6,7 @@ import (
 	"net/rpc"
 
 	"github.com/schweigert/mmosandbox/config"
-	"github.com/schweigert/mmosandbox/infra/dbrepositories"
+	"github.com/schweigert/mmosandbox/infra/ctrepositories"
 	"github.com/schweigert/mmosandbox/infra/tasks/gametask"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
@@ -14,7 +14,7 @@ import (
 func configCache() {}
 
 func configDb() {
-	dbrepositories.UseCharacterRepository()
+	ctrepositories.UseCharacterRepository()
 }
 
 func configRPC() {

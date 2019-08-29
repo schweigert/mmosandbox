@@ -6,20 +6,19 @@ import (
 	"net/rpc"
 
 	"github.com/schweigert/mmosandbox/config"
+	"github.com/schweigert/mmosandbox/infra/ctrepositories"
 	"github.com/schweigert/mmosandbox/infra/db"
-	"github.com/schweigert/mmosandbox/infra/dbrepositories"
-	"github.com/schweigert/mmosandbox/infra/merepositories"
 	"github.com/schweigert/mmosandbox/infra/tasks/sessiontask"
 	"github.com/schweigert/mmosandbox/lib/dont"
 )
 
 func configCache() {
-	merepositories.UseTokenRepository()
+	ctrepositories.UseTokenRepository()
 }
 
 func configDb() {
-	dbrepositories.UseAccountRepository()
-	dbrepositories.UseCharacterRepository()
+	ctrepositories.UseAccountRepository()
+	ctrepositories.UseCharacterRepository()
 
 	db.Migrate()
 }
