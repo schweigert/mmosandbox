@@ -38,7 +38,7 @@ type dockerMetric struct {
 	pids             int64
 }
 
-const statsCmd = `docker stats --no-stream --format "{{.Name}} {{.CPUPerc}} {{.MemPerc}} {{.NetIO}} {{.BlockIO}} {{.PIDs}}" --no-trunc`
+const statsCmd = `sudo docker stats --no-stream --format "{{.Name}} {{.CPUPerc}} {{.MemPerc}} {{.NetIO}} {{.BlockIO}} {{.PIDs}}" --no-trunc`
 
 func cmd(bash string) string {
 	out, err := exec.Command(`/bin/bash`, `-c`, bash).Output()

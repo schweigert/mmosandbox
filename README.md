@@ -109,9 +109,9 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 
     make install_beacon
 
-    cd stacks/metrics/
+    cd stacks/databases/
     docker-compose up -d
-    NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon >> /dev/null &
+    NODE=databases_postgres_redis METRIC_HOST=192.168.0.8 METRIC_PORT=2003 beacon >> /dev/null &
 ```
 
 ## Redis / Postgres
