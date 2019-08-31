@@ -64,3 +64,6 @@ ssh_metrics: certs_chmod
 
 ssh_databases: certs_chmod
 	ssh -i certs/databases.cert ubuntu@10.20.218.221
+
+ssh_gameservers: certs_chmod
+	ssh -i certs/gameservers.cert ubuntu@10.20.218.231
