@@ -55,6 +55,8 @@ services:
       - SERVICE_AUTH=wauth:3101
     depends_on:
       - wauth
+      ports:
+        - 3100:3100
 
   wauth:
     image: schweigert/mmosandbox:wauth.lasted
