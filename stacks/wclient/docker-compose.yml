@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+  wclient:
+    image: schweigert/mmosandbox:wclient.lasted
+    command: wclient
+    environment:
+      - CLIENT_WHOST=10.20.218.231
+      - SERVICE_GAME=10.20.218.231:3100
+      - METRIC_HOST=10.20.218.237
+      - METRIC_PORT=2003
+      - SERVICE_NAME=wclient
+
