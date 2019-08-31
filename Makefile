@@ -59,5 +59,8 @@ install_beacon:
 certs_chmod:
 	chmod 400 certs/*
 
-ssh_metrics_graphite_grafana: certs_chmod
-	ssh -i certs/metrics_graphite_grafana.cert ubuntu@10.20.218.199
+ssh_metrics: certs_chmod
+	ssh -i certs/metrics.cert ubuntu@10.20.218.199
+
+ssh_databases: certs_chmod
+	ssh -i certs/databases.cert ubuntu@10.20.218.221
