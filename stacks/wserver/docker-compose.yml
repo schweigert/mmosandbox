@@ -1,0 +1,77 @@
+version: '3.5'
+
+services:
+  wauth:
+    image: schweigert/mmosandbox:wauth.lasted
+    command: wauth
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3101
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - ME_HOST=192.168.1.10
+      - ME_PORT=6379
+      - ME_PASSWORD=nopasswd
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=wauth
+    ports:
+      - 3101:3101
+
+  wweb:
+    image: schweigert/mmosandbox:wweb.lasted
+    command: wweb
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=wweb
+    depends_on:
+      - wauth
+
+  wgame:
+    image: schweigert/mmosandbox:wgame.lasted
+    command: wgame
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=wgame
+
+      - SERVICE_AUTH=wauth:3101
+    depends_on:
+      - wauth
+
+  wauth:
+    image: schweigert/mmosandbox:wauth.lasted
+    command: wauth
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3101
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - ME_HOST=192.168.1.10
+      - ME_PORT=6379
+      - ME_PASSWORD=nopasswd
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=wauth
+    ports:
+      - 3101:3101
