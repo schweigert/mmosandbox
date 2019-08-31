@@ -37,6 +37,8 @@ services:
       - SERVICE_NAME=wweb
     depends_on:
       - wauth
+    ports:
+      - 3000:3000
 
   wgame:
     image: schweigert/mmosandbox:wgame.lasted
