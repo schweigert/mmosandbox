@@ -14,7 +14,7 @@ services:
       - ME_HOST=192.168.1.10
       - ME_PORT=6379
       - ME_PASSWORD=nopasswd
-      - METRIC_HOST=graphite
+      - METRIC_HOST=192.168.0.8
       - METRIC_PORT=2003
 
       - SERVICE_NAME=wauth
@@ -31,7 +31,7 @@ services:
       - DB_PASSWORD=postgres
       - DB_NAME=test
       - DB_PORT=5432
-      - METRIC_HOST=graphite
+      - METRIC_HOST=192.168.0.8
       - METRIC_PORT=2003
 
       - SERVICE_NAME=wweb
@@ -47,7 +47,7 @@ services:
       - DB_HOST=192.168.1.10
       - DB_PASSWORD=postgres
       - DB_NAME=test
-      - METRIC_HOST=graphite
+      - METRIC_HOST=192.168.0.8
       - METRIC_PORT=2003
 
       - SERVICE_NAME=wgame
@@ -69,7 +69,7 @@ services:
       - ME_HOST=192.168.1.10
       - ME_PORT=6379
       - ME_PASSWORD=nopasswd
-      - METRIC_HOST=graphite
+      - METRIC_HOST=192.168.0.8
       - METRIC_PORT=2003
 
       - SERVICE_NAME=wauth
