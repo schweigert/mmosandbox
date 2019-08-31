@@ -145,5 +145,5 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
 
     cd stacks/metrics/
     docker-compose up -d
-    NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon >> /dev/null &
+    NODE=metrics_graphite_grafana METRIC_HOST=10.20.218.237 METRIC_PORT=2003 beacon >> /dev/null &
 ```
