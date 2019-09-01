@@ -60,7 +60,7 @@ certs_chmod:
 	chmod 400 certs/*
 
 ssh_metrics: certs_chmod
-	ssh -i certs/metrics.cert ubuntu@10.20.218.199
+	ssh -i certs/metrics.cert ubuntu@10.20.218.237
 
 ssh_databases: certs_chmod
 	ssh -i certs/databases.cert ubuntu@10.20.218.221

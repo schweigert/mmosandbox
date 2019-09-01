@@ -147,3 +147,14 @@ NODE=node METRIC_HOST=localhost METRIC_PORT=2003 go run beacon/beacon.go
     docker-compose up -d
     NODE=metrics_graphite_grafana METRIC_HOST=10.20.218.237 METRIC_PORT=2003 beacon >> /dev/null &
 ```
+
+## GBeacon
+
+```
+sudo apt install gnupg2
+source /home/ubuntu/.rvm/scripts/rvm
+rvm install 2.6.3
+gem install gbeacon
+gbeacon.rb --graphite "192.168.0.8:2003" --prefix "metrics" > /dev/null &
+NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon > /dev/null &
+```
