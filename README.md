@@ -158,6 +158,6 @@ source /home/ubuntu/.rvm/scripts/rvm
 sudo rm /etc/apt/source.list.d/webupd8team-ubuntu-java.bionic.list
 rvm install 2.6.3
 gem install gbeacon
-gbeacon.rb --graphite "192.168.0.8:2003" --prefix "metrics" > /dev/null &
+gbeacon.rb --graphite "10.20.218.237:2003" --prefix "metrics" > /dev/null &
 NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon > /dev/null &
 ```
