@@ -18,6 +18,23 @@ services:
       - wweb
       - wgame
 
+  sclient:
+    build:
+      context: .
+      dockerfile: sclient.Dockerfile
+    command: sclient
+    environment:
+      - CLIENT_WHOST=wweb
+      - SERVICE_GAME=wgame:3100
+
+      - METRIC_HOST=graphite
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sclient
+    depends_on:
+      - wweb
+      - wgame
+
   rclient:
     build:
       context: .
