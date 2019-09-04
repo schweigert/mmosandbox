@@ -15,3 +15,5 @@ godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/rauth | r
 godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/apps/rgame | ruby deps_recolor.rb | dot -Tpng -o apps/rgame/deps.png
 
 godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/clients/wclient | ruby deps_recolor.rb | dot -Tpng -o clients/wclient/deps.png
+godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/clients/rclient | ruby deps_recolor.rb | dot -Tpng -o clients/rclient/deps.png
+godepgraph -nostdlib -horizontal github.com/schweigert/mmosandbox/clients/sclient | ruby deps_recolor.rb | dot -Tpng -o clients/sclient/deps.png
