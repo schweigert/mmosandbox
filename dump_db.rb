@@ -45,7 +45,7 @@ def get(metric)
 
     params = [
         'format=json',
-        'from=-1w',
+        'from=-1d',
         "target=#{metric}"
     ].join('&')
 
@@ -73,7 +73,7 @@ def get(metric)
 
         puts "#{subpaths.join('.')} size: #{points.size}"
 
-        next points.size.zero?
+        next if points.size.zero?
 
         acutal_path << 'data.json'
         File.open(acutal_path.join('/'), 'w+') do |file|

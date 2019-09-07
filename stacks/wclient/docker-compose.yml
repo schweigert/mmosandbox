@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   wclient:
-    image: schweigert/mmosandbox:wclient.lasted
+    image: schweigert/mmosandbox:wclient.2019.9.7.19.19.39
     command: wclient
     environment:
       - CLIENT_WHOST=10.20.218.231
