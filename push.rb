@@ -22,6 +22,11 @@ services = %w[
     mmosandbox_wweb
     mmosandbox_wgame
     mmosandbox_wauth
+    mmosandbox_rgame
+    mmosandbox_rauth
+    mmosandbox_rweb
+    mmosandbox_rcrud
+    mmosandbox_rclient
 ]
 
 services.each do |service|
