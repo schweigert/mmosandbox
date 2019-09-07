@@ -91,8 +91,6 @@ func createAccountFlowExec() {
 			Account = account
 			break
 		}
-
-		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -104,8 +102,6 @@ func createCharacterFlowExec() {
 			Character = character
 			break
 		}
-
-		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -123,8 +119,6 @@ func sessionFlowExec() {
 
 			break
 		}
-
-		time.Sleep(10 * time.Second)
 	}
 
 	for {
@@ -132,8 +126,6 @@ func sessionFlowExec() {
 		if ok && checkSessionOutput.Success {
 			break
 		}
-
-		time.Sleep(10 * time.Second)
 	}
 }
 
@@ -191,7 +183,6 @@ func gameFlowUpdate() {
 func gameFlowExec() {
 	gameFlowUpdate()
 	for UsedGameFlow.GameLoop() {
-		time.Sleep(time.Second)
 		gameFlowUpdate()
 	}
 }

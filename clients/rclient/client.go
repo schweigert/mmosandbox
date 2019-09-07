@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/rpc"
-	"time"
 
 	"github.com/imroc/req"
 	"github.com/schweigert/mmosandbox/clients/client"
@@ -32,7 +31,6 @@ func (flow *CreateAccountFlow) CreateAccountOperation(in *inputs.CreateAccountIn
 
 	_ = bench.Bench("create_account_operation", func() error {
 		rec := req.New()
-		rec.SetTimeout(5 * time.Second)
 
 		resp, err := rec.Put(routes.URL(config.Client().Addr(), routes.Account), req.BodyJSON(in))
 		dont.Panic(err)
@@ -67,7 +65,6 @@ func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateChara
 
 	_ = bench.Bench("create_character_operation", func() error {
 		rec := req.New()
-		rec.SetTimeout(5 * time.Second)
 
 		resp, err := rec.Put(routes.URL(config.Client().Addr(), routes.Character), req.BodyJSON(in))
 		dont.Panic(err)
