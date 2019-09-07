@@ -1,0 +1,67 @@
+version: '3.5'
+
+services:
+  rgame:
+    image: schweigert/mmosandbox:rgame.2019.9.7.19.19.39
+    command: rgame
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - SERVICE_CRUD=rcrud:3100
+      - SERVICE_AUTH=rauth:3100
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rgame
+    depends_on:
+      - rcrud
+      - rauth
+    ports:
+      - 3100:3100
+
+  rauth:
+    image: schweigert/mmosandbox:rauth.2019.9.7.19.19.39
+    command: rauth
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - SERVICE_CRUD=rcrud:3100
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rauth
+    depends_on:
+      - rcrud
+
+  rweb:
+    image: schweigert/mmosandbox:rweb.2019.9.7.19.19.39
+    command: rweb
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+      - SERVICE_CRUD=rcrud:3100
+
+      - SERVICE_NAME=rweb
+    depends_on:
+      - rcrud
+    ports:
+      - 3000:3000
+
+  rcrud:
+    image: schweigert/mmosandbox:rcrud.2019.9.7.19.19.39
+    command: rcrud
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - ME_HOST=192.168.1.10
+      - ME_PORT=6379
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=rcrud
