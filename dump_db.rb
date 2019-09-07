@@ -4,6 +4,8 @@ require 'json'
 metrics = [
     '*.metrics.*.cpu_perc',
     '*.metrics.*.*.*.cpu_perc',
+    '*.metrics.*.mem_perc',
+    '*.metrics.*.*.*.mem_perc',
     '*.metrics.*.pids',
     '*.metrics.*.*.*.pids',
     '*.metrics.*.block_in',
@@ -45,7 +47,7 @@ def get(metric)
 
     params = [
         'format=json',
-        'from=-1d',
+        'from=-2h',
         "target=#{metric}"
     ].join('&')
 
