@@ -26,3 +26,8 @@ func (service *ServiceEnvs) Crud() string {
 func (service *ServiceEnvs) Game() string {
 	return env.Env("SERVICE_GAME", "localhost:3100")
 }
+
+// Chat $SERVICE_CHAT localhost:3101
+func (service *ServiceEnvs) Chat() string {
+	return env.Env("SERVICE_CHAT", "localhost:3103")
+}

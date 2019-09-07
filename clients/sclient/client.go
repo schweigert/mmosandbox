@@ -90,15 +90,27 @@ func (flow *CreateCharacterFlow) CreateCharacterOperation(in *inputs.CreateChara
 
 // SessionFlow used in client
 type SessionFlow struct {
-	Conn *rpc.Client
+	GameConn *rpc.Client
+	ChatConn *rpc.Client
+	AuthConn *rpc.Client
 }
 
 // NewSessionFlow constructor
 func NewSessionFlow() client.SessionFlow {
-	conn, err := rpc.Dial("tcp", config.Service().Game())
+	gameConn, err := rpc.Dial("tcp", config.Service().Game())
 	dont.Panic(err)
 
-	return &SessionFlow{Conn: conn}
+	chatConn, err := rpc.Dial("tcp", config.Service().Chat())
+	dont.Panic(err)
+
+	authConn, err := rpc.Dial("tcp", config.Service().Auth())
+	dont.Panic(err)
+
+	return &SessionFlow{
+		GameConn: gameConn,
+		ChatConn: chatConn,
+		AuthConn: authConn,
+	}
 }
 
 // StartSession for willson flow
@@ -106,7 +118,7 @@ func (flow *SessionFlow) StartSession(in inputs.AuthAccountInput) (*outputs.Star
 	out := outputs.NewStartSessionOutput()
 
 	err := bench.Bench("start_session", func() error {
-		return flow.Conn.Call("SessionProxyTask.StartSession", in, out)
+		return flow.AuthConn.Call("SessionTask.StartSession", in, out)
 	})
 
 	return out, err == nil
@@ -117,7 +129,8 @@ func (flow *SessionFlow) SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs
 	out := outputs.NewCheckSessionOutput()
 
 	err := bench.Bench("spawn_character", func() error {
-		return flow.Conn.Call("GameTask.SpawnCharacter", in, out)
+		_ = flow.ChatConn.Call("GameTask.SpawnCharacter", in, out)
+		return flow.GameConn.Call("GameTask.SpawnCharacter", in, out)
 	})
 
 	return out, err == nil
@@ -125,15 +138,22 @@ func (flow *SessionFlow) SpawnCharacter(in inputs.SpawnCharacterInput) (*outputs
 
 // GameFlow used in client
 type GameFlow struct {
-	Conn *rpc.Client
+	GameConn *rpc.Client
+	ChatConn *rpc.Client
 }
 
 // NewGameFlow constructor
 func NewGameFlow() client.GameFlow {
-	conn, err := rpc.Dial("tcp", config.Service().Game())
+	gameConn, err := rpc.Dial("tcp", config.Service().Game())
 	dont.Panic(err)
 
-	return &GameFlow{Conn: conn}
+	chatConn, err := rpc.Dial("tcp", config.Service().Chat())
+	dont.Panic(err)
+
+	return &GameFlow{
+		GameConn: gameConn,
+		ChatConn: chatConn,
+	}
 }
 
 // MoveCharacter in game flow
@@ -141,7 +161,8 @@ func (flow *GameFlow) MoveCharacter(in inputs.MoveCharacterInput) (*outputs.Chec
 	out := outputs.NewCheckSessionOutput()
 
 	err := bench.Bench("move_character", func() error {
-		return flow.Conn.Call("GameTask.MoveCharacter", in, out)
+		_ = flow.GameConn.Call("GameTask.MoveCharacter", in, out)
+		return flow.ChatConn.Call("GameTask.MoveCharacter", in, out)
 	})
 
 	return out, err == nil
@@ -152,7 +173,7 @@ func (flow *GameFlow) SendChat(in inputs.ChatInput) (*outputs.CheckSessionOutput
 	out := outputs.NewCheckSessionOutput()
 
 	err := bench.Bench("send_chat", func() error {
-		return flow.Conn.Call("GameTask.SendChat", in, out)
+		return flow.ChatConn.Call("GameTask.SendChat", in, out)
 	})
 
 	return out, err == nil
@@ -163,7 +184,7 @@ func (flow *GameFlow) ListenChat(in inputs.ChatInput) (*outputs.ListenMessagesOu
 	out := outputs.NewListenMessagesOutput()
 
 	err := bench.Bench("listen_chat", func() error {
-		return flow.Conn.Call("GameTask.ListenChat", in, out)
+		return flow.ChatConn.Call("GameTask.ListenChat", in, out)
 	})
 
 	return out, err == nil

@@ -22,6 +22,10 @@ func (suite *ServiceEnvsSuite) TestGame() {
 	suite.NotEmpty(Service().Game())
 }
 
+func (suite *ServiceEnvsSuite) TestChat() {
+	suite.NotEmpty(Service().Chat())
+}
+
 func TestServiceEnvsSuite(t *testing.T) {
 	suite.Run(t, new(ServiceEnvsSuite))
 }

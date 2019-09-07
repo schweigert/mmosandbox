@@ -26,9 +26,12 @@ services:
     environment:
       - CLIENT_WHOST=sweb
       - SERVICE_GAME=sgame:3100
+      - SERVICE_CHAT=schat:3100
 
       - METRIC_HOST=graphite
       - METRIC_PORT=2003
+
+      - SERVICE_AUTH=sauth:3101
 
       - SERVICE_NAME=sclient
     depends_on:
