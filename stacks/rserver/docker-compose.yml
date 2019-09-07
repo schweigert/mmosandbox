@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   rgame:
-    image: schweigert/mmosandbox:rgame.2019.9.7.19.19.39
+    image: schweigert/mmosandbox:rgame.lasted
     command: rgame
     environment:
       - RPC_INTERFACE=0.0.0.0
@@ -20,7 +20,7 @@ services:
       - 3100:3100
 
   rauth:
-    image: schweigert/mmosandbox:rauth.2019.9.7.19.19.39
+    image: schweigert/mmosandbox:rauth.lasted
     command: rauth
     environment:
       - RPC_INTERFACE=0.0.0.0
@@ -34,7 +34,7 @@ services:
       - rcrud
 
   rweb:
-    image: schweigert/mmosandbox:rweb.2019.9.7.19.19.39
+    image: schweigert/mmosandbox:rweb.lasted
     command: rweb
     environment:
       - WEB_INTERFACE=0.0.0.0
@@ -50,7 +50,7 @@ services:
       - 3000:3000
 
   rcrud:
-    image: schweigert/mmosandbox:rcrud.2019.9.7.19.19.39
+    image: schweigert/mmosandbox:rcrud.lasted
     command: rcrud
     environment:
       - RPC_INTERFACE=0.0.0.0
