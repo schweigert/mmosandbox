@@ -1,4 +1,4 @@
-25.times do |n|
+50.times do |n|
     sleep 60
-    system("sudo docker service scale wclient_wclient=#{(n + 1) * 2}")
+    system("sudo docker service scale rclient_rclient=#{(n + 1) * 2}")
 end
