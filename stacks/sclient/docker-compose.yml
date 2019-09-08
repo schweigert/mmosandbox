@@ -1,0 +1,26 @@
+version: '3.5'
+
+services:
+  sclient:
+    build:
+      context: .
+      dockerfile: sclient.Dockerfile
+    command: sclient
+    environment:
+      - CLIENT_WHOST=10.20.218.231
+      - SERVICE_GAME=10.20.218.231:3100
+      - SERVICE_CHAT=10.20.218.231:3101
+
+      - METRIC_HOST=10.20.218.237
+      - METRIC_PORT=2003
+
+      - SERVICE_AUTH=10.20.218.231:3102
+      - SERVICE_NAME=sclient
+
+  rclient:
+    image: schweigert/mmosandbox:rclient.lasted
+    command: rclient
+    environment:
+
+      - SERVICE_NAME=rclient
+

@@ -1,0 +1,82 @@
+version: '3.5'
+
+services:
+
+  sweb:
+    image: schweigert/mmosandbox:sweb.lasted
+    command: sweb
+    environment:
+      - WEB_INTERFACE=0.0.0.0
+      - WEB_PORT=3000
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sweb
+    depends_on:
+      - sauth
+    ports:
+      - 3000:3000
+
+  sgame:
+    image: schweigert/mmosandbox:sgame.lasted
+    command: sgame
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3100
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sgame
+
+      - SERVICE_AUTH=sauth:3102
+    depends_on:
+      - sauth
+    ports:
+      - 3100:3100
+
+  schat:
+    image: schweigert/mmosandbox:schat.lasted
+    command: schat
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3101
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=schat
+
+      - SERVICE_AUTH=sauth:3102
+    depends_on:
+      - sauth
+    ports:
+      - 3101:3101
+
+  sauth:
+    image: schweigert/mmosandbox:sauth.lasted
+    command: sauth
+    environment:
+      - RPC_INTERFACE=0.0.0.0
+      - RPC_PORT=3102
+      - DB_HOST=192.168.1.10
+      - DB_PASSWORD=postgres
+      - DB_NAME=test
+      - DB_PORT=5432
+      - ME_HOST=192.168.1.10
+      - ME_PORT=6379
+      - ME_PASSWORD=nopasswd
+      - METRIC_HOST=192.168.0.8
+      - METRIC_PORT=2003
+
+      - SERVICE_NAME=sauth
+    ports:
+      - 3102:3102
