@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   rclient:
-    image: schweigert/mmosandbox:rclient.2019.9.7.19.19.39
+    image: schweigert/mmosandbox:rclient.lasted
     command: rclient
     environment:
       - CLIENT_WHOST=10.20.218.231
