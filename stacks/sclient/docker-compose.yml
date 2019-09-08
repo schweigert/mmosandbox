@@ -2,9 +2,7 @@ version: '3.5'
 
 services:
   sclient:
-    build:
-      context: .
-      dockerfile: sclient.Dockerfile
+    image: schweigert/mmosandbox:sclient.lasted
     command: sclient
     environment:
       - CLIENT_WHOST=10.20.218.231
@@ -16,11 +14,3 @@ services:
 
       - SERVICE_AUTH=10.20.218.231:3102
       - SERVICE_NAME=sclient
-
-  rclient:
-    image: schweigert/mmosandbox:rclient.lasted
-    command: rclient
-    environment:
-
-      - SERVICE_NAME=rclient
-
