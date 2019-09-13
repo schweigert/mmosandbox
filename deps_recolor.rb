@@ -42,6 +42,10 @@ def sub(line)
     return line
 end
 
+def remove_github(line)
+    line.gsub('github.com/schweigert/mmosandbox/', '').gsub('github.com/', 'vendor/')
+end
+
 STDIN.read.split("\n").each do |line|
-    puts sub(line)
- end
+    puts remove_github(sub(line))
+end
