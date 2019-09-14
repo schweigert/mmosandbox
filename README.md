@@ -161,3 +161,10 @@ gem install gbeacon
 gbeacon.rb --graphite "10.20.218.237:2003" --prefix "metrics" > /dev/null &
 NODE=metrics_graphite_grafana METRIC_HOST=localhost METRIC_PORT=2003 beacon > /dev/null &
 ```
+
+## Swarm Clients
+
+```
+sudo docker swarm leave --force
+sudo docker swarm join --token SWMTKN-1-2c0gk93fau3hfrdvlfiv27t7gb5rv1hkr9522owl0cbqd47yax-2n30d06ikryu0ag86jmrxzf4l 192.168.4.215:2377
+```
