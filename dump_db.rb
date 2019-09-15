@@ -17,10 +17,14 @@ metrics = [
     '*.metrics.*.net_in',
     '*.metrics.*.*.*.net_in',
     'worlds.*.*',
-    'bench.wweb.routes.*.*',
-    'bench.wgame.*.*',
-    'bench.wauth.*.*',
-    'bench.wclient.*.*',
+    'bench.sweb.routes.*.*',
+    'bench.sgame.*.*',
+    'bench.sauth.*.*',
+    'bench.sclient.*.*',
+    'bench.sweb.routes.*.*',
+    'bench.sgame.*.*',
+    'bench.schat.*.*',
+    'bench.sauth.*.*',
     'gbeacon.*.free_memory_linux_monitor',
     'gbeacon.*.free_swap_linux_monitor',
     'gbeacon.*.total_memory_linux_monitor',
@@ -47,7 +51,8 @@ def get(metric)
 
     params = [
         'format=json',
-        'from=-100min',
+        'from=-200min',
+        'to=now',
         "target=#{metric}"
     ].join('&')
 
