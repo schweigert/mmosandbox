@@ -51,8 +51,8 @@ def get(metric)
 
     params = [
         'format=json',
-        'from=-200min',
-        'to=now',
+        'from=-250min',
+        'to=-150min',
         "target=#{metric}"
     ].join('&')
 
